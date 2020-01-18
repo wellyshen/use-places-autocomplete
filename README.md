@@ -1,6 +1,6 @@
 # usePlacesAutocomplete
 
-This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) of Google Maps 
+This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) of [Google Maps Places Autocomplete](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service), which helps you build an UI component with the feature of place autocomplete easily! By leverage the power of [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places), you can provide a great UX (user experience) for user interacts with your form or search bar etc.
 
 [![build status](https://img.shields.io/travis/wellyshen/use-places-autocomplete/master?style=flat-square)](https://travis-ci.org/wellyshen/use-places-autocomplete)
 [![npm version](https://img.shields.io/npm/v/use-places-autocomplete?style=flat-square)](https://www.npmjs.com/package/use-places-autocomplete)
