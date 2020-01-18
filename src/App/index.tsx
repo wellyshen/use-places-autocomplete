@@ -1,4 +1,5 @@
 import React, { SFC, useState } from 'react';
+import useOnclickOutside from 'react-cool-onclickoutside';
 import { Global, css } from '@emotion/core';
 import normalize from 'normalize.css';
 
@@ -24,20 +25,34 @@ const App: SFC<{}> = () => {
     setValue,
     clearSuggestions
   } = usePlacesAutocomplete();
+  const ref = useOnclickOutside(() => {
+    clearSuggestions();
+    setFocused(false);
+  });
 
   const handleFocus = (): void => {
-    clearSuggestions();
     setFocused(true);
   };
 
-  const handleBlur = (): void => {
+  /* const handleBlur = (): void => {
     setFocused(false);
+  }; */
+
+  const handleSelect = ({ description }: any) => (): void => {
+    clearSuggestions();
+    setValue(description);
   };
 
   const renderList = (): JSX.Element[] =>
-    data.map(({ id, description }: { id: string; description: string }) => (
-      <li key={id} css={listItem}>
-        {description}
+    data.map((suggestion: any) => (
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+      <li
+        key={suggestion.id}
+        css={listItem}
+        onClick={handleSelect(suggestion)}
+        role="presentation"
+      >
+        {suggestion.description}
       </li>
     ));
 
@@ -53,13 +68,15 @@ const App: SFC<{}> = () => {
         <GitHubCorner url="https://github.com/wellyshen/use-places-autocomplete" />
         <h1 css={title}>usePlacesAutocomplete</h1>
         <p css={subtitle}>React hook for Google Maps Places Autocomplete.</p>
-        <div css={autocomplete}>
+        <div css={autocomplete} ref={ref}>
           <input
             css={input}
             value={value}
-            onChange={setValue}
+            onChange={(e): void => {
+              setValue(e.target.value);
+            }}
             onFocus={handleFocus}
-            onBlur={handleBlur}
+            // onBlur={handleBlur}
             placeholder="Enter your place"
             type="text"
             disabled={!ready}
