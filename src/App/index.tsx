@@ -21,7 +21,7 @@ const App: SFC<{}> = () => {
       <div css={container}>
         <GitHubCorner url="https://github.com/wellyshen/use-places-autocomplete" />
         <h1 css={title}>usePlacesAutocomplete</h1>
-        <p css={subtitle}>React hook for Google Maps Place Autocomplete.</p>
+        <p css={subtitle}>React hook for Google Maps Places Autocomplete.</p>
         <input
           value={value}
           onChange={setValue}
