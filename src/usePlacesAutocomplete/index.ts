@@ -18,14 +18,16 @@ interface Args {
   googleMaps?: any;
   callbackName?: string;
 }
+type Suggestion = google.maps.places.AutocompletePrediction;
+interface Suggestions {
+  readonly status: string;
+  readonly data: Suggestion[];
+}
 interface Return {
   readonly ready: boolean;
   readonly value: string;
-  readonly suggestions: {
-    readonly status: string;
-    readonly data: object[];
-  };
-  readonly setValue: (event: ChangeEvent<HTMLInputElement>) => void;
+  readonly suggestions: Suggestions;
+  readonly setValue: (val: string) => void;
   readonly clearSuggestions: () => void;
 }
 
@@ -60,9 +62,7 @@ const usePlacesAutocomplete = ({
   }, []);
 
   const setValue = useCallback(
-    (e: ChangeEvent<HTMLInputElement>): void => {
-      const val = e.target.value;
-
+    (val: string): void => {
       _debounce(() => {
         if (!val.length) {
           clearSuggestions();
@@ -71,7 +71,7 @@ const usePlacesAutocomplete = ({
 
         asRef.current.getPlacePredictions(
           { ...requestOptions, input: val },
-          (data: object[] | null, status: string) => {
+          (data: Suggestion[] | null, status: string) => {
             setSuggestions({ status, data: data || [] });
           }
         );
