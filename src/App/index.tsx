@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React, { SFC, useState } from 'react';
 import { Global, css } from '@emotion/core';
 import normalize from 'normalize.css';
 
@@ -16,12 +16,23 @@ import {
 } from './styles';
 
 const App: SFC<{}> = () => {
+  const [focused, setFocused] = useState(false);
   const {
     ready,
     value,
+    suggestions: { data },
     setValue,
-    suggestions: { data }
+    clearSuggestions
   } = usePlacesAutocomplete();
+
+  const handleFocus = (): void => {
+    clearSuggestions();
+    setFocused(true);
+  };
+
+  const handleBlur = (): void => {
+    setFocused(false);
+  };
 
   const renderList = (): JSX.Element[] =>
     data.map(({ id, description }: { id: string; description: string }) => (
@@ -47,11 +58,13 @@ const App: SFC<{}> = () => {
             css={input}
             value={value}
             onChange={setValue}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
             placeholder="Enter your place"
             type="text"
             disabled={!ready}
           />
-          {data.length !== 0 && <ul css={list}>{renderList()}</ul>}
+          {focused && data.length !== 0 && <ul css={list}>{renderList()}</ul>}
         </div>
       </div>
     </>

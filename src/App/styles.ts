@@ -47,7 +47,7 @@ export const input = css`
 
 export const list = css`
   position: absolute;
-  margin: 0.5rem 0 0;
+  margin: 0.6rem 0 0;
   padding: 0.5rem 0.75rem;
   border: 1px solid #ccc;
   border-radius: 4px;
