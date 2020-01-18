@@ -25,7 +25,8 @@ interface Return {
     readonly status: string;
     readonly data: object[];
   };
-  setValue: (event: ChangeEvent<HTMLInputElement>) => void;
+  readonly setValue: (event: ChangeEvent<HTMLInputElement>) => void;
+  readonly clearSuggestions: () => void;
 }
 
 const usePlacesAutocomplete = ({
@@ -54,13 +55,17 @@ const usePlacesAutocomplete = ({
     setReady(true);
   }, [googleMaps]);
 
+  const clearSuggestions = useCallback(() => {
+    setSuggestions({ status: '', data: [] });
+  }, []);
+
   const setValue = useCallback(
     (e: ChangeEvent<HTMLInputElement>): void => {
       const val = e.target.value;
 
       _debounce(() => {
         if (!val.length) {
-          setSuggestions({ status: '', data: [] });
+          clearSuggestions();
           return;
         }
 
@@ -74,7 +79,7 @@ const usePlacesAutocomplete = ({
 
       setVal(val);
     },
-    [requestOptions, debounce]
+    [requestOptions, debounce] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   useEffect(() => {
@@ -91,7 +96,7 @@ const usePlacesAutocomplete = ({
     };
   }, [googleMaps, callbackName]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return { ready, value, setValue, suggestions };
+  return { ready, value, suggestions, setValue, clearSuggestions };
 };
 
 export default usePlacesAutocomplete;
