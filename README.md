@@ -121,4 +121,4 @@ const PlacesAutocomplete = () => {
 };
 ```
 
-> You can use [react-cool-onclickoutside](https://github.com/wellyshen/react-cool-onclickoutside) to handle the interaction of user clicks outside of your component.
+> 💡 You can use [react-cool-onclickoutside](https://github.com/wellyshen/react-cool-onclickoutside) to handle the interaction of user clicks outside of your component.
