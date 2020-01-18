@@ -47,8 +47,8 @@ const App: SFC<{}> = () => {
             css={input}
             value={value}
             onChange={setValue}
+            placeholder="Enter your place"
             type="text"
-            placeholder="test"
             disabled={!ready}
           />
           {data.length !== 0 && <ul css={list}>{renderList()}</ul>}
