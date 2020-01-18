@@ -72,13 +72,13 @@ const PlacesAutocomplete = () => {
     }
     debounce: 200
   });
-  const ref = useOnclickOutside(() => {
+  const registerRef = useOnclickOutside(() => {
     setFocused(false);
     // To prevent the last suggestions show up when the input field is focused
     clearSuggestions();
   });
 
-  const handleFocus = (): void => {
+  const handleFocus = () => {
     setFocused(true);
   };
 
@@ -106,7 +106,7 @@ const PlacesAutocomplete = () => {
     ));
 
   return (
-    <div ref={ref}>
+    <div ref={registerRef}>
       <input
         value={value}
         onChange={handleInput}
