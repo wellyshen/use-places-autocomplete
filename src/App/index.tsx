@@ -30,8 +30,8 @@ const App: SFC<{}> = () => {
     clearSuggestions
   } = usePlacesAutocomplete();
   const ref = useOnclickOutside(() => {
-    clearSuggestions();
     setFocused(false);
+    clearSuggestions();
   });
 
   const handleFocus = (): void => {
@@ -43,11 +43,11 @@ const App: SFC<{}> = () => {
   };
 
   const handleSelect = ({ description }: Suggestion) => (): void => {
-    clearSuggestions();
     setValue(description, true);
+    clearSuggestions();
   };
 
-  const renderList = (): JSX.Element[] =>
+  const renderSuggestions = (): JSX.Element[] =>
     data.map((suggestion: Suggestion) => (
       <li
         key={suggestion.id}
@@ -85,7 +85,7 @@ const App: SFC<{}> = () => {
               disabled={!ready}
             />
           </div>
-          {showSuggestions && <ul css={list}>{renderList()}</ul>}
+          {showSuggestions && <ul css={list}>{renderSuggestions()}</ul>}
         </div>
       </div>
     </>
