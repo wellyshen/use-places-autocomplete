@@ -4,7 +4,7 @@ import { Global, css } from '@emotion/core';
 import normalize from 'normalize.css';
 
 import GitHubCorner from '../GitHubCorner';
-import usePlacesAutocomplete from '../usePlacesAutocomplete';
+import usePlacesAutocomplete, { Suggestion } from '../usePlacesAutocomplete';
 import {
   root,
   container,
@@ -17,8 +17,6 @@ import {
   list,
   listItem
 } from './styles';
-
-type Suggestion = google.maps.places.AutocompletePrediction;
 
 const App: SFC<{}> = () => {
   const [focused, setFocused] = useState(false);
