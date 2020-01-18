@@ -4,30 +4,27 @@ import _debounce from 'lodash.debounce';
 const loadApiErr =
   '> 💡use-places-autocomplete: Google Maps Places API library must be loaded. See: TODO: README URL';
 
+type RequestOptions = Omit<google.maps.places.AutocompletionRequest, 'input'>;
 interface Args {
-  requestOptions?: {
-    bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
-    componentRestrictions?: google.maps.places.ComponentRestrictions;
-    location?: google.maps.LatLng;
-    offset?: number;
-    radius?: number;
-    sessionToken?: google.maps.places.AutocompleteSessionToken;
-    types?: string[];
-  };
+  requestOptions?: RequestOptions;
   debounce?: number;
   googleMaps?: any;
   callbackName?: string;
 }
+
 type Suggestion = google.maps.places.AutocompletePrediction;
 interface Suggestions {
   readonly status: string;
   readonly data: Suggestion[];
 }
+interface SetValue {
+  (val: string, disableRequest?: boolean): void;
+}
 interface Return {
   readonly ready: boolean;
   readonly value: string;
   readonly suggestions: Suggestions;
-  readonly setValue: (val: string) => void;
+  readonly setValue: SetValue;
   readonly clearSuggestions: () => void;
 }
 
@@ -61,8 +58,12 @@ const usePlacesAutocomplete = ({
     setSuggestions({ status: '', data: [] });
   }, []);
 
-  const setValue = useCallback(
-    (val: string): void => {
+  const setValue: SetValue = useCallback(
+    (val, disableRequest = false) => {
+      setVal(val);
+
+      if (disableRequest) return;
+
       _debounce(() => {
         if (!val.length) {
           clearSuggestions();
@@ -76,8 +77,6 @@ const usePlacesAutocomplete = ({
           }
         );
       }, debounce)();
-
-      setVal(val);
     },
     [requestOptions, debounce] // eslint-disable-line react-hooks/exhaustive-deps
   );
