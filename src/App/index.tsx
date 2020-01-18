@@ -1,4 +1,4 @@
-import React, { SFC, useState } from 'react';
+import React, { SFC, ChangeEvent, useState } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { Global, css } from '@emotion/core';
 import normalize from 'normalize.css';
@@ -11,10 +11,14 @@ import {
   title,
   subtitle,
   autocomplete,
+  wrapper,
+  withSuggestions,
   input,
   list,
   listItem
 } from './styles';
+
+type Suggestion = google.maps.places.AutocompletePrediction;
 
 const App: SFC<{}> = () => {
   const [focused, setFocused] = useState(false);
@@ -34,18 +38,17 @@ const App: SFC<{}> = () => {
     setFocused(true);
   };
 
-  /* const handleBlur = (): void => {
-    setFocused(false);
-  }; */
+  const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
+    setValue(e.target.value);
+  };
 
-  const handleSelect = ({ description }: any) => (): void => {
+  const handleSelect = ({ description }: Suggestion) => (): void => {
     clearSuggestions();
-    setValue(description);
+    setValue(description, true);
   };
 
   const renderList = (): JSX.Element[] =>
-    data.map((suggestion: any) => (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    data.map((suggestion: Suggestion) => (
       <li
         key={suggestion.id}
         css={listItem}
@@ -55,6 +58,8 @@ const App: SFC<{}> = () => {
         {suggestion.description}
       </li>
     ));
+
+  const showSuggestions = focused && data.length !== 0;
 
   return (
     <>
@@ -69,19 +74,18 @@ const App: SFC<{}> = () => {
         <h1 css={title}>usePlacesAutocomplete</h1>
         <p css={subtitle}>React hook for Google Maps Places Autocomplete.</p>
         <div css={autocomplete} ref={ref}>
-          <input
-            css={input}
-            value={value}
-            onChange={(e): void => {
-              setValue(e.target.value);
-            }}
-            onFocus={handleFocus}
-            // onBlur={handleBlur}
-            placeholder="Enter your place"
-            type="text"
-            disabled={!ready}
-          />
-          {focused && data.length !== 0 && <ul css={list}>{renderList()}</ul>}
+          <div css={showSuggestions ? [wrapper, withSuggestions] : wrapper}>
+            <input
+              css={input}
+              value={value}
+              onChange={handleInput}
+              onFocus={handleFocus}
+              placeholder="Enter a place"
+              type="text"
+              disabled={!ready}
+            />
+          </div>
+          {showSuggestions && <ul css={list}>{renderList()}</ul>}
         </div>
       </div>
     </>

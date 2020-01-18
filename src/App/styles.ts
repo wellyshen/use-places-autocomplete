@@ -38,28 +38,50 @@ export const subtitle = css`
 `;
 
 export const autocomplete = css`
-  width: 12rem;
+  display: inline-block;
+`;
+
+export const wrapper = css`
+  padding: 0.9rem 1.15rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+`;
+
+export const withSuggestions = css`
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 `;
 
 export const input = css`
-  width: 100%;
+  padding: 0;
+  width: 20rem;
+  border: none;
+  outline: none;
+  line-height: 1.2;
 `;
 
 export const list = css`
   position: absolute;
-  margin: 0.6rem 0 0;
-  padding: 0.5rem 0.75rem;
+  margin: -1px 0 0;
+  padding: 0.9rem 0;
+  max-height: 60%;
+  overflow-y: auto;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
   list-style-type: none;
   text-align: left;
 `;
 
 export const listItem = css`
-  max-width: 30rem;
+  padding: 0 1.15rem;
+  width: 20rem;
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  line-height: 1.5;
-  cursor: pointer;
+  line-height: 2.3;
+  cursor: default;
+  &:hover {
+    background: #eee;
+  }
 `;
