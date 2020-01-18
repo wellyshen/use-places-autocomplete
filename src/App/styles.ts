@@ -11,8 +11,10 @@ export const root = css`
 `;
 
 export const container = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 5rem 5%;
-  text-align: center;
   ${sm} {
     padding-left: 10%;
     padding-right: 10%;
@@ -33,4 +35,31 @@ export const title = css`
 
 export const subtitle = css`
   margin: 0 0 2.5rem;
+`;
+
+export const autocomplete = css`
+  width: 12rem;
+`;
+
+export const input = css`
+  width: 100%;
+`;
+
+export const list = css`
+  position: absolute;
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  list-style-type: none;
+  text-align: left;
+`;
+
+export const listItem = css`
+  max-width: 30rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.5;
+  cursor: pointer;
 `;
