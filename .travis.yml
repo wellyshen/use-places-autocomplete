@@ -1,0 +1,21 @@
+language: node_js
+
+node_js:
+  - "lts/*"
+
+cache:
+  yarn: true
+  directories:
+    - node_module
+
+script:
+  - yarn type-check
+  - yarn lint
+  - yarn test:cov
+
+notifications:
+  email:
+    on_failure: change
+
+after_success:
+  - yarn coveralls

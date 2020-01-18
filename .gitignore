@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+
+node_modules
+src/.dev
+demo
+dist
+coverage
