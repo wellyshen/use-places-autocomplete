@@ -51,7 +51,7 @@
     "build:dist": "yarn clean:dist && BABEL_ENV=dist rollup -c rollup/config.js --environment BUILD:dist",
     "build": "run-s build:*",
     "preversion": "run-s type-check lint test build:dist",
-    "postversion": "git push --follow-tags --no-verify && npm publish",
+    "postversion": "git push --follow-tags --no-verify && npm publish && yarn clean:dist",
     "clean:dev": "rimraf src/.dev",
     "clean:demo": "rimraf demo",
     "clean:dist": "rimraf dist",
