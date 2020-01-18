@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import _debounce from 'lodash.debounce';
 
 const loadApiErr =
