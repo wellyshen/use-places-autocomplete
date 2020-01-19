@@ -1,4 +1,4 @@
-import React, { SFC, ChangeEvent, useState } from 'react';
+import React, { SFC, ChangeEvent } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { Global, css } from '@emotion/core';
 import normalize from 'normalize.css';
@@ -21,30 +21,24 @@ import {
 type Suggestion = google.maps.places.AutocompletePrediction;
 
 const App: SFC<{}> = () => {
-  const [focused, setFocused] = useState(false);
   const {
     ready,
     value,
-    suggestions: { data },
+    suggestions: { status, data },
     setValue,
-    clearSuggestions
+    resetSuggestions
   } = usePlacesAutocomplete();
   const ref = useOnclickOutside(() => {
-    setFocused(false);
-    clearSuggestions();
+    resetSuggestions();
   });
-
-  const handleFocus = (): void => {
-    setFocused(true);
-  };
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
     setValue(e.target.value);
   };
 
   const handleSelect = ({ description }: Suggestion) => (): void => {
-    setValue(description, true);
-    clearSuggestions();
+    setValue(description, false);
+    resetSuggestions();
   };
 
   const renderSuggestions = (): JSX.Element[] =>
@@ -59,7 +53,7 @@ const App: SFC<{}> = () => {
       </li>
     ));
 
-  const showSuggestions = focused && data.length !== 0;
+  const showSuggestions = value !== '' && status === 'OK';
 
   return (
     <>
@@ -79,7 +73,6 @@ const App: SFC<{}> = () => {
               css={input}
               value={value}
               onChange={handleInput}
-              onFocus={handleFocus}
               placeholder="Enter a place"
               type="text"
               disabled={!ready}
