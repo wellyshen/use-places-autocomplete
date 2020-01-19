@@ -14,18 +14,19 @@ interface Args {
 
 type Suggestion = google.maps.places.AutocompletePrediction;
 interface Suggestions {
+  readonly loading: boolean;
   readonly status: string;
   readonly data: Suggestion[];
 }
 interface SetValue {
-  (val: string, disableRequest?: boolean): void;
+  (val: string, shouldFetchData?: boolean): void;
 }
 interface Return {
   readonly ready: boolean;
   readonly value: string;
   readonly suggestions: Suggestions;
   readonly setValue: SetValue;
-  readonly clearSuggestions: () => void;
+  readonly resetSuggestions: () => void;
 }
 
 const usePlacesAutocomplete = ({
@@ -36,7 +37,11 @@ const usePlacesAutocomplete = ({
 }: Args = {}): Return => {
   const [ready, setReady] = useState(false);
   const [value, setVal] = useState('');
-  const [suggestions, setSuggestions] = useState({ status: '', data: [] });
+  const [suggestions, setSuggestions] = useState({
+    loading: false,
+    status: '',
+    data: []
+  });
   const asRef = useRef(null);
 
   const init = useCallback(() => {
@@ -54,31 +59,36 @@ const usePlacesAutocomplete = ({
     setReady(true);
   }, [googleMaps]);
 
-  const clearSuggestions = useCallback(() => {
-    setSuggestions({ status: '', data: [] });
+  const resetSuggestions = useCallback(() => {
+    setSuggestions({ loading: false, status: '', data: [] });
   }, []);
 
+  const fetchPredictions = useCallback(
+    _debounce((val: string) => {
+      if (!val.length) {
+        resetSuggestions();
+        return;
+      }
+
+      setSuggestions({ ...suggestions, loading: true });
+
+      asRef.current.getPlacePredictions(
+        { ...requestOptions, input: val },
+        (data: Suggestion[] | null, status: string) => {
+          setSuggestions({ loading: false, status, data: data || [] });
+        }
+      );
+    }, debounce),
+    [requestOptions, debounce]
+  );
+
   const setValue: SetValue = useCallback(
-    (val, disableRequest = false) => {
+    (val, shouldFetchData = true) => {
       setVal(val);
 
-      if (disableRequest) return;
-
-      _debounce(() => {
-        if (!val.length) {
-          clearSuggestions();
-          return;
-        }
-
-        asRef.current.getPlacePredictions(
-          { ...requestOptions, input: val },
-          (data: Suggestion[] | null, status: string) => {
-            setSuggestions({ status, data: data || [] });
-          }
-        );
-      }, debounce)();
+      if (shouldFetchData) fetchPredictions(val);
     },
-    [requestOptions, debounce] // eslint-disable-line react-hooks/exhaustive-deps
+    [] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   useEffect(() => {
@@ -95,7 +105,7 @@ const usePlacesAutocomplete = ({
     };
   }, [googleMaps, callbackName]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return { ready, value, suggestions, setValue, clearSuggestions };
+  return { ready, value, suggestions, setValue, resetSuggestions };
 };
 
 export default usePlacesAutocomplete;
