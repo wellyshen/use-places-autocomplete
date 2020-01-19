@@ -22,7 +22,6 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 - [x] usePlacesAutocomplete hook
 - [ ] Useful utils, e.g. geocoding etc.
 - [ ] Server-side rendering friendly
-- [ ] Built-in autocomplete UI component (maybe...)
 - [ ] Unit testing
 - [x] Demo app
 - [ ] Documentation
