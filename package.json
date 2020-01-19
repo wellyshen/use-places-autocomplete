@@ -229,7 +229,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
-    "react-cool-onclickoutside": "^1.0.1",
+    "react-cool-onclickoutside": "^1.0.2",
     "react-dom": "^16.12.0",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^3.0.0",
