@@ -26,7 +26,7 @@ interface Return {
   readonly value: string;
   readonly suggestions: Suggestions;
   readonly setValue: SetValue;
-  readonly resetSuggestions: () => void;
+  readonly clearSuggestions: () => void;
 }
 
 const usePlacesAutocomplete = ({
@@ -59,14 +59,14 @@ const usePlacesAutocomplete = ({
     setReady(true);
   }, [googleMaps]);
 
-  const resetSuggestions = useCallback(() => {
+  const clearSuggestions = useCallback(() => {
     setSuggestions({ loading: false, status: '', data: [] });
   }, []);
 
   const fetchPredictions = useCallback(
     _debounce((val: string) => {
       if (!val.length) {
-        resetSuggestions();
+        clearSuggestions();
         return;
       }
 
@@ -105,7 +105,7 @@ const usePlacesAutocomplete = ({
     };
   }, [googleMaps, callbackName, init]);
 
-  return { ready, value, suggestions, setValue, resetSuggestions };
+  return { ready, value, suggestions, setValue, clearSuggestions };
 };
 
 export default usePlacesAutocomplete;

@@ -26,10 +26,10 @@ const App: SFC<{}> = () => {
     value,
     suggestions: { status, data },
     setValue,
-    resetSuggestions
+    clearSuggestions
   } = usePlacesAutocomplete();
   const ref = useOnclickOutside(() => {
-    resetSuggestions();
+    clearSuggestions();
   });
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -38,7 +38,7 @@ const App: SFC<{}> = () => {
 
   const handleSelect = ({ description }: Suggestion) => (): void => {
     setValue(description, false);
-    resetSuggestions();
+    clearSuggestions();
   };
 
   const renderSuggestions = (): JSX.Element[] =>

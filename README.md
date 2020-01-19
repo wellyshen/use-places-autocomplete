@@ -88,13 +88,13 @@ const PlacesAutocomplete = props => {
     value,
     suggestions: { status, data },
     setValue,
-    resetSuggestions
+    clearSuggestions
   } = usePlacesAutocomplete({
     requestOptions: { /* Define search scope here */ }
     debounce: 300
   });
   const registerRef = useOnclickOutside(() => {
-    resetSuggestions();
+    clearSuggestions();
   });
 
   const handleInput = e => {
@@ -103,7 +103,7 @@ const PlacesAutocomplete = props => {
 
   const handleSelect = ({ description }) => () => {
     setValue(description, false);
-    resetSuggestions();
+    clearSuggestions();
 
     // Do something you want...
   };
@@ -163,7 +163,7 @@ It's an `object` that returned with the following properties.
 | `value`            | string   | `''`                                       | `value` for the input element.               |
 | `suggestions`      | object   | `{ loading: false, status: '', data: [] }` | See [suggestions](#suggestions).             |
 | `setValue`         | function | `(value, shouldFetchData = true) => {}`    | See [setValue](#setvalue).                   |
-| `resetSuggestions` | function |                                            | See [resetSuggestions](#resetsuggestions).   |
+| `clearSuggestions` | function |                                            | See [clearSuggestions](#clearsuggestions).   |
 
 #### suggestions
 
@@ -227,7 +227,7 @@ const PlacesAutocomplete = props => {
 };
 ```
 
-#### resetSuggestions
+#### clearSuggestions
 
 Coming soon...
 
