@@ -88,7 +88,7 @@ const usePlacesAutocomplete = ({
 
       if (shouldFetchData) fetchPredictions(val);
     },
-    [] // eslint-disable-line react-hooks/exhaustive-deps
+    [fetchPredictions]
   );
 
   useEffect(() => {
@@ -103,7 +103,7 @@ const usePlacesAutocomplete = ({
     return (): void => {
       if ((window as any)[callbackName]) delete (window as any)[callbackName];
     };
-  }, [googleMaps, callbackName]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [googleMaps, callbackName, init]);
 
   return { ready, value, suggestions, setValue, resetSuggestions };
 };
