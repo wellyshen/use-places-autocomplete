@@ -84,9 +84,8 @@ const usePlacesAutocomplete = ({
 
   const setValue: SetValue = useCallback(
     (val, shouldFetchData = true) => {
-      if (shouldFetchData) fetchPredictions(val);
-
       setVal(val);
+      if (shouldFetchData) fetchPredictions(val);
     },
     [fetchPredictions] // eslint-disable-line react-hooks/exhaustive-deps
   );
