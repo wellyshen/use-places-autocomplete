@@ -2,7 +2,7 @@
 
 # usePlacesAutocomplete
 
-This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) of [Google Maps Places Autocomplete](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service), which helps you build an UI component with the feature of place autocomplete easily! By leverage the power of [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places), you can provide a great UX (user experience) for user interacts with your search bar or form etc.
+This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) of [Google Maps Places Autocomplete](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service), which helps you build an UI component with the feature of place autocomplete easily! By leverage the power of [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places), you can provide a great UX (user experience) for user interacts with your search bar or form etc. Hope you guys 👍🏻 it.
 
 ⚡️ Live demo: https://use-places-autocomplete.netlify.com
 
@@ -15,7 +15,7 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 [![MIT licensed](https://img.shields.io/github/license/wellyshen/use-places-autocomplete?style=flat-square)](https://raw.githubusercontent.com/wellyshen/use-places-autocomplete/master/LICENSE)
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange?style=flat-square)](#contributors-)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/wellyshen/use-places-autocomplete/blob/master/CONTRIBUTING.md)
-[![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fwellyshen%2Fuse-places-autocomplete)](https://twitter.com/intent/tweet?text=With%20@use-places-autocomplete,%20I%20can%20build%20UI%20components%20efficiently.%20Thanks,%20@Welly%20Shen%20🤩)
+[![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fwellyshen%2Fuse-places-autocomplete)](https://twitter.com/intent/tweet?text=With%20@use-places-autocomplete,%20I%20can%20build%20a%20component%20with%20the%20feature%20of%20place%20autocomplete%20easily!%20Thanks,%20@Welly%20Shen%20🤩)
 
 ## Milestone
 
@@ -76,13 +76,13 @@ We also support asynchronous script loading. By doing so you need to pass the `i
 
 ### Create the component
 
-Now we can start rock'n roll our component. You can check the [API](#api) section to learn more.
+Now we can start to build our component. Check the [API](#api) out to learn more.
 
 ```js
 import usePlacesAutocomplete from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
 
-const PlacesAutocomplete = props => {
+const PlacesAutocomplete = () => {
   const {
     ready,
     value,
@@ -94,14 +94,19 @@ const PlacesAutocomplete = props => {
     debounce: 300
   });
   const registerRef = useOnclickOutside(() => {
+    // When user clicks outside of the component, we can dismiss
+    // the searched suggestions by calling this method
     clearSuggestions();
   });
 
   const handleInput = e => {
+    // Update the keyword of the input element
     setValue(e.target.value);
   };
 
   const handleSelect = ({ description }) => () => {
+    // When user selects a place, we can replace the keyword without request data from API
+    // by setting the second parameter as "false"
     setValue(description, false);
     clearSuggestions();
 
@@ -128,11 +133,14 @@ const PlacesAutocomplete = props => {
         type="text"
         disabled={!ready}
       />
-      {value !== '' && status === 'OK' && <ul>{renderSuggestions()}</ul>}
+      {/* We can use the "status" to decide whether we should display the suggestions panel or not */}
+      {status === 'OK' && <ul>{renderSuggestions()}</ul>}
     </div>
   );
 };
 ```
+
+Easy right? This is the magic of this hook ✨
 
 > 💡 [react-cool-onclickoutside](https://github.com/wellyshen/react-cool-onclickoutside) is my other hook library, which can helps you handle the interaction of user clicks outside of the component(s).
 
@@ -180,7 +188,7 @@ Set the `value` of the input element. Use case as below.
 ```js
 import usePlacesAutocomplete from 'use-places-autocomplete';
 
-const PlacesAutocomplete = props => {
+const PlacesAutocomplete = () => {
   const { value, setValue } = usePlacesAutocomplete();
 
   const handleInput = e => {
@@ -202,17 +210,21 @@ In addition, the `setValue` method has an extra parameter, which can be used to 
 ```js
 import usePlacesAutocomplete from 'use-places-autocomplete';
 
-const PlacesAutocomplete = props => {
-  const { value, suggestions, setValue } = usePlacesAutocomplete();
+const PlacesAutocomplete = () => {
+  const {
+    value,
+    suggestions: { status, data },
+    setValue
+  } = usePlacesAutocomplete();
 
   const handleSelect = description => () => {
-    // When user select a place, we can update the keyword without request data from API
-    // by set the second parameter to "false"
+    // When user select a place, we can replace the keyword without request data from API
+    // by setting the second parameter to "false"
     setValue(description, false);
   };
 
   const renderSuggestions = () =>
-    suggestions.data.map(({ id, description }) => (
+    data.map(({ id, description }) => (
       <li key={id} onClick={handleSelect(description)} role="presentation">
         {description}
       </li>
@@ -221,7 +233,7 @@ const PlacesAutocomplete = props => {
   return (
     <div>
       <input value={value} onChange={handleInput} type="text" />
-      <ul>{renderSuggestions()}</ul>
+      {status === 'OK' && <ul>{renderSuggestions()}</ul>}
     </div>
   );
 };
@@ -229,7 +241,37 @@ const PlacesAutocomplete = props => {
 
 #### clearSuggestions
 
-Coming soon...
+Clear the searched suggestions by reset all properties of the `suggestions` object to default. The method can be used to dismiss the suggestions panel.
+
+```js
+import usePlacesAutocomplete from 'use-places-autocomplete';
+import useOnclickOutside from 'react-cool-onclickoutside';
+
+const PlacesAutocomplete = () => {
+  const {
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions
+  } = usePlacesAutocomplete();
+  const registerRef = useOnclickOutside(() => {
+    // When user clicks outside of the component, call it to clear the suggestions data
+    clearSuggestions();
+  });
+
+  const renderSuggestions = () =>
+    data.map(({ id, description }) => <li key={id}>{description}</li>);
+
+  return (
+    <div ref={registerRef}>
+      <input value={value} onChange={handleInput} type="text" />
+      {/* After calling the clearSuggestions(), the "status" is reset to empty string
+          So the suggestions panel is hidden */}
+      {status === 'OK' && <ul>{renderSuggestions()}</ul>}
+    </div>
+  );
+};
+```
 
 ## Contributors ✨
 
