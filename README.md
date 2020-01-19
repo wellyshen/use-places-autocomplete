@@ -62,7 +62,7 @@ Use the `script` tag to load the library in your project.
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
 ```
 
-We also support asynchronous script loading. By doing so you need to pass the `initMap` as the [callbackName](<#parameter-(optional)>) option.
+We also support asynchronous script loading. By doing so you need to pass the `initMap` as the [callbackName](#parameter-optional) option.
 
 <!-- prettier-ignore-start -->
 ```js
@@ -152,14 +152,14 @@ const return = usePlacesAutocomplete(parameter);
 
 ### Parameter (optional)
 
-When use `usePlacesAutocomplete` you can configure the following options by pass an `object` as the parameter.
+When use `usePlacesAutocomplete` you can configure the following options by the parameter `object`.
 
-| Key              | Type (all optional) | Default              | Description                                                                                                                                                                                                                    |
-| ---------------- | ------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `requestOptions` | object              |                      | The [request options](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest.bounds) of Google Maps Places API except for `input` (e.g. bounds, radius etc.). |
-| `googleMaps`     | object              | `window.google.maps` | In case you want to provide your own Google Maps object, pass it in as `google.maps`.                                                                                                                                          |
-| `callbackName`   | string              |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                                 |
-| `debounce`       | number              | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                             |
+| Key              | Type (all optional) | Default              | Description                                                                                                                                                                                                             |
+| ---------------- | ------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `requestOptions` | object              |                      | The [request options](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest) of Google Maps Places API except for `input` (e.g. bounds, radius etc.). |
+| `googleMaps`     | object              | `window.google.maps` | In case you want to provide your own Google Maps object, pass it in as `google.maps`.                                                                                                                                   |
+| `callbackName`   | string              |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
+| `debounce`       | number              | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
 
 ### Return
 
