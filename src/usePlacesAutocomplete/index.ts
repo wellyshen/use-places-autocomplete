@@ -70,7 +70,7 @@ const usePlacesAutocomplete = ({
         return;
       }
 
-      setSuggestions({ ...suggestions, loading: true });
+      setSuggestions(prevState => ({ ...prevState, loading: true }));
 
       asRef.current.getPlacePredictions(
         { ...requestOptions, input: val },
@@ -84,11 +84,11 @@ const usePlacesAutocomplete = ({
 
   const setValue: SetValue = useCallback(
     (val, shouldFetchData = true) => {
-      setVal(val);
-
       if (shouldFetchData) fetchPredictions(val);
+
+      setVal(val);
     },
-    [fetchPredictions]
+    [fetchPredictions] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   useEffect(() => {
