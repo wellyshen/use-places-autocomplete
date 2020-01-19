@@ -6395,10 +6395,10 @@ quick-lru@^4.0.1:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-4.0.1.tgz#5b8878f113a58217848c6482026c73e1ba57727f"
   integrity sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==
 
-react-cool-onclickoutside@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-cool-onclickoutside/-/react-cool-onclickoutside-1.0.0.tgz#515c82907471464dd0263e0bbcfbc0a59a26fb57"
-  integrity sha512-L/SUi/hUyYUINN62eGJ6z6G2AUqyxbxTVmqxaTKzNMzVIADBGjcJkzAHMCwQbrSPEYMY2xMbT5BtDIUrv/aHhA==
+react-cool-onclickoutside@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-cool-onclickoutside/-/react-cool-onclickoutside-1.0.1.tgz#40c4f8d26ba56f961f83e01517cab29305f2a111"
+  integrity sha512-W6STQpE6vU7ds13YfWD9c3E7lAwyBotu/+CXuPAXhV7ogs2DxAZQ/lM28YFQweKXLyrEjjEWpRykQqfd2yC6Rg==
 
 react-dom@^16.12.0:
   version "16.12.0"
@@ -6862,10 +6862,10 @@ rollup-plugin-commonjs@^10.1.0:
     resolve "^1.11.0"
     rollup-pluginutils "^2.8.1"
 
-rollup-plugin-copy@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-copy/-/rollup-plugin-copy-3.2.0.tgz#b401674d406d487ee3acb44c4785d424ff80ad75"
-  integrity sha512-ZA/dt4xMjof24zaoqMVdMbP4/6+exqyvJ7J0oU80q/T1nj2zDvXVm2hCcmy4BPzhBHzgCRyIRQz7pg6M5hAkPA==
+rollup-plugin-copy@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-copy/-/rollup-plugin-copy-3.2.1.tgz#2942b2328ba700b559ceb22583394e0880928986"
+  integrity sha512-HuMrwIBAJUpy0MCCdRJLbxLJVyha+HrHbJCLyXm5gilSKplDDLOHpue4dyQS2xFDtxg278DlZtK26BlhDXvd3w==
   dependencies:
     "@types/fs-extra" "^8.0.1"
     colorette "^1.1.0"
