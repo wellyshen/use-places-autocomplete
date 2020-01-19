@@ -12,7 +12,7 @@ interface Args {
   callbackName?: string;
 }
 
-export type Suggestion = google.maps.places.AutocompletePrediction;
+type Suggestion = google.maps.places.AutocompletePrediction;
 interface Suggestions {
   readonly status: string;
   readonly data: Suggestion[];
