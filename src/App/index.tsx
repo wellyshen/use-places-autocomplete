@@ -53,8 +53,6 @@ const App: SFC<{}> = () => {
       </li>
     ));
 
-  const showSuggestions = value !== '' && status === 'OK';
-
   return (
     <>
       <Global
@@ -68,7 +66,7 @@ const App: SFC<{}> = () => {
         <h1 css={title}>usePlacesAutocomplete</h1>
         <p css={subtitle}>React hook for Google Maps Places Autocomplete.</p>
         <div css={autocomplete} ref={ref}>
-          <div css={showSuggestions ? [wrapper, withSuggestions] : wrapper}>
+          <div css={status === 'OK' ? [wrapper, withSuggestions] : wrapper}>
             <input
               css={input}
               value={value}
@@ -78,7 +76,7 @@ const App: SFC<{}> = () => {
               disabled={!ready}
             />
           </div>
-          {showSuggestions && <ul css={list}>{renderSuggestions()}</ul>}
+          {status === 'OK' && <ul css={list}>{renderSuggestions()}</ul>}
         </div>
       </div>
     </>
