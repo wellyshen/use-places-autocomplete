@@ -1,8 +1,8 @@
-> 🚧 This project is under developing, **API MAY CHANGED FREQUENTLY, PLEASE DON'T USE IT NOW ✋🏻**. Here's my [milestone](#milestone).
+> 🚧 This project is under developing, **API MAY CHANGED FREQUENTLY, PLEASE DON'T USE IT IN PRODUCTION NOW ✋🏻**. Here's the [milestone](#milestone).
 
 # usePlacesAutocomplete
 
-This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) of [Google Maps Places Autocomplete](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service), which helps you build an UI component with the feature of place autocomplete easily! By leverage the power of [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places), you can provide a great UX (user experience) for user interacts with your search bar or form etc. Hope you guys 👍🏻 it.
+This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) of [Google Maps Places Autocomplete](https://developers.google.com/maps/documentation/javascript/places-autocomplete), which helps you build an UI component with the feature of place autocomplete easily! By leverage the power of [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places), you can provide a great UX (user experience) for user interacts with your search bar or form etc. Hope you guys 👍🏻 it.
 
 ⚡️ Live demo: https://use-places-autocomplete.netlify.com
 
@@ -42,11 +42,11 @@ $ yarn add use-places-autocomplete
 $ npm install --save use-places-autocomplete
 ```
 
-## Usage Preview
+## Getting Started
 
-This is my currently idea of how does it work, **it still unstable**. So, I don't suggest you use it now. But welcome to preview or play it and feel free to give me suggestion 🤔
+`usePlacesAutocomplete` is based on the [Places Autocomplete](https://developers.google.com/maps/documentation/javascript/places-autocomplete) (or more specific [docs](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service)) of [Google Maps Place API](https://developers.google.com/maps/documentation/javascript/places). If you are unfamiliar with these APIs, we recommend you reviewing them before we start.
 
-### Before we start
+### Setup APIs
 
 To use this hook, there're two things we need to do:
 
