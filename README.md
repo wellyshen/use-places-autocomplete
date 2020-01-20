@@ -42,7 +42,7 @@ $ yarn add use-places-autocomplete
 $ npm install --save use-places-autocomplete
 ```
 
-## Usage Preview ([demo](https://use-places-autocomplete.netlify.com))
+## Usage Preview
 
 This is my currently idea of how does it work, **it still unstable**. So, I don't suggest you use it now. But welcome to preview or play it and feel free to give me suggestion 🤔
 
@@ -139,7 +139,7 @@ const PlacesAutocomplete = () => {
 };
 ```
 
-Easy right? This is the magic of this hook ✨
+Easy right? This is the magic of the `usePlacesAutocomplete` ✨. Here's the [styled version](https://use-places-autocomplete.netlify.com) of the above example. There're some features can be included for better UX, like keyword clear button, search history etc.
 
 > 💡 [react-cool-onclickoutside](https://github.com/wellyshen/react-cool-onclickoutside) is my other hook library, which can helps you handle the interaction of user clicks outside of the component(s).
 
@@ -149,9 +149,9 @@ Easy right? This is the magic of this hook ✨
 const return = usePlacesAutocomplete(parameter);
 ```
 
-### Parameter (optional)
+### Parameter object (optional)
 
-When use `usePlacesAutocomplete` you can configure the following options by the parameter `object`.
+When use `usePlacesAutocomplete` you can configure the following options via the parameter.
 
 | Key              | Type (all optional) | Default              | Description                                                                                                                                                                                                             |
 | ---------------- | ------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -160,9 +160,9 @@ When use `usePlacesAutocomplete` you can configure the following options by the 
 | `callbackName`   | string              |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
 | `debounce`       | number              | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
 
-### Return
+### Return object
 
-It's an `object` that returned with the following properties.
+It's returned with the following properties.
 
 | Key                | Type     | Default                                    | Description                                  |
 | ------------------ | -------- | ------------------------------------------ | -------------------------------------------- |
@@ -240,7 +240,7 @@ const PlacesAutocomplete = () => {
 
 #### clearSuggestions
 
-Clear the searched suggestions by reset all properties of the `suggestions` object to default. The method can be used to dismiss the suggestions panel.
+Calling the method will clear and reset all the properties of the `suggestions` object to default. It's useful for dismissing the suggestions panel.
 
 ```js
 import usePlacesAutocomplete from 'use-places-autocomplete';
@@ -254,7 +254,7 @@ const PlacesAutocomplete = () => {
     clearSuggestions
   } = usePlacesAutocomplete();
   const registerRef = useOnclickOutside(() => {
-    // When user clicks outside of the component, call it to clear the suggestions data
+    // When user clicks outside of the component, call it to clear and reset the suggestions data
     clearSuggestions();
   });
 
