@@ -79,26 +79,25 @@ declare module 'use-places-autocomplete' {
   }
 
   /** Types of the hook */
+  export type RequestOptions = AutocompletionRequest;
   interface Args {
-    requestOptions?: AutocompletionRequest;
+    requestOptions?: RequestOptions;
     debounce?: number;
     googleMaps?: any;
     callbackName?: string;
   }
 
-  interface Suggestions {
+  export type Suggestion = AutocompletePrediction;
+  export interface Suggestions {
     readonly loading: boolean;
     readonly status: string;
-    readonly data: AutocompletePrediction[];
-  }
-  interface SetValue {
-    (val: string, shouldFetchData?: boolean): void;
+    readonly data: Suggestion[];
   }
   interface Return {
     readonly ready: boolean;
     readonly value: string;
     readonly suggestions: Suggestions;
-    readonly setValue: SetValue;
+    readonly setValue: (val: string, shouldFetchData?: boolean) => void;
     readonly clearSuggestions: () => void;
   }
 
