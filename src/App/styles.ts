@@ -31,6 +31,10 @@ export const container = css`
 
 export const title = css`
   margin: 0 0 0.75rem;
+  font-size: 1.5rem;
+  ${sm} {
+    font-size: 2rem;
+  }
 `;
 
 export const subtitle = css`
@@ -54,10 +58,13 @@ export const withSuggestions = css`
 
 export const input = css`
   padding: 0;
-  width: 20rem;
+  width: 15rem;
   border: none;
   outline: none;
   line-height: 1.2;
+  ${sm} {
+    width: 20rem;
+  }
 `;
 
 export const list = css`
@@ -75,7 +82,7 @@ export const list = css`
 
 export const listItem = css`
   padding: 0 1.15rem;
-  width: 20rem;
+  width: 15rem;
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -83,6 +90,9 @@ export const listItem = css`
   cursor: default;
   &:hover {
     background: #eee;
+  }
+  ${sm} {
+    width: 20rem;
   }
 `;
 
