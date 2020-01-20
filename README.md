@@ -1,4 +1,4 @@
-> 🚧 This project is under developing, **API MAY CHANGED FREQUENTLY, PLEASE NOTE ANY BREAKING CHANGE FROM [RELEASE](https://github.com/wellyshen/use-places-autocomplete/releases)**. Here's the [milestone](#milestone).
+> 🚧 This project is under developing, **API MAY CHANGED FREQUENTLY, PLEASE NOTE ANY BREAKING CHANGE FROM [RELEASES](https://github.com/wellyshen/use-places-autocomplete/releases)**. Here's the [milestone](#milestone).
 
 # usePlacesAutocomplete
 
