@@ -85,3 +85,7 @@ export const listItem = css`
     background: #eee;
   }
 `;
+
+export const listItemMatched = css`
+  background: #ddd;
+`;

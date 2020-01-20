@@ -15,7 +15,8 @@ import {
   withSuggestions,
   input,
   list,
-  listItem
+  listItem,
+  listItemMatched
 } from './styles';
 
 type Suggestion = google.maps.places.AutocompletePrediction;
@@ -42,16 +43,20 @@ const App: SFC<{}> = () => {
   };
 
   const renderSuggestions = (): JSX.Element[] =>
-    data.map((suggestion: Suggestion) => (
-      <li
-        key={suggestion.id}
-        css={listItem}
-        onClick={handleSelect(suggestion)}
-        role="presentation"
-      >
-        {suggestion.description}
-      </li>
-    ));
+    data.map((suggestion: Suggestion) => {
+      const { id, description } = suggestion;
+
+      return (
+        <li
+          key={id}
+          css={value === description ? [listItem, listItemMatched] : listItem}
+          onClick={handleSelect(suggestion)}
+          role="presentation"
+        >
+          {description}
+        </li>
+      );
+    });
 
   return (
     <>
