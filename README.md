@@ -177,8 +177,8 @@ It's returned with the following properties.
 The search result of Google Maps Places API, which contains the following properties:
 
 - `loading: boolean` - indicates the status of a request is pending or has completed. It's useful for displaying a loading indicator for user.
-- `status: string` - indicates the status of `PlacesService`, see the [docs](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlacesServiceStatus). It's useful to decide whether we should display the suggestions panel or not.
-- `data: array` - an array of suggestion objects each contains all the data as `AutocompletePrediction`, see the [docs](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletePrediction).
+- `status: string` - indicates the status of API response, which has these [values](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlacesServiceStatus). It's useful to decide whether we should display the suggestions panel or not.
+- `data: array` - an array of suggestion objects each contains all the [data](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletePrediction).
 
 #### setValue
 
