@@ -21,10 +21,10 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 
 - [x] usePlacesAutocomplete hook
 - [ ] Useful utils, e.g. geocoding etc.
-- [ ] Server-side rendering friendly
+- [x] Server-side rendering friendly
 - [ ] Unit testing
 - [x] Demo app
-- [ ] Documentation
+- [x] Documentation
 - [x] Typescript type definition
 - [x] CI/CD
 
