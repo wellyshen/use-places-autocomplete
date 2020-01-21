@@ -19,7 +19,9 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 
 ## Live Demo
 
-⚡️ Live demo: https://use-places-autocomplete.netlify.com
+![demo](https://user-images.githubusercontent.com/21308003/72815801-2b79ea00-3ca2-11ea-9ea7-064bd671fa04.gif)
+
+⚡️ Try yourself: https://use-places-autocomplete.netlify.com
 
 ## Requirement
 
@@ -116,9 +118,8 @@ const PlacesAutocomplete = () => {
         <li
           key={id}
           onClick={handleSelect(suggestion)}
-          role="presentation"
         >
-          <b>{main_text}</b> <small css={subText}>{secondary_text}</small>
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       );
     });
@@ -128,9 +129,8 @@ const PlacesAutocomplete = () => {
       <input
         value={value}
         onChange={handleInput}
-        placeholder="Where are you going?"
-        type="text"
         disabled={!ready}
+        placeholder="Where are you going?"
       />
       {/* We can use the "status" to decide whether we should display the suggestions panel or not */}
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
@@ -139,7 +139,7 @@ const PlacesAutocomplete = () => {
 };
 ```
 
-Easy right? This is the magic of the `usePlacesAutocomplete` ✨. Here's the [styled version](https://use-places-autocomplete.netlify.com) of the above example. There're some features can be included for better UX, like keyword clear button, search history etc.
+Easy right? This is the magic of the `usePlacesAutocomplete` ✨. I just show you how does it work via the minimal example. However there're more things you can do for an UX rich autocomplete component, like [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword support as my [demo](#live-demo) (check the [code](https://github.com/wellyshen/use-places-autocomplete/blob/master/src/App/index.tsx)), a keyword clear button, search history etc.
 
 > 💡 [react-cool-onclickoutside](https://github.com/wellyshen/react-cool-onclickoutside) is my other hook library, which can helps you handle the interaction of user clicks outside of the component(s).
 
@@ -197,7 +197,7 @@ const PlacesAutocomplete = () => {
 
   return (
     <div>
-      <input value={value} onChange={handleInput} type="text" />
+      <input value={value} onChange={handleInput} />
       {/* Render suggestions panel */}
     </div>
   );
@@ -227,7 +227,6 @@ const PlacesAutocomplete = () => {
         <li
           key={suggestion.id}
           onClick={handleSelect(suggestion)}
-          role="presentation"
         >
           {/* Render suggestion text */}
         </li>
@@ -236,7 +235,7 @@ const PlacesAutocomplete = () => {
 
   return (
     <div>
-      <input value={value} onChange={handleInput} type="text" />
+      <input value={value} onChange={handleInput} />
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
     </div>
   );
@@ -268,7 +267,6 @@ const PlacesAutocomplete = () => {
         <li
           key={suggestion.id}
           onClick={handleSelect(suggestion)}
-          role="presentation"
         >
           {/* Render suggestion text */}
         </li>
@@ -277,7 +275,7 @@ const PlacesAutocomplete = () => {
 
   return (
     <div ref={registerRef}>
-      <input value={value} onChange={handleInput} type="text" />
+      <input value={value} onChange={handleInput} />
       {/* After calling the clearSuggestions(), the "status" is reset to empty string
           So the suggestions panel is hidden */}
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
