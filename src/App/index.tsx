@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 import React, { SFC, ChangeEvent } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { Global, css } from '@emotion/core';
@@ -16,7 +18,7 @@ import {
   input,
   list,
   listItem,
-  listItemMatched
+  subText
 } from './styles';
 
 type Suggestion = google.maps.places.AutocompletePrediction;
@@ -44,16 +46,19 @@ const App: SFC<{}> = () => {
 
   const renderSuggestions = (): JSX.Element[] =>
     data.map((suggestion: Suggestion) => {
-      const { id, description } = suggestion;
+      const {
+        id,
+        structured_formatting: { main_text, secondary_text }
+      } = suggestion;
 
       return (
         <li
           key={id}
-          css={value === description ? [listItem, listItemMatched] : listItem}
+          css={listItem}
           onClick={handleSelect(suggestion)}
           role="presentation"
         >
-          {description}
+          <b>{main_text}</b> <small css={subText}>{secondary_text}</small>
         </li>
       );
     });
@@ -76,7 +81,7 @@ const App: SFC<{}> = () => {
               css={input}
               value={value}
               onChange={handleInput}
-              placeholder="Enter a place"
+              placeholder="Where are you going?"
               type="text"
               disabled={!ready}
             />

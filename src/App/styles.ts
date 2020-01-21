@@ -47,7 +47,7 @@ export const autocomplete = css`
 
 export const wrapper = css`
   padding: 0.9rem 1.15rem;
-  border: 1px solid #ccc;
+  border: 1px solid #bbb;
   border-radius: 8px;
 `;
 
@@ -73,7 +73,7 @@ export const list = css`
   padding: 0.9rem 0;
   max-height: 60%;
   overflow-y: auto;
-  border: 1px solid #ccc;
+  border: 1px solid #bbb;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   list-style-type: none;
@@ -81,12 +81,7 @@ export const list = css`
 `;
 
 export const listItem = css`
-  padding: 0 1.15rem;
-  width: 15rem;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 2.3;
+  padding: 0.6rem 1.15rem;
   cursor: default;
   &:hover {
     background: #eee;
@@ -96,6 +91,6 @@ export const listItem = css`
   }
 `;
 
-export const listItemMatched = css`
-  background: #ddd;
+export const subText = css`
+  color: #8c8c8c;
 `;
