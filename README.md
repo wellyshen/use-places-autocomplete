@@ -286,6 +286,8 @@ const PlacesAutocomplete = () => {
 
 ## To Do
 
+When the hook comes out from my mind. I decide to make it ASAP to see the reaction of you guys. If you like it, don't be shy to give me feedback. In the near future I'll complete the following tasks to make it more healthy.
+
 - [ ] Unit testing
 - [ ] Utils for [Geocoding](https://developers.google.com/maps/documentation/geocoding/start)
 
