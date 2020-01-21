@@ -1,13 +1,13 @@
-> 🚧 This project is under developing, **API MAY CHANGED FREQUENTLY, PLEASE NOTE ANY BREAKING CHANGE FROM [RELEASES](https://github.com/wellyshen/use-places-autocomplete/releases)**. Here's the [milestone](#milestone).
-
 # usePlacesAutocomplete
 
 This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) of [Google Maps Places Autocomplete](https://developers.google.com/maps/documentation/javascript/places-autocomplete), which helps you build an UI component with the feature of place autocomplete easily! By leverage the power of [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places), you can provide a great UX (user experience) for user interacts with your search bar or form etc. Hope you guys 👍🏻 it.
 
-⚡️ Live demo: https://use-places-autocomplete.netlify.com
+> ⚠️ This project is in pre-release versions. **API may changed frequently, please note any change from [releases](https://github.com/wellyshen/use-places-autocomplete/releases)**.
 
 [![build status](https://img.shields.io/travis/wellyshen/use-places-autocomplete/master?style=flat-square)](https://travis-ci.org/wellyshen/use-places-autocomplete)
-[![coverage status](https://img.shields.io/coveralls/github/wellyshen/use-places-autocomplete?style=flat-square)](https://coveralls.io/github/wellyshen/use-places-autocomplete?branch=master)
+
+<!-- [![coverage status](https://img.shields.io/coveralls/github/wellyshen/use-places-autocomplete?style=flat-square)](https://coveralls.io/github/wellyshen/use-places-autocomplete?branch=master) -->
+
 [![npm version](https://img.shields.io/npm/v/use-places-autocomplete?style=flat-square)](https://www.npmjs.com/package/use-places-autocomplete)
 [![npm downloads](https://img.shields.io/npm/dm/use-places-autocomplete?style=flat-square)](https://www.npmtrends.com/use-places-autocomplete)
 [![npm downloads](https://img.shields.io/npm/dt/use-places-autocomplete?style=flat-square)](https://www.npmtrends.com/use-places-autocomplete)
@@ -17,16 +17,9 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/wellyshen/use-places-autocomplete/blob/master/CONTRIBUTING.md)
 [![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fwellyshen%2Fuse-places-autocomplete)](https://twitter.com/intent/tweet?text=With%20@use-places-autocomplete,%20I%20can%20build%20a%20component%20with%20the%20feature%20of%20place%20autocomplete%20easily!%20Thanks,%20@Welly%20Shen%20🤩)
 
-## Milestone
+## Live Demo
 
-- [x] usePlacesAutocomplete hook
-- [ ] Useful utils, e.g. geocoding etc.
-- [x] Server-side rendering friendly
-- [ ] Unit testing
-- [x] Demo app
-- [x] Documentation
-- [x] Typescript type definition
-- [x] CI/CD
+⚡️ Live demo: https://use-places-autocomplete.netlify.com
 
 ## Requirement
 
@@ -113,22 +106,29 @@ const PlacesAutocomplete = () => {
   };
 
   const renderSuggestions = () =>
-    data.map(suggestion => (
-      <li
-        key={suggestion.id}
-        onClick={handleSelect(suggestion)}
-        role="presentation"
-      >
-        {suggestion.description}
-      </li>
-    ));
+    data.map(suggestion => {
+      const {
+        id,
+        structured_formatting: { main_text, secondary_text }
+      } = suggestion;
+
+      return (
+        <li
+          key={id}
+          onClick={handleSelect(suggestion)}
+          role="presentation"
+        >
+          <b>{main_text}</b> <small css={subText}>{secondary_text}</small>
+        </li>
+      );
+    });
 
   return (
     <div ref={registerRef}>
       <input
         value={value}
         onChange={handleInput}
-        placeholder="Enter a place"
+        placeholder="Where are you going?"
         type="text"
         disabled={!ready}
       />
@@ -216,18 +216,23 @@ const PlacesAutocomplete = () => {
     setValue
   } = usePlacesAutocomplete();
 
-  const handleSelect = description => () => {
+  const handleSelect = ({ description }) => () => {
     // When user select a place, we can replace the keyword without request data from API
     // by setting the second parameter to "false"
     setValue(description, false);
   };
 
   const renderSuggestions = () =>
-    data.map(({ id, description }) => (
-      <li key={id} onClick={handleSelect(description)} role="presentation">
-        {description}
-      </li>
-    ));
+    data.map(suggestion => (
+        <li
+          key={suggestion.id}
+          onClick={handleSelect(suggestion)}
+          role="presentation"
+        >
+          {/* Render suggestion text */}
+        </li>
+      )
+    });
 
   return (
     <div>
@@ -259,7 +264,16 @@ const PlacesAutocomplete = () => {
   });
 
   const renderSuggestions = () =>
-    data.map(({ id, description }) => <li key={id}>{description}</li>);
+    data.map(suggestion => (
+        <li
+          key={suggestion.id}
+          onClick={handleSelect(suggestion)}
+          role="presentation"
+        >
+          {/* Render suggestion text */}
+        </li>
+      )
+    });
 
   return (
     <div ref={registerRef}>
@@ -271,6 +285,11 @@ const PlacesAutocomplete = () => {
   );
 };
 ```
+
+## To Do
+
+- [ ] Unit testing
+- [ ] Utils for [Geocoding](https://developers.google.com/maps/documentation/geocoding/start)
 
 ## Contributors ✨
 
