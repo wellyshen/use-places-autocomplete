@@ -45,21 +45,11 @@ export const autocomplete = css`
   display: inline-block;
 `;
 
-export const wrapper = css`
+export const input = css`
   padding: 0.9rem 1.15rem;
+  width: 15rem;
   border: 1px solid #bbb;
   border-radius: 8px;
-`;
-
-export const withSuggestions = css`
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-`;
-
-export const input = css`
-  padding: 0;
-  width: 15rem;
-  border: none;
   outline: none;
   line-height: 1.2;
   ${sm} {
@@ -67,10 +57,15 @@ export const input = css`
   }
 `;
 
-export const list = css`
+export const inputNoBottomRadius = css`
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+`;
+
+export const listBox = css`
   position: absolute;
   margin: -1px 0 0;
-  padding: 0.9rem 0;
+  padding: 0;
   max-height: 60%;
   overflow-y: auto;
   border: 1px solid #bbb;
@@ -81,14 +76,15 @@ export const list = css`
 `;
 
 export const listItem = css`
-  padding: 0.6rem 1.15rem;
+  padding: 0.75rem 1.15rem;
   cursor: default;
-  &:hover {
-    background: #eee;
-  }
   ${sm} {
     width: 20rem;
   }
+`;
+
+export const listItemDarken = css`
+  background: #eee;
 `;
 
 export const subText = css`
