@@ -21,13 +21,20 @@ after_success:
   - yarn coveralls
 
 before_deploy:
+  - yarn global add netlify-cli
   - yarn build:demo
 
 deploy:
-  provider: netlify
-  site: $NETLIFY_SITE_ID
-  auth: $NETLIFY_ACCESS_TOKEN
-  edge: true # opt in to dpl v2
+  provider: script
+  script: netlify deploy --site-id $NETLIFY_SITE_ID --access-token $NETLIFY_ACCESS_TOKEN --path ./demo
   on:
     branch: master
+
+# deploy:
+#   provider: netlify
+#   site: $NETLIFY_SITE_ID
+#   auth: $NETLIFY_ACCESS_TOKEN
+#   edge: true # opt in to dpl v2
+#   on:
+#     branch: master
 
