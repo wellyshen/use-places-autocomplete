@@ -12,7 +12,6 @@ script:
   - yarn type-check
   - yarn lint
   - yarn test:cov
-  - yarn build:demo
 
 notifications:
   email:
@@ -20,7 +19,7 @@ notifications:
 
 after_success:
   - yarn coveralls
-  - chmod +x ./deploy.sh
-  - ./deploy.sh
+  - chmod +x ./netlify-publish.sh
+  - ./netlify-publish.sh
 
 
