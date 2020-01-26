@@ -26,6 +26,6 @@ before_deploy:
 
 deploy:
   provider: script
-  script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p ./demo
+  script: netlify deploy --site-id $NETLIFY_SITE_ID --access-token $NETLIFY_ACCESS_TOKEN --path ./demo
   on:
     branch: master
