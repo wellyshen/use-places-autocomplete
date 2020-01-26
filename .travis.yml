@@ -20,6 +20,9 @@ notifications:
 after_success:
   - yarn coveralls
 
+env:
+  - CI=true
+
 before_deploy:
   - yarn global add netlify-cli
   - yarn build:demo
