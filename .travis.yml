@@ -3,6 +3,10 @@ language: node_js
 node_js:
   - "lts/*"
 
+notifications:
+  email:
+    on_failure: change
+
 cache:
   yarn: true
   directories:
@@ -13,9 +17,16 @@ script:
   - yarn lint
   - yarn test:cov
 
-notifications:
-  email:
-    on_failure: change
+before_deploy:
+  - yarn global add netlify-cli
+  - yarn build:demo
+
+deploy:
+  provider: script
+  script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p ./demo
+  skip_cleanup: true
+  on:
+    branch: master
 
 after_success:
   - yarn coveralls
