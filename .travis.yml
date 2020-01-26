@@ -27,5 +27,6 @@ before_deploy:
 deploy:
   provider: script
   script: netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --dir ./demo
+  skip_cleanup: true
   on:
     branch: master
