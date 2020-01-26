@@ -19,7 +19,13 @@ notifications:
 
 after_success:
   - yarn coveralls
-  - chmod +x ./netlify-publish.sh
-  - ./netlify-publish.sh
 
+before_deploy:
+  - yarn global add netlify-cli
+  - yarn build:demo
 
+deploy:
+  provider: script
+  script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p ./demo
+  on:
+    branch: master
