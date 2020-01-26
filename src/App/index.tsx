@@ -119,7 +119,7 @@ const App: SFC<{}> = () => {
       />
       <div css={container}>
         <GitHubCorner url="https://github.com/wellyshen/use-places-autocomplete" />
-        <h1 css={title}>usePlacesAutocomplete v1</h1>
+        <h1 css={title}>usePlacesAutocomplete</h1>
         <p css={subtitle}>React hook for Google Maps Places Autocomplete.</p>
         <div
           css={autocomplete}
