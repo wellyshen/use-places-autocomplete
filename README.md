@@ -139,7 +139,7 @@ const PlacesAutocomplete = () => {
 
 Easy right? This is the magic of the `usePlacesAutocomplete` ✨. I just show you how does it work via the minimal example. However there're more things you can do for an UX rich autocomplete component, like [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword support as my [demo](#live-demo) (check the [code](https://github.com/wellyshen/use-places-autocomplete/blob/master/src/App/index.tsx)), a keyword clear button, search history etc.
 
-> 💡 [react-cool-onclickoutside](https://github.com/wellyshen/react-cool-onclickoutside) is my other hook library, which can helps you handle the interaction of user clicks outside of the component(s).
+> 💡 [react-cool-onclickoutside](https://github.com/wellyshen/react-cool-onclickoutside) is my other hook library, which can help you handle the interaction of user clicks outside of the component(s).
 
 ## API
 
