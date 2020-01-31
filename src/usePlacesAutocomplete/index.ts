@@ -65,7 +65,7 @@ const usePlacesAutocomplete = ({
 
   const fetchPredictions = useCallback(
     _debounce((val: string) => {
-      if (!val.length) {
+      if (!val) {
         clearSuggestions();
         return;
       }
