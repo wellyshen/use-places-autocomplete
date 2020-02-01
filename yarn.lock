@@ -6491,10 +6491,10 @@ quick-lru@^4.0.1:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-4.0.1.tgz#5b8878f113a58217848c6482026c73e1ba57727f"
   integrity sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==
 
-react-cool-onclickoutside@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-cool-onclickoutside/-/react-cool-onclickoutside-1.0.3.tgz#cf4cc2fb08ed18783eac3801922e7850594d34a3"
-  integrity sha512-qAWenAVYF0V14fZgHgUNYlFvOx80VdgdcN5rE+VgSft35X6YLEyoP9L3mhvdCUpzc4lajzoyMVRbDM3QLchgtw==
+react-cool-onclickoutside@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-cool-onclickoutside/-/react-cool-onclickoutside-1.0.6.tgz#cae4405f0f279c29a4817207619529d0a884a3bf"
+  integrity sha512-BC/onqpbXXAFqRdz+ho8vS7g1mb7BWRmZ2oemKU7dwhM5mC/694efBhQPW49DAr8tir9PcjPEBRguFy+73nmTA==
 
 react-dom@^16.12.0:
   version "16.12.0"
