@@ -3,10 +3,7 @@ language: node_js
 node_js:
   - "lts/*"
 
-branches:
-  only:
-    - master
-    - /^feature.*$/
+if: tag is blank
 
 cache:
   yarn: true
