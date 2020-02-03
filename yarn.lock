@@ -1200,22 +1200,29 @@
   resolved "https://registry.yarnpkg.com/@rollup/plugin-html/-/plugin-html-0.1.1.tgz#0af548c7bf379a654480f0cbc17697f405a4ac1d"
   integrity sha512-CSrMUBAsNeQunUStd+H/a4zcrKswJq93XSCcUv8EXyhhDN9Xp4NKuUnag8i0pFvh+nq5Way+OzK6XVcgXR9adg==
 
-"@rollup/plugin-replace@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-replace/-/plugin-replace-2.3.0.tgz#86d88746383e40dd81cffb5216449cc51a734eb9"
-  integrity sha512-rzWAMqXAHC1w3eKpK6LxRqiF4f3qVFaa1sGii6Bp3rluKcwHNOpPt+hWRCmAH6SDEPtbPiLFf0pfNQyHs6Btlg==
+"@rollup/plugin-replace@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-replace/-/plugin-replace-2.3.1.tgz#16fb0563628f9e6c6ef9e05d48d3608916d466f5"
+  integrity sha512-qDcXj2VOa5+j0iudjb+LiwZHvBRRgWbHPhRmo1qde2KItTjuxDVQO21rp9/jOlzKR5YO0EsgRQoyox7fnL7y/A==
   dependencies:
-    magic-string "^0.25.2"
-    rollup-pluginutils "^2.6.0"
+    "@rollup/pluginutils" "^3.0.4"
+    magic-string "^0.25.5"
 
-"@rollup/plugin-url@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-url/-/plugin-url-4.0.1.tgz#e490c42ecfdff384c4fbcc2577670924108b8caa"
-  integrity sha512-YnG65fkm+O7W2X4wsoCn6daxWlBuHjWhDB8yZbErceVEUUgyRU++JK3RatwmvGyOaKzw41gUMLQLz7k6+W5/ww==
+"@rollup/plugin-url@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-url/-/plugin-url-4.0.2.tgz#af9e6ce8b26153843567bfb04e48843e72fc2dc4"
+  integrity sha512-jm0VbkSphTmfyCgbmkLpvz56Q6KYdLLQKOuMvfBEYDK5zUU7F13JQrv5D6xEU8DlDi/nOi6MSyGaloo9vfYZuQ==
   dependencies:
+    "@rollup/pluginutils" "^3.0.4"
     make-dir "^3.0.0"
     mime "^2.4.4"
-    rollup-pluginutils "^2.8.2"
+
+"@rollup/pluginutils@^3.0.4":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-3.0.8.tgz#4e94d128d94b90699e517ef045422960d18c8fde"
+  integrity sha512-rYGeAc4sxcZ+kPG/Tw4/fwJODC3IXHYDH4qusdN/b6aLw5LPUbzpecYbEJh4sVQGPFJxd2dBU4kc1H3oy9/bnw==
+  dependencies:
+    estree-walker "^1.0.1"
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
@@ -3109,10 +3116,10 @@ eslint-plugin-react@^7.14.3:
     prop-types "^15.7.2"
     resolve "^1.14.2"
 
-eslint-plugin-testing-library@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-testing-library/-/eslint-plugin-testing-library-2.1.0.tgz#22ccf764b94abd7614d5942e19ad99da6755f0ca"
-  integrity sha512-N5dpudj9SaFlbfgizFzlQ05XWK4TxYezsT8wxjkbH/abUqMGfz8RPaoSNPgfPg0rsPElgXKhacqsOYNyfoxdQQ==
+eslint-plugin-testing-library@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-testing-library/-/eslint-plugin-testing-library-2.2.0.tgz#68cd94aba67d17299d4d026f441e968b0ee9c63b"
+  integrity sha512-3edjjvs02O6veuh0JlOVrmnuER1YPO2lWlbSxLVGgoWp6pO3dI2gcVJKjAvYI3gpj927vlcgmmZQOU5NHCWEUg==
 
 eslint-scope@^5.0.0:
   version "5.0.0"
@@ -3214,6 +3221,11 @@ estree-walker@^0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.6.1.tgz#53049143f40c6eb918b23671d1fe3219f3a1b362"
   integrity sha512-SqmZANLWS0mnatqbSfRP5g8OXZC12Fgg1IwNtLsyHDzJizORW4khDfjPqJZsemPWBB2uqykUah5YpQ6epsqC/w==
+
+estree-walker@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-1.0.1.tgz#31bc5d612c96b704106b477e6dd5d8aa138cb700"
+  integrity sha512-1fMXF3YP4pZZVozF8j/ZLfvnR8NSIljt56UhbZ5PeeDmmGHpgpdwQt7ITlGvYaQukCvuBRMLEiKiYC+oeIg4cg==
 
 esutils@^2.0.0, esutils@^2.0.2:
   version "2.0.3"
@@ -5188,7 +5200,7 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-magic-string@^0.25.2:
+magic-string@^0.25.2, magic-string@^0.25.5:
   version "0.25.6"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.6.tgz#5586387d1242f919c6d223579cc938bf1420795e"
   integrity sha512-3a5LOMSGoCTH5rbqobC2HuDNRtE2glHZ8J7pK+QZYppyWA36yuNpsX994rIY2nCuyP7CZYy7lQq/X2jygiZ89g==
@@ -6992,10 +7004,10 @@ rollup-plugin-node-resolve@^5.2.0:
     resolve "^1.11.1"
     rollup-pluginutils "^2.8.1"
 
-rollup-plugin-postcss@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-postcss/-/rollup-plugin-postcss-2.0.5.tgz#93cad7b22e2647a013f3f158c2d45796e9885626"
-  integrity sha512-7z6gyeArYukoU+pyonj///KIak0lYWxhbaT6uJUESM1gBrqiXWMEHdvBcXysajtRsRBD8ZIMXD3smlFEN+sZkw==
+rollup-plugin-postcss@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-postcss/-/rollup-plugin-postcss-2.0.6.tgz#7e1c4e299e42cca170de7b789ecdd405a154c5a6"
+  integrity sha512-DTfIoKoC6ljQA4MmrPVbjnumWFx9tZAylDnduIhwJy9JQsq0iiVFmHy0c4cM//h7Auhf1RGB3FLqFuyNUcnExQ==
   dependencies:
     chalk "^2.4.2"
     concat-with-sourcemaps "^1.0.5"
@@ -7031,7 +7043,7 @@ rollup-plugin-terser@^5.2.0:
     serialize-javascript "^2.1.2"
     terser "^4.6.2"
 
-rollup-pluginutils@^2.0.1, rollup-pluginutils@^2.6.0, rollup-pluginutils@^2.8.1, rollup-pluginutils@^2.8.2:
+rollup-pluginutils@^2.0.1, rollup-pluginutils@^2.8.1, rollup-pluginutils@^2.8.2:
   version "2.8.2"
   resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-2.8.2.tgz#72f2af0748b592364dbd3389e600e5a9444a351e"
   integrity sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
