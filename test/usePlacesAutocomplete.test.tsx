@@ -21,10 +21,10 @@ describe('usePlacesAutocomplete', () => {
 
   it('should return input value correctly', () => {
     const { result } = renderHook(() => usePlacesAutocomplete());
-    const value = 'usePlacesAutocomplete so Cool 😎';
+    const val = 'usePlacesAutocomplete so Cool 😎';
     act(() => {
-      result.current.setValue(value);
+      result.current.setValue(val);
     });
-    expect(result.current.value).toBe(value);
+    expect(result.current.value).toBe(val);
   });
 });
