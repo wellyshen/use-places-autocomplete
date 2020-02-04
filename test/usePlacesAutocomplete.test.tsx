@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 
 import usePlacesAutocomplete from '../src/usePlacesAutocomplete';
 
@@ -17,5 +17,14 @@ describe('usePlacesAutocomplete', () => {
     );
     unmount();
     expect((window as any)[callbackName]).toBeUndefined();
+  });
+
+  it('should return input value correctly', () => {
+    const { result } = renderHook(() => usePlacesAutocomplete());
+    const value = 'usePlacesAutocomplete so Cool 😎';
+    act(() => {
+      result.current.setValue(value);
+    });
+    expect(result.current.value).toBe(value);
   });
 });
