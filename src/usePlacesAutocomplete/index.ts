@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import _debounce from 'lodash.debounce';
 
-const loadApiErr =
+export const loadApiErr =
   '> 💡use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library';
 
 type RequestOptions = Omit<google.maps.places.AutocompletionRequest, 'input'>;
@@ -11,7 +11,6 @@ interface Args {
   googleMaps?: any;
   callbackName?: string;
 }
-
 type Suggestion = google.maps.places.AutocompletePrediction;
 interface Suggestions {
   readonly loading: boolean;
