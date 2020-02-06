@@ -159,7 +159,8 @@
       ],
       "no-useless-constructor": "off",
       "@typescript-eslint/no-useless-constructor": "error",
-      "@typescript-eslint/no-explicit-any": "off"
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/ban-ts-ignore": "off"
     }
   },
   "eslintIgnore": [
