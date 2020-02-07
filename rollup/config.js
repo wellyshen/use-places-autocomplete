@@ -24,12 +24,14 @@ const isDist = BUILD === 'dist';
 const cjs = {
   file: isDist ? pkg.main : 'src/.dev/bundle.js',
   format: 'cjs',
-  sourcemap: isDev
+  sourcemap: isDev,
+  exports: 'named'
 };
 
 const esm = {
   file: pkg.module,
-  format: 'esm'
+  format: 'esm',
+  exports: 'named'
 };
 
 const extensions = ['.js', '.ts', '.tsx', '.json'];
