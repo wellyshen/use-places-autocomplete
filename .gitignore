@@ -6,3 +6,4 @@ src/.dev
 demo
 dist
 coverage
+.size-snapshot.json
