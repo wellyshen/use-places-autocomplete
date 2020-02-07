@@ -9,6 +9,7 @@ jest.mock('lodash.debounce', () => jest.fn(fn => fn));
 describe('usePlacesAutocomplete', () => {
   global.console.error = jest.fn();
 
+  const val = 'usePlacesAutocomplete so Cool 😎';
   const getPlacePredictions = jest.fn();
   const getMaps = (type = 'success'): object => ({
     maps: {
@@ -111,7 +112,6 @@ describe('usePlacesAutocomplete', () => {
     const { result } = renderHook(() => usePlacesAutocomplete());
     expect(result.current.value).toBe('');
 
-    const val = 'usePlacesAutocomplete so Cool 😎';
     act(() => {
       result.current.setValue(val);
     });
@@ -125,7 +125,6 @@ describe('usePlacesAutocomplete', () => {
     const { result } = renderHook(() =>
       usePlacesAutocomplete({ requestOptions: opts })
     );
-    const val = 'usePlacesAutocomplete so Cool 😎';
     result.current.setValue(val);
     expect(getPlacePredictions).toBeCalledWith(
       { ...opts, input: val },
