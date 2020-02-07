@@ -210,7 +210,7 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/react-hooks": "^3.2.1",
     "@types/googlemaps": "^3.39.2",
-    "@types/jest": "^25.1.1",
+    "@types/jest": "^25.1.2",
     "@types/lodash.debounce": "^4.0.6",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
