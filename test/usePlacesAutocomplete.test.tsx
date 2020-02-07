@@ -1,17 +1,34 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
+import _debounce from 'lodash.debounce';
 
 import usePlacesAutocomplete, {
   loadApiErr
 } from '../src/usePlacesAutocomplete';
 
-jest.mock('lodash.debounce', () => jest.fn(fn => fn));
+jest.mock('lodash.debounce');
+// @ts-ignore
+_debounce.mockImplementation(fn => fn);
 
 describe('usePlacesAutocomplete', () => {
   global.console.error = jest.fn();
 
   const val = 'usePlacesAutocomplete so Cool 😎';
+  const ok = 'OK';
+  const error = 'ERROR';
+  const data = [{ description: 'Taipei' }];
+  const okSuggestions = {
+    loading: false,
+    status: ok,
+    data
+  };
+  const defaultSuggestions = {
+    loading: false,
+    status: '',
+    // @ts-ignore
+    data: []
+  };
   const getPlacePredictions = jest.fn();
-  const getMaps = (type = 'success'): object => ({
+  const getMaps = (type = 'ok'): object => ({
     maps: {
       places: {
         AutocompleteService: class {
@@ -22,10 +39,7 @@ describe('usePlacesAutocomplete', () => {
                   opts: object,
                   cb: (data: object[] | null, status: string) => void
                 ): void => {
-                  cb(
-                    type === 'success' ? [{ description: 'Taipei' }] : null,
-                    type === 'success' ? 'OK' : 'ERROR'
-                  );
+                  cb(type === 'ok' ? data : null, type === 'ok' ? ok : error);
                 };
         }
       }
@@ -38,6 +52,8 @@ describe('usePlacesAutocomplete', () => {
   });
 
   afterEach(() => {
+    // @ts-ignore
+    _debounce.mockClear();
     // @ts-ignore
     global.console.error.mockClear();
   });
@@ -85,6 +101,29 @@ describe('usePlacesAutocomplete', () => {
     expect(console.error).toBeCalledWith(loadApiErr);
   });
 
+  it('should set debounce correctly', () => {
+    renderHook(() => usePlacesAutocomplete());
+    expect(_debounce).toBeCalledWith(expect.any(Function), 200);
+
+    const debounce = 500;
+    renderHook(() => usePlacesAutocomplete({ debounce }));
+    expect(_debounce).toBeCalledWith(expect.any(Function), debounce);
+  });
+
+  it('should set "requestOptions" correctly', () => {
+    // @ts-ignore
+    global.google = getMaps('opts');
+    const opts = { radius: 100 };
+    const { result } = renderHook(() =>
+      usePlacesAutocomplete({ requestOptions: opts })
+    );
+    result.current.setValue(val);
+    expect(getPlacePredictions).toBeCalledWith(
+      { ...opts, input: val },
+      expect.any(Function)
+    );
+  });
+
   it('should return "ready" correctly', () => {
     // @ts-ignore
     delete global.google;
@@ -103,32 +142,44 @@ describe('usePlacesAutocomplete', () => {
     expect(res.current.ready).toBeTruthy();
   });
 
-  it('should return "setValue"', () => {
-    const { result } = renderHook(() => usePlacesAutocomplete());
-    expect(result.current.setValue).toEqual(expect.any(Function));
-  });
-
   it('should return "value" correctly', () => {
     const { result } = renderHook(() => usePlacesAutocomplete());
     expect(result.current.value).toBe('');
 
-    act(() => {
-      result.current.setValue(val);
-    });
+    result.current.setValue(val);
     expect(result.current.value).toBe(val);
   });
 
-  it('should set "requestOptions" correctly', () => {
+  it('should return "suggestions" correctly', () => {
+    let res = renderHook(() => usePlacesAutocomplete()).result;
+    expect(res.current.suggestions).toEqual(defaultSuggestions);
+
+    res.current.setValue('');
+    expect(res.current.suggestions).toEqual(defaultSuggestions);
+
+    res.current.setValue(val, false);
+    expect(res.current.suggestions).toEqual(defaultSuggestions);
+
+    res.current.setValue(val);
+    expect(res.current.suggestions).toEqual(okSuggestions);
+
     // @ts-ignore
-    global.google = getMaps('opts');
-    const opts = { radius: 100 };
-    const { result } = renderHook(() =>
-      usePlacesAutocomplete({ requestOptions: opts })
-    );
+    global.google = getMaps('error');
+    res = renderHook(() => usePlacesAutocomplete()).result;
+    res.current.setValue(val);
+    expect(res.current.suggestions).toEqual({
+      loading: false,
+      status: error,
+      data: []
+    });
+  });
+
+  it('should clear suggestions', () => {
+    const { result } = renderHook(() => usePlacesAutocomplete());
     result.current.setValue(val);
-    expect(getPlacePredictions).toBeCalledWith(
-      { ...opts, input: val },
-      expect.any(Function)
-    );
+    expect(result.current.suggestions).toEqual(okSuggestions);
+
+    result.current.clearSuggestions();
+    expect(result.current.suggestions).toEqual(defaultSuggestions);
   });
 });
