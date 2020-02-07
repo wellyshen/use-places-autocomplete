@@ -59,7 +59,7 @@
     "postversion": "git push --follow-tags --no-verify && npm publish && yarn clean:dist",
     "clean:dev": "rimraf src/.dev",
     "clean:demo": "rimraf demo",
-    "clean:dist": "rimraf dist",
+    "clean:dist": "rimraf dist .size-snapshot.json",
     "clean:cov": "rimraf coverage",
     "clean": "run-p clean:*",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
