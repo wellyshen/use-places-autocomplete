@@ -2,56 +2,63 @@
 
 declare module 'use-places-autocomplete' {
   /** Types from @types/googlemaps */
-  class LatLng {
+  /** Hook */
+  class GLatLng {
     constructor(lat: number, lng: number, noWrap?: boolean);
     constructor(literal: LatLngLiteral, noWrap?: boolean);
-    equals(other: LatLng): boolean;
+    equals(other: GLatLng): boolean;
     lat(): number;
     lng(): number;
     toString(): string;
     toUrlValue(precision?: number): string;
     toJSON(): LatLngLiteral;
   }
+
   class LatLngBounds {
-    constructor(sw?: LatLng | LatLngLiteral, ne?: LatLng | LatLngLiteral);
-    contains(latLng: LatLng | LatLngLiteral): boolean;
+    constructor(sw?: GLatLng | LatLngLiteral, ne?: GLatLng | LatLngLiteral);
+    contains(latLng: GLatLng | LatLngLiteral): boolean;
     equals(other: LatLngBounds | LatLngBoundsLiteral): boolean;
-    extend(point: LatLng | LatLngLiteral): LatLngBounds;
-    getCenter(): LatLng;
-    getNorthEast(): LatLng;
-    getSouthWest(): LatLng;
+    extend(point: GLatLng | LatLngLiteral): LatLngBounds;
+    getCenter(): GLatLng;
+    getNorthEast(): GLatLng;
+    getSouthWest(): GLatLng;
     intersects(other: LatLngBounds | LatLngBoundsLiteral): boolean;
     isEmpty(): boolean;
     toJSON(): LatLngBoundsLiteral;
-    toSpan(): LatLng;
+    toSpan(): GLatLng;
     toString(): string;
     toUrlValue(precision?: number): string;
     union(other: LatLngBounds | LatLngBoundsLiteral): LatLngBounds;
   }
+
   class AutocompleteSessionToken {}
 
   interface LatLngLiteral {
     lat: number;
     lng: number;
   }
+
   interface LatLngBoundsLiteral {
     east: number;
     north: number;
     south: number;
     west: number;
   }
+
   interface ComponentRestrictions {
     country: string | string[];
   }
+
   interface AutocompletionRequest {
     bounds?: LatLngBounds | LatLngBoundsLiteral;
     componentRestrictions?: ComponentRestrictions;
-    location?: LatLng;
+    location?: GLatLng;
     offset?: number;
     radius?: number;
     sessionToken?: AutocompleteSessionToken;
     types?: string[];
   }
+
   interface PredictionSubstring {
     length: number;
     offset: number;
@@ -63,10 +70,12 @@ declare module 'use-places-autocomplete' {
     secondary_text: string;
     secondary_text_matched_substrings?: PredictionSubstring[];
   }
+
   interface PredictionTerm {
     offset: number;
     value: string;
   }
+
   interface AutocompletePrediction {
     description: string;
     id: string;
@@ -78,9 +87,41 @@ declare module 'use-places-autocomplete' {
     types: string[];
   }
 
-  /** Types of the hook */
+  /** Geocoding */
+  interface GeocoderAddressComponent {
+    long_name: string;
+    short_name: string;
+    types: string[];
+  }
+
+  enum GeocoderLocationType {
+    APPROXIMATE = 'APPROXIMATE',
+    GEOMETRIC_CENTER = 'GEOMETRIC_CENTER',
+    RANGE_INTERPOLATED = 'RANGE_INTERPOLATED',
+    ROOFTOP = 'ROOFTOP'
+  }
+
+  interface GeocoderGeometry {
+    bounds: LatLngBounds;
+    location: GLatLng;
+    location_type: GeocoderLocationType;
+    viewport: LatLngBounds;
+  }
+
+  interface GeocoderResult {
+    address_components: GeocoderAddressComponent[];
+    formatted_address: string;
+    geometry: GeocoderGeometry;
+    partial_match: boolean;
+    place_id: string;
+    postcode_localities: string[];
+    types: string[];
+  }
+
+  /** Hook types */
   export type RequestOptions = AutocompletionRequest;
-  interface Args {
+
+  interface HookArgs {
     requestOptions?: RequestOptions;
     debounce?: number;
     googleMaps?: any;
@@ -88,12 +129,14 @@ declare module 'use-places-autocomplete' {
   }
 
   export type Suggestion = AutocompletePrediction;
+
   export interface Suggestions {
     readonly loading: boolean;
     readonly status: string;
     readonly data: Suggestion[];
   }
-  interface Return {
+
+  interface HookReturn {
     readonly ready: boolean;
     readonly value: string;
     readonly suggestions: Suggestions;
@@ -106,7 +149,25 @@ declare module 'use-places-autocomplete' {
     debounce,
     googleMaps,
     callbackName
-  }?: Args) => Return;
+  }?: HookArgs) => HookReturn;
 
   export default usePlacesAutocomplete;
+
+  /** Geocoding types */
+  interface GeoArgs {
+    address?: string;
+    placeId?: string;
+  }
+
+  export type GeocodeResult = google.maps.GeocoderResult;
+
+  type GeoReturn = Promise<GeocodeResult[]>;
+
+  export const getGeocode: ({ address, placeId }: GeoArgs) => GeoReturn;
+
+  type LatLng = { lat: number; lng: number };
+
+  type LatLngReturn = Promise<LatLng>;
+
+  export const getLatLng: (result: GeocodeResult) => LatLngReturn;
 }
