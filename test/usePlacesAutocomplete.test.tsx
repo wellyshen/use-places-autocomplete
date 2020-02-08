@@ -3,7 +3,7 @@ import _debounce from 'lodash.debounce';
 
 import usePlacesAutocomplete, {
   loadApiErr
-} from '../src/usePlacesAutocomplete';
+} from '../src/usePlacesAutocomplete/usePlacesAutocomplete';
 
 jest.mock('lodash.debounce');
 // @ts-ignore
