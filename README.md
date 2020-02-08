@@ -286,7 +286,8 @@ const PlacesAutocomplete = () => {
 
 When the hook comes out from my mind. I decide to make it ASAP to see the reaction of you guys. If you like it, don't be shy to give me feedback. In the near future I'll complete the following tasks to make it more healthy.
 
-- [ ] Utils for [Geocoding](https://developers.google.com/maps/documentation/geocoding/start)
+- [ ] Unit testing for [utils](https://github.com/wellyshen/use-places-autocomplete/blob/master/src/usePlacesAutocomplete/geocoding.ts)
+- [ ] Document for [utils](https://github.com/wellyshen/use-places-autocomplete/blob/master/src/usePlacesAutocomplete/geocoding.ts)
 
 ## Contributors ✨
 
