@@ -25,7 +25,7 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 
 - 🧠 Provide intelligent places suggestions powered by [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places).
 - 🎣 Build your own customized autocomplete UI by React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook).
-- 🔧 Useful [utility functions](#utility-functions) help you do geocoding and get geographic coordinates using [Google Maps Geocoding API](https://developers.google.com/maps/documentation/javascript/geocoding).
+- 🔧 [Utility functions](#utility-functions) to do geocoding and get geographic coordinates using [Google Maps Geocoding API](https://developers.google.com/maps/documentation/javascript/geocoding).
 - 🏎️ Support asynchronous Google script loading.
 - 📜 Support [TypeScript](https://www.typescriptlang.org) type definition.
 - ⌨️ Build an UX rich component (e.g. [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword support) via comprehensive [demo code](https://github.com/wellyshen/use-places-autocomplete/blob/master/src/App/index.tsx).
