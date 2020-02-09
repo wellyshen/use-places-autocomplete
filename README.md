@@ -2,6 +2,8 @@
 
 This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) of [Google Maps Places Autocomplete](https://developers.google.com/maps/documentation/javascript/places-autocomplete), which helps you build an UI component with the feature of place autocomplete easily! By leverage the power of [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places), you can provide a great UX (user experience) for user interacts with your search bar or form etc. Hope you guys 👍🏻 it.
 
+❤️ it? ⭐️ it on [GitHub](https://github.com/wellyshen/use-places-autocomplete/stargazers) or [Tweet](https://twitter.com/intent/tweet?text=With%20@use-places-autocomplete,%20I%20can%20build%20a%20component%20with%20the%20feature%20of%20place%20autocomplete%20easily!%20Thanks,%20@Welly%20Shen%20🤩) about it.
+
 [![build status](https://img.shields.io/travis/wellyshen/use-places-autocomplete/master?style=flat-square)](https://travis-ci.org/wellyshen/use-places-autocomplete)
 [![coverage status](https://img.shields.io/coveralls/github/wellyshen/use-places-autocomplete?style=flat-square)](https://coveralls.io/github/wellyshen/use-places-autocomplete?branch=master)
 [![npm version](https://img.shields.io/npm/v/use-places-autocomplete?style=flat-square)](https://www.npmjs.com/package/use-places-autocomplete)
@@ -18,6 +20,15 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 ![demo](https://user-images.githubusercontent.com/21308003/72864420-e8a22b80-3d0e-11ea-9e8f-e16c85411b53.gif)
 
 ⚡️ Try yourself: https://use-places-autocomplete.netlify.com
+
+## Features
+
+- 🧠 Provide intelligent places suggestions powered by [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places).
+- 🎣 Build your own customized autocomplete UI by React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook).
+- 🔧 Useful [utility functions](#utility-functions) help you do geocoding and get geographic coordinates using [Google Maps Geocoding API](https://developers.google.com/maps/documentation/javascript/geocoding).
+- 🏎️ Support asynchronous Google script loading.
+- 📜 Support [TypeScript](https://www.typescriptlang.org) type definition.
+- ⌨️ Build an UX rich component (e.g. [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword support) via comprehensive [demo code](https://github.com/wellyshen/use-places-autocomplete/blob/master/src/App/index.tsx).
 
 ## Requirement
 
@@ -69,7 +80,7 @@ We also support asynchronous script loading. By doing so you need to pass the `i
 Now we can start to build our component. Check the [API](#api) out to learn more.
 
 ```js
-import usePlacesAutocomplete from 'use-places-autocomplete';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
 
 const PlacesAutocomplete = () => {
@@ -100,7 +111,14 @@ const PlacesAutocomplete = () => {
     setValue(description, false);
     clearSuggestions();
 
-    // Do something you want...
+    // Get latitude and longitude via utility functions
+    getGeocode({ address: description })
+      .then(results => getLatLng(results[0]))
+      .then(({ lat, lng }) => {
+        console.log('📍 Coordinates: ', { lat, lng });
+      }).catch(error => {
+        console.log('😱 Error: ', error)
+      });
   };
 
   const renderSuggestions = () =>
@@ -280,11 +298,62 @@ const PlacesAutocomplete = () => {
 };
 ```
 
-## To Do
+## Utility Functions
 
-When the hook comes out from my mind. I decide to make it ASAP to see the reaction of you guys. If you like it, don't be shy to give me feedback. In the near future I'll complete the following tasks to make it more healthy.
+We provide [getGeocode](#getgeocode) and [getLatLng](#getlatlng) utils for you to do geocoding and get geographic coordinates when needed.
 
-- [ ] Document for [utils](https://github.com/wellyshen/use-places-autocomplete/blob/master/src/usePlacesAutocomplete/geocoding.ts)
+### getGeocode
+
+It helps you convert address (e.g. "Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan") into geographic coordinates (e.g. latitude 25.033976 and longitude 121.5645389) by [Google Maps Geocoding API](https://developers.google.com/maps/documentation/javascript/geocoding).
+
+```js
+import { getGeocode } from 'use-places-autocomplete';
+
+const parameter = {
+  address: 'Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan',
+  // or
+  placeId: 'ChIJraeA2rarQjQRPBBjyR3RxKw'
+};
+
+getGeocode(parameter)
+  .then(results => {
+    console.log('Geocoding results: ', results);
+  })
+  .catch(error => {
+    console.log('Error: ', error);
+  });
+```
+
+`getGeocode` is an asynchronous function with following API:
+
+- `parameter: object` - you must supply one, only one of `address` or `placeId`. It'll be passed as [Geocoding Requests](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests).
+- `results: array` - an array of objects each contains all the [data](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingResults).
+- `error: string` - the error status of API response, which has these [values](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingStatusCodes) (except for "OK").
+
+### getLatLng
+
+It helps you get the `lat` and `lng` from the result object of `getGeocode`.
+
+```js
+import { getGeocode, getLatLng } from 'use-places-autocomplete';
+
+const parameter = {
+  address: 'Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan'
+};
+
+getGeocode(parameter)
+  .then(results => getLatLng(results[0]))
+  .then(latLng => {
+    const { lat, lng } = latLng;
+
+    console.log('Coordinates: ', { lat, lng });
+  });
+```
+
+`getLatLng` is an asynchronous function with following API:
+
+- `parameter: object` - the result object of `getGeocode`.
+- `latLng: object` - contains the latitude and longitude properties.
 
 ## Contributors ✨
 
