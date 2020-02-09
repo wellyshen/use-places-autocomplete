@@ -1,4 +1,8 @@
-import { getGeocode } from '../src/usePlacesAutocomplete/geocoding';
+import {
+  getGeocode,
+  getLatLng,
+  LatLng
+} from '../src/usePlacesAutocomplete/geocoding';
 
 describe('getGeocode', () => {
   const data = [{ place_id: '0109' }];
@@ -44,6 +48,30 @@ describe('getGeocode', () => {
     setupMaps('failure');
     getGeocode({ address: 'Taipei' }).catch(err => {
       expect(err).toBe(error);
+    });
+  });
+});
+
+describe('getLatLng', () => {
+  it('should handle success correctly', () => {
+    const latLng = { lat: 123, lng: 456 };
+    getLatLng({
+      geometry: {
+        // @ts-ignore
+        location: {
+          lat: (): number => latLng.lat,
+          lng: (): number => latLng.lng
+        }
+      }
+    }).then((result: LatLng) => {
+      expect(result).toEqual(latLng);
+    });
+  });
+
+  it('should handle failure correctly', () => {
+    // @ts-ignore
+    getLatLng({}).catch(error => {
+      expect(error).toEqual(expect.any(Error));
     });
   });
 });

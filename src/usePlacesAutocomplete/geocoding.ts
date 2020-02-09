@@ -17,7 +17,7 @@ export const getGeocode = ({ address, placeId }: GeoArgs): GeoReturn => {
   });
 };
 
-type LatLng = { lat: number; lng: number };
+export type LatLng = { lat: number; lng: number };
 type LatLngReturn = Promise<LatLng>;
 
 export const getLatLng = (result: GeocodeResult): LatLngReturn =>
