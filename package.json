@@ -1,6 +1,6 @@
 {
   "name": "use-places-autocomplete",
-  "version": "0.1.9",
+  "version": "0.4.0",
   "description": "React hook for Google Maps Places Autocomplete.",
   "license": "MIT",
   "homepage": "https://use-places-autocomplete.netlify.com",
@@ -29,6 +29,8 @@
     "location",
     "address",
     "form",
+    "geocoding",
+    "geocoding-api",
     "typescript"
   ],
   "author": "Welly Shen <hivoid19@gmail.com> (https://github.com/wellyshen)",
@@ -242,7 +244,7 @@
     "react-cool-onclickoutside": "^1.0.6",
     "react-dom": "^16.12.0",
     "react-test-renderer": "^16.12.0",
-    "rimraf": "^3.0.1",
+    "rimraf": "^3.0.2",
     "rollup": "^1.31.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
@@ -253,9 +255,9 @@
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-size-snapshot": "^0.11.0",
     "rollup-plugin-terser": "^5.2.0",
-    "stylelint": "^13.0.0",
+    "stylelint": "^13.1.0",
     "stylelint-config-prettier": "^8.0.1",
-    "stylelint-config-standard": "^19.0.0",
+    "stylelint-config-standard": "^20.0.0",
     "ts-jest": "^25.2.0",
     "typescript": "^3.7.5"
   },

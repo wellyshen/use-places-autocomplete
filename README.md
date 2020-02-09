@@ -2,8 +2,6 @@
 
 This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) of [Google Maps Places Autocomplete](https://developers.google.com/maps/documentation/javascript/places-autocomplete), which helps you build an UI component with the feature of place autocomplete easily! By leverage the power of [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places), you can provide a great UX (user experience) for user interacts with your search bar or form etc. Hope you guys 👍🏻 it.
 
-> ⚠️ This project is in pre-release versions. **API may changed frequently, please note any change from [releases](https://github.com/wellyshen/use-places-autocomplete/releases)**.
-
 [![build status](https://img.shields.io/travis/wellyshen/use-places-autocomplete/master?style=flat-square)](https://travis-ci.org/wellyshen/use-places-autocomplete)
 [![coverage status](https://img.shields.io/coveralls/github/wellyshen/use-places-autocomplete?style=flat-square)](https://coveralls.io/github/wellyshen/use-places-autocomplete?branch=master)
 [![npm version](https://img.shields.io/npm/v/use-places-autocomplete?style=flat-square)](https://www.npmjs.com/package/use-places-autocomplete)
@@ -286,7 +284,6 @@ const PlacesAutocomplete = () => {
 
 When the hook comes out from my mind. I decide to make it ASAP to see the reaction of you guys. If you like it, don't be shy to give me feedback. In the near future I'll complete the following tasks to make it more healthy.
 
-- [ ] Unit testing for [utils](https://github.com/wellyshen/use-places-autocomplete/blob/master/src/usePlacesAutocomplete/geocoding.ts)
 - [ ] Document for [utils](https://github.com/wellyshen/use-places-autocomplete/blob/master/src/usePlacesAutocomplete/geocoding.ts)
 
 ## Contributors ✨
