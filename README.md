@@ -324,7 +324,7 @@ getGeocode(parameter)
   });
 ```
 
-`getGeocode` is an asynchronous function with following API:
+`getGeocode` is an asynchronous function with the following API:
 
 - `parameter: object` - you must supply one, only one of `address` or `placeId`. It'll be passed as [Geocoding Requests](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests).
 - `results: array` - an array of objects each contains all the [data](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingResults).
@@ -350,7 +350,7 @@ getGeocode(parameter)
   });
 ```
 
-`getLatLng` is an asynchronous function with following API:
+`getLatLng` is an asynchronous function with the following API:
 
 - `parameter: object` - the result object of `getGeocode`.
 - `latLng: object` - contains the latitude and longitude properties.
