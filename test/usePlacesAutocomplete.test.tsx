@@ -15,7 +15,7 @@ describe('usePlacesAutocomplete', () => {
   const val = 'usePlacesAutocomplete so Cool 😎';
   const ok = 'OK';
   const error = 'ERROR';
-  const data = [{ description: 'Taipei' }];
+  const data = [{ place_id: '0109' }];
   const okSuggestions = {
     loading: false,
     status: ok,
@@ -28,7 +28,7 @@ describe('usePlacesAutocomplete', () => {
     data: []
   };
   const getPlacePredictions = jest.fn();
-  const getMaps = (type = 'ok'): object => ({
+  const getMaps = (type = 'success'): object => ({
     maps: {
       places: {
         AutocompleteService: class {
@@ -36,10 +36,13 @@ describe('usePlacesAutocomplete', () => {
             type === 'opts'
               ? getPlacePredictions
               : (
-                  opts: object,
+                  _: object,
                   cb: (data: object[] | null, status: string) => void
                 ): void => {
-                  cb(type === 'ok' ? data : null, type === 'ok' ? ok : error);
+                  cb(
+                    type === 'success' ? data : null,
+                    type === 'success' ? ok : error
+                  );
                 };
         }
       }
@@ -164,7 +167,7 @@ describe('usePlacesAutocomplete', () => {
     expect(res.current.suggestions).toEqual(okSuggestions);
 
     // @ts-ignore
-    global.google = getMaps('error');
+    global.google = getMaps('failure');
     res = renderHook(() => usePlacesAutocomplete()).result;
     res.current.setValue(val);
     expect(res.current.suggestions).toEqual({
