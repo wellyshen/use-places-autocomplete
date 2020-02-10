@@ -73,7 +73,7 @@ We also support asynchronous script loading. By doing so you need to pass the `i
 ```
 <!-- prettier-ignore-end -->
 
-> ⚠️ If you got a global function not found error. Make sure `usePlaceAutocomplete` is declared before the script is loaded.
+> ⚠️ If you got a global function not found error. Make sure `usePlaceAutocomplete` is declared before the script was loaded.
 
 ### Create the component
 
