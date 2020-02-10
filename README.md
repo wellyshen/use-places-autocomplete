@@ -146,7 +146,7 @@ const PlacesAutocomplete = () => {
         disabled={!ready}
         placeholder="Where are you going?"
       />
-      {/* We can use the "status" to decide whether we should display the suggestions panel or not */}
+      {/* We can use the "status" to decide whether we should display the dropdown or not */}
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
     </div>
   );
@@ -191,7 +191,7 @@ It's returned with the following properties.
 The search result of Google Maps Places API, which contains the following properties:
 
 - `loading: boolean` - indicates the status of a request is pending or has completed. It's useful for displaying a loading indicator for user.
-- `status: string` - indicates the status of API response, which has these [values](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlacesServiceStatus). It's useful to decide whether we should display the suggestions panel or not.
+- `status: string` - indicates the status of API response, which has these [values](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlacesServiceStatus). It's useful to decide whether we should display the dropdown or not.
 - `data: array` - an array of suggestion objects each contains all the [data](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletePrediction).
 
 #### setValue
@@ -212,7 +212,7 @@ const PlacesAutocomplete = () => {
   return (
     <div>
       <input value={value} onChange={handleInput} />
-      {/* Render suggestions panel */}
+      {/* Render dropdown */}
     </div>
   );
 };
@@ -258,7 +258,7 @@ const PlacesAutocomplete = () => {
 
 #### clearSuggestions
 
-Calling the method will clear and reset all the properties of the `suggestions` object to default. It's useful for dismissing the suggestions panel.
+Calling the method will clear and reset all the properties of the `suggestions` object to default. It's useful for dismissing the dropdown.
 
 ```js
 import usePlacesAutocomplete from 'use-places-autocomplete';
@@ -290,8 +290,7 @@ const PlacesAutocomplete = () => {
   return (
     <div ref={registerRef}>
       <input value={value} onChange={handleInput} />
-      {/* After calling the clearSuggestions(), the "status" is reset to empty string
-          So the suggestions panel is hidden */}
+      {/* After calling the clearSuggestions(), the "status" is reset so the dropdown is hidden */}
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
     </div>
   );
