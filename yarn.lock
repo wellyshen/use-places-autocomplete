@@ -3561,10 +3561,10 @@ eslint-plugin-react@^7.14.3:
     prop-types "^15.7.2"
     resolve "^1.14.2"
 
-eslint-plugin-testing-library@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-testing-library/-/eslint-plugin-testing-library-2.2.2.tgz#78559d551510263416c4e77696143a38e2d44bef"
-  integrity sha512-bgA/gU1C/7ZwD2+NCcCOe8fdH+araHvzYfgOdvBf7jifWMNd4Twn6IXdP26ad/6+y0QnZzit6pCphNUWGDwpsQ==
+eslint-plugin-testing-library@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-testing-library/-/eslint-plugin-testing-library-2.2.3.tgz#de42d0c07e10578a2edb880c973758e948e7b47d"
+  integrity sha512-pqMTWjBxYv+TnuU3ZzbdUJ0s5p5jSInlk6ly+YnTBNCDy2aLYpnNqeEinYzj1nH8Cthij62ajqzgODg6J25QNA==
 
 eslint-scope@^4.0.3:
   version "4.0.3"
@@ -4434,10 +4434,10 @@ human-signals@^1.1.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-1.1.1.tgz#c5b1cd14f50aeae09ab6c59fe63ba3395fe4dfa3"
   integrity sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==
 
-husky@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-4.2.1.tgz#b09f1bd9129e6c323cc515dc17081d0615e2d7c1"
-  integrity sha512-Qa0lRreeIf4Tl92sSs42ER6qc3hzoyQPPorzOrFWfPEVbdi6LuvJEqWKPk905fOWIR76iBpp7ECZNIwk+a8xuQ==
+husky@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-4.2.3.tgz#3b18d2ee5febe99e27f2983500202daffbc3151e"
+  integrity sha512-VxTsSTRwYveKXN4SaH1/FefRJYCtx+wx04sSVcOpD7N2zjoHxa+cEJ07Qg5NmV3HAK+IRKOyNVpi2YBIVccIfQ==
   dependencies:
     chalk "^3.0.0"
     ci-info "^2.0.0"
