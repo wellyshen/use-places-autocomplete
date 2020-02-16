@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: 🐛 Bug Report
 about: Create a bug report
 ---
 
@@ -29,7 +29,7 @@ Add screenshots to help explain your problem.
 
 - OS: [e.g. macOS, Windows]
 - Browser [e.g. Chrome, Safari]
-- Version of use-places-autocomplete: [e.g. v1.0.0]
+- Version of react-cool-img: [e.g. v1.0.0]
 
 ## Additional Information
 
