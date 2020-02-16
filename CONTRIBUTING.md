@@ -31,6 +31,7 @@ After cloning usePlacesAutocomplete, run `yarn` to fetch its dependencies. Then,
 - `yarn test` runs the complete test suite.
 - `yarn test:watch` runs an interactive test watcher (helpful in development).
 - `yarn test:cov` runs the complete test suite with coverage report.
+- `yarn test:update` updates the Jest snapshots.
 - `yarn build:demo` creates a `public` folder with all the static files.
 - `yarn build:dist` creates a `dist` folder with package builds (`CJS` & `ESM`) and type definition file. You can test the package locally via [yarn link](https://yarnpkg.com/lang/en/docs/cli/link).
 - `yarn build` creates both `public` and `dist`.
