@@ -194,7 +194,8 @@
     },
     "collectCoverageFrom": [
       "src/*.(ts|tsx)",
-      "!src/index.ts"
+      "!src/index.ts",
+      "!src/use-places-autocomplete.d.ts"
     ]
   },
   "dependencies": {
