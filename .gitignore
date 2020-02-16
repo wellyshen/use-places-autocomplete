@@ -2,8 +2,8 @@
 *.log
 
 node_modules
-src/.dev
-demo
+demo/.dev
+public
 dist
 coverage
 .size-snapshot.json

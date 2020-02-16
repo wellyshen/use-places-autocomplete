@@ -1,8 +1,4 @@
-import {
-  getGeocode,
-  getLatLng,
-  LatLng
-} from '../src/usePlacesAutocomplete/geocoding';
+import { getGeocode, getLatLng, LatLng } from '../geocoding';
 
 describe('getGeocode', () => {
   const data = [{ place_id: '0109' }];

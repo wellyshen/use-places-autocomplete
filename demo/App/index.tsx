@@ -6,7 +6,7 @@ import { Global, css } from '@emotion/core';
 import normalize from 'normalize.css';
 
 import GitHubCorner from '../GitHubCorner';
-import usePlacesAutocomplete from '../usePlacesAutocomplete';
+import usePlacesAutocomplete from '../../src';
 import {
   root,
   container,

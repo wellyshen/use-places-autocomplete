@@ -59,8 +59,8 @@
     "build": "run-s build:*",
     "preversion": "run-s type-check lint test build:dist",
     "postversion": "git push --follow-tags --no-verify && npm publish && yarn clean:dist",
-    "clean:dev": "rimraf src/.dev",
-    "clean:demo": "rimraf demo",
+    "clean:dev": "rimraf demo/.dev",
+    "clean:demo": "rimraf public",
     "clean:dist": "rimraf dist .size-snapshot.json",
     "clean:cov": "rimraf coverage",
     "clean": "run-p clean:*",
@@ -167,7 +167,7 @@
     }
   },
   "eslintIgnore": [
-    "demo",
+    "public",
     "dist"
   ],
   "prettier": {
@@ -183,7 +183,7 @@
       "declaration-empty-line-before": null
     },
     "ignoreFiles": [
-      "demo/**/*.css",
+      "public/**/*.css",
       "coverage/**/*.css"
     ]
   },
@@ -193,8 +193,8 @@
       "\\.(apng|bmp|gif|ico|cur|jpg|jpeg|jfif|pjpeg|pjp|png|svg|tif|tiff|webp)$": "<rootDir>/__mocks__/file.ts"
     },
     "collectCoverageFrom": [
-      "src/usePlacesAutocomplete/*.(ts|tsx)",
-      "!src/usePlacesAutocomplete/index.ts"
+      "src/*.(ts|tsx)",
+      "!src/index.ts"
     ]
   },
   "dependencies": {

@@ -1,9 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import _debounce from 'lodash.debounce';
 
-import usePlacesAutocomplete, {
-  loadApiErr
-} from '../src/usePlacesAutocomplete/usePlacesAutocomplete';
+import usePlacesAutocomplete, { loadApiErr } from '../usePlacesAutocomplete';
 
 jest.mock('lodash.debounce');
 // @ts-ignore

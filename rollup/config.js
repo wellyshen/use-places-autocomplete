@@ -22,7 +22,7 @@ const isDemo = BUILD === 'demo';
 const isDist = BUILD === 'dist';
 
 const cjs = {
-  file: isDist ? pkg.main : 'src/.dev/bundle.js',
+  file: isDist ? pkg.main : 'demo/.dev/bundle.js',
   format: 'cjs',
   sourcemap: isDev,
   exports: 'named'
@@ -53,23 +53,23 @@ const plugins = [
   !isDist &&
     copy({
       targets: [
-        { src: 'src/static/demo_assets', dest: 'src/.dev', rename: 'assets' }
+        { src: 'demo/static/site_assets', dest: 'demo/.dev', rename: 'assets' }
       ]
     }),
-  isDev && serve('src/.dev'),
+  isDev && serve('demo/.dev'),
   isDev && livereload(),
   !isDev && sizeSnapshot(),
   !isDev && terser(),
   isDemo &&
     copy({
-      targets: [{ src: 'src/.dev', dest: '.', rename: 'demo' }],
+      targets: [{ src: 'demo/.dev', dest: '.', rename: 'public' }],
       hook: 'writeBundle'
     }),
   isDist &&
     copy({
       targets: [
         {
-          src: 'src/types/use-places-autocomplete.d.ts',
+          src: 'src/use-places-autocomplete.d.ts',
           dest: pkg.types.split('/')[0],
           rename: 'index.d.ts'
         }
@@ -78,7 +78,7 @@ const plugins = [
 ];
 
 export default {
-  input: isDist ? 'src/usePlacesAutocomplete' : 'src',
+  input: isDist ? 'src' : 'demo',
   output: isDist ? [cjs, esm] : [cjs],
   plugins,
   external: isDist ? Object.keys(pkg.peerDependencies) : []
