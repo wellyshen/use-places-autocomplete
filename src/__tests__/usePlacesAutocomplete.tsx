@@ -8,6 +8,7 @@ jest.mock('lodash.debounce');
 _debounce.mockImplementation(fn => fn);
 
 describe('usePlacesAutocomplete', () => {
+  jest.useFakeTimers();
   global.console.error = jest.fn();
 
   const val = 'usePlacesAutocomplete so Cool 😎';
@@ -37,10 +38,12 @@ describe('usePlacesAutocomplete', () => {
                   _: object,
                   cb: (data: object[] | null, status: string) => void
                 ): void => {
-                  cb(
-                    type === 'success' ? data : null,
-                    type === 'success' ? ok : error
-                  );
+                  setTimeout(() => {
+                    cb(
+                      type === 'success' ? data : null,
+                      type === 'success' ? ok : error
+                    );
+                  }, 500);
                 };
         }
       }
@@ -162,12 +165,20 @@ describe('usePlacesAutocomplete', () => {
     expect(res.current.suggestions).toEqual(defaultSuggestions);
 
     res.current.setValue(val);
+    expect(res.current.suggestions).toEqual({
+      ...defaultSuggestions,
+      loading: true
+    });
+
+    res.current.setValue(val);
+    jest.runAllTimers();
     expect(res.current.suggestions).toEqual(okSuggestions);
 
     // @ts-ignore
     global.google = getMaps('failure');
     res = renderHook(() => usePlacesAutocomplete()).result;
     res.current.setValue(val);
+    jest.runAllTimers();
     expect(res.current.suggestions).toEqual({
       loading: false,
       status: error,
@@ -178,6 +189,7 @@ describe('usePlacesAutocomplete', () => {
   it('should clear suggestions', () => {
     const { result } = renderHook(() => usePlacesAutocomplete());
     result.current.setValue(val);
+    jest.runAllTimers();
     expect(result.current.suggestions).toEqual(okSuggestions);
 
     result.current.clearSuggestions();

@@ -69,6 +69,7 @@ const usePlacesAutocomplete = ({
         return;
       }
 
+      // To keep the previous suggestions
       setSuggestions(prevState => ({ ...prevState, loading: true }));
 
       asRef.current.getPlacePredictions(
