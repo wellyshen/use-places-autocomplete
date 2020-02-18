@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
-import React, { SFC, ChangeEvent, KeyboardEvent, useState } from 'react';
+import React, {
+  SFC,
+  ChangeEvent,
+  KeyboardEvent,
+  useState,
+  useRef
+} from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { Global, css } from '@emotion/core';
 import normalize from 'normalize.css';
@@ -42,7 +48,8 @@ const App: SFC<{}> = () => {
     clearSuggestions();
   };
 
-  const ref = useOnclickOutside(dismissSuggestions);
+  const ref = useRef();
+  useOnclickOutside(ref, dismissSuggestions);
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
     setValue(e.target.value);
