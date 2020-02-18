@@ -81,6 +81,7 @@ We also support asynchronous script loading. By doing so you need to pass the `i
 Now we can start to build our component. Check the [API](#api) out to learn more.
 
 ```js
+import React, { useRef } from 'react';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
 
@@ -95,7 +96,8 @@ const PlacesAutocomplete = () => {
     requestOptions: { /* Define search scope here */ }
     debounce: 300
   });
-  const registerRef = useOnclickOutside(() => {
+  const ref = useRef();
+  useOnclickOutside(ref, () => {
     // When user clicks outside of the component, we can dismiss
     // the searched suggestions by calling this method
     clearSuggestions();
@@ -140,7 +142,7 @@ const PlacesAutocomplete = () => {
     });
 
   return (
-    <div ref={registerRef}>
+    <div ref={ref}>
       <input
         value={value}
         onChange={handleInput}
@@ -200,6 +202,7 @@ The search result of Google Maps Places API, which contains the following proper
 Set the `value` of the input element. Use case as below.
 
 ```js
+import React from 'react';
 import usePlacesAutocomplete from 'use-places-autocomplete';
 
 const PlacesAutocomplete = () => {
@@ -222,6 +225,7 @@ const PlacesAutocomplete = () => {
 In addition, the `setValue` method has an extra parameter, which can be used to disable hitting Google Maps Places API.
 
 ```js
+import React from 'react';
 import usePlacesAutocomplete from 'use-places-autocomplete';
 
 const PlacesAutocomplete = () => {
@@ -262,6 +266,7 @@ const PlacesAutocomplete = () => {
 Calling the method will clear and reset all the properties of the `suggestions` object to default. It's useful for dismissing the dropdown.
 
 ```js
+import React, { useRef } from 'react';
 import usePlacesAutocomplete from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
 
@@ -272,7 +277,8 @@ const PlacesAutocomplete = () => {
     setValue,
     clearSuggestions
   } = usePlacesAutocomplete();
-  const registerRef = useOnclickOutside(() => {
+  const ref = useRef();
+  useOnclickOutside(ref, () => {
     // When user clicks outside of the component, call it to clear and reset the suggestions data
     clearSuggestions();
   });
@@ -289,7 +295,7 @@ const PlacesAutocomplete = () => {
     });
 
   return (
-    <div ref={registerRef}>
+    <div ref={ref}>
       <input value={value} onChange={handleInput} />
       {/* After calling the clearSuggestions(), the "status" is reset so the dropdown is hidden */}
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
