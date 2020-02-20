@@ -64,11 +64,12 @@ export const inputNoBottomRadius = css`
 
 export const listBox = css`
   position: absolute;
-  margin: -1px 0 0;
+  margin: 0;
   padding: 0;
   max-height: 60%;
   overflow-y: auto;
   border: 1px solid #bbb;
+  border-top: none;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   list-style-type: none;
