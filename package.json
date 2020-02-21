@@ -178,9 +178,13 @@
       "stylelint-config-standard",
       "stylelint-config-prettier"
     ],
+    "plugins": [
+      "stylelint-prettier"
+    ],
     "rules": {
       "string-quotes": "single",
-      "declaration-empty-line-before": null
+      "declaration-empty-line-before": null,
+      "prettier/prettier": true
     },
     "ignoreFiles": [
       "public/**/*.css",
@@ -259,6 +263,7 @@
     "stylelint": "^13.2.0",
     "stylelint-config-prettier": "^8.0.1",
     "stylelint-config-standard": "^20.0.0",
+    "stylelint-prettier": "^1.1.2",
     "ts-jest": "^25.2.1",
     "typescript": "^3.7.5"
   },
