@@ -265,7 +265,7 @@
     "stylelint-config-standard": "^20.0.0",
     "stylelint-prettier": "^1.1.2",
     "ts-jest": "^25.2.1",
-    "typescript": "^3.7.5"
+    "typescript": "^3.8.2"
   },
   "peerDependencies": {
     "react": ">= 16.8.0"
