@@ -170,12 +170,12 @@ const return = usePlacesAutocomplete(parameter);
 
 When use `usePlacesAutocomplete` you can configure the following options via the parameter.
 
-| Key              | Type (all optional) | Default              | Description                                                                                                                                                                                                             |
-| ---------------- | ------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `requestOptions` | object              |                      | The [request options](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest) of Google Maps Places API except for `input` (e.g. bounds, radius etc.). |
-| `googleMaps`     | object              | `window.google.maps` | In case you want to provide your own Google Maps object, pass it in as `google.maps`.                                                                                                                                   |
-| `callbackName`   | string              |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
-| `debounce`       | number              | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
+| Key              | Type   | Default              | Description                                                                                                                                                                                                             |
+| ---------------- | ------ | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `requestOptions` | object |                      | The [request options](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest) of Google Maps Places API except for `input` (e.g. bounds, radius etc.). |
+| `googleMaps`     | object | `window.google.maps` | In case you want to provide your own Google Maps object, pass it in as `google.maps`.                                                                                                                                   |
+| `callbackName`   | string |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
+| `debounce`       | number | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
 
 ### Return object
 
