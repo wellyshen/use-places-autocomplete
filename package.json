@@ -109,6 +109,7 @@
       "airbnb",
       "airbnb/hooks",
       "plugin:@typescript-eslint/recommended",
+      "plugin:testing-library/recommended",
       "plugin:prettier/recommended",
       "prettier/@typescript-eslint",
       "prettier/react"
