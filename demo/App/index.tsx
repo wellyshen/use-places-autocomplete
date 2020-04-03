@@ -33,7 +33,7 @@ const acceptedKeys = [38, 40, 13, 27];
 type Suggestion = google.maps.places.AutocompletePrediction;
 
 const App: SFC<{}> = () => {
-  const [currIndex, setCurrIndex] = useState(null);
+  const [currIndex, setCurrIndex] = useState<number | null>(null);
   const {
     ready,
     value,
@@ -48,7 +48,7 @@ const App: SFC<{}> = () => {
     clearSuggestions();
   };
 
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>();
   useOnclickOutside(ref, dismissSuggestions);
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {

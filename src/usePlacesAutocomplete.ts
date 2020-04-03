@@ -34,9 +34,9 @@ const usePlacesAutocomplete = ({
   googleMaps,
   callbackName
 }: HookArgs = {}): HookReturn => {
-  const [ready, setReady] = useState(false);
-  const [value, setVal] = useState('');
-  const [suggestions, setSuggestions] = useState({
+  const [ready, setReady] = useState<boolean>(false);
+  const [value, setVal] = useState<string>('');
+  const [suggestions, setSuggestions] = useState<Suggestions>({
     loading: false,
     status: '',
     data: []
