@@ -98,7 +98,7 @@ declare module 'use-places-autocomplete' {
     APPROXIMATE = 'APPROXIMATE',
     GEOMETRIC_CENTER = 'GEOMETRIC_CENTER',
     RANGE_INTERPOLATED = 'RANGE_INTERPOLATED',
-    ROOFTOP = 'ROOFTOP'
+    ROOFTOP = 'ROOFTOP',
   }
 
   interface GeocoderGeometry {
@@ -144,12 +144,7 @@ declare module 'use-places-autocomplete' {
     readonly clearSuggestions: () => void;
   }
 
-  const usePlacesAutocomplete: ({
-    requestOptions,
-    debounce,
-    googleMaps,
-    callbackName
-  }?: HookArgs) => HookReturn;
+  const usePlacesAutocomplete: (args?: HookArgs) => HookReturn;
 
   export default usePlacesAutocomplete;
 
@@ -163,7 +158,7 @@ declare module 'use-places-autocomplete' {
 
   type GeoReturn = Promise<GeocodeResult[]>;
 
-  export const getGeocode: ({ address, placeId }: GeoArgs) => GeoReturn;
+  export const getGeocode: (args: GeoArgs) => GeoReturn;
 
   export type LatLng = { lat: number; lng: number };
 
