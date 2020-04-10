@@ -32,14 +32,14 @@ const usePlacesAutocomplete = ({
   requestOptions,
   debounce = 200,
   googleMaps,
-  callbackName
+  callbackName,
 }: HookArgs = {}): HookReturn => {
   const [ready, setReady] = useState<boolean>(false);
   const [value, setVal] = useState<string>('');
   const [suggestions, setSuggestions] = useState<Suggestions>({
     loading: false,
     status: '',
-    data: []
+    data: [],
   });
   const asRef = useRef(null);
 
@@ -70,7 +70,7 @@ const usePlacesAutocomplete = ({
       }
 
       // To keep the previous suggestions
-      setSuggestions(prevState => ({ ...prevState, loading: true }));
+      setSuggestions((prevState) => ({ ...prevState, loading: true }));
 
       asRef.current.getPlacePredictions(
         { ...requestOptions, input: val },
