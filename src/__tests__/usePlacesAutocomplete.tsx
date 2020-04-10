@@ -5,7 +5,7 @@ import usePlacesAutocomplete, { loadApiErr } from '../usePlacesAutocomplete';
 
 jest.mock('lodash.debounce');
 // @ts-ignore
-_debounce.mockImplementation(fn => fn);
+_debounce.mockImplementation((fn) => fn);
 
 describe('usePlacesAutocomplete', () => {
   jest.useFakeTimers();
@@ -18,13 +18,13 @@ describe('usePlacesAutocomplete', () => {
   const okSuggestions = {
     loading: false,
     status: ok,
-    data
+    data,
   };
   const defaultSuggestions = {
     loading: false,
     status: '',
     // @ts-ignore
-    data: []
+    data: [],
   };
   const getPlacePredictions = jest.fn();
   const getMaps = (type = 'success'): object => ({
@@ -45,9 +45,9 @@ describe('usePlacesAutocomplete', () => {
                     );
                   }, 500);
                 };
-        }
-      }
-    }
+        },
+      },
+    },
   });
 
   beforeEach(() => {
@@ -167,7 +167,7 @@ describe('usePlacesAutocomplete', () => {
     res.current.setValue(val);
     expect(res.current.suggestions).toEqual({
       ...defaultSuggestions,
-      loading: true
+      loading: true,
     });
 
     res.current.setValue(val);
@@ -182,7 +182,7 @@ describe('usePlacesAutocomplete', () => {
     expect(res.current.suggestions).toEqual({
       loading: false,
       status: error,
-      data: []
+      data: [],
     });
   });
 

@@ -5,7 +5,7 @@ import React, {
   ChangeEvent,
   KeyboardEvent,
   useState,
-  useRef
+  useRef,
 } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { Global, css } from '@emotion/core';
@@ -24,7 +24,7 @@ import {
   listBox,
   listItem,
   listItemDarken,
-  subText
+  subText,
 } from './styles';
 
 let cachedVal = '';
@@ -39,7 +39,7 @@ const App: SFC<{}> = () => {
     value,
     suggestions: { status, data },
     setValue,
-    clearSuggestions
+    clearSuggestions,
   } = usePlacesAutocomplete();
   const hasSuggestions = status === 'OK';
 
@@ -96,7 +96,7 @@ const App: SFC<{}> = () => {
     data.map((suggestion: Suggestion, idx: number) => {
       const {
         id,
-        structured_formatting: { main_text, secondary_text }
+        structured_formatting: { main_text, secondary_text },
       } = suggestion;
 
       return (

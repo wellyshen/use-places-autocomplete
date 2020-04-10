@@ -21,8 +21,8 @@ describe('getGeocode', () => {
                     type === 'success' ? 'OK' : error
                   );
                 };
-        }
-      }
+        },
+      },
     };
   };
 
@@ -35,14 +35,14 @@ describe('getGeocode', () => {
 
   it('should handle success correctly', () => {
     setupMaps();
-    getGeocode({ address: 'Taipei' }).then(results => {
+    getGeocode({ address: 'Taipei' }).then((results) => {
       expect(results).toBe(data);
     });
   });
 
   it('should handle failure correctly', () => {
     setupMaps('failure');
-    getGeocode({ address: 'Taipei' }).catch(err => {
+    getGeocode({ address: 'Taipei' }).catch((err) => {
       expect(err).toBe(error);
     });
   });
@@ -56,9 +56,9 @@ describe('getLatLng', () => {
         // @ts-ignore
         location: {
           lat: (): number => latLng.lat,
-          lng: (): number => latLng.lng
-        }
-      }
+          lng: (): number => latLng.lng,
+        },
+      },
     }).then((result: LatLng) => {
       expect(result).toEqual(latLng);
     });
@@ -66,7 +66,7 @@ describe('getLatLng', () => {
 
   it('should handle failure correctly', () => {
     // @ts-ignore
-    getLatLng({}).catch(error => {
+    getLatLng({}).catch((error) => {
       expect(error).toEqual(expect.any(Error));
     });
   });
