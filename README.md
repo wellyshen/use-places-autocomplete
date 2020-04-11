@@ -377,7 +377,8 @@ const parameter = {
 };
 
 getGeocode(parameter)
-  // The second parameter tells the utility to use the "short_name" or not, default is "false"
+  // By default we use the "long_name" value from API response, you can tell the utility to use "short_name"
+  // by setting the second parameter as "true"
   .then((results) => getZipCode(results[0], false))
   .then((zipCode) => {
     console.log('ZIP Code: ', zipCode);
