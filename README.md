@@ -390,8 +390,9 @@ getGeocode(parameter)
 
 `getZipCode` is an asynchronous function with the following API:
 
-- `parameter1: object` - the result object of `getGeocode`.
-- `parameter2: boolean` - should use the `short_name` or not from [API response](https://developers.google.com/places/web-service/details#PlaceDetailsResponses), default is `false`.
+- `parameters` - there're two parameters:
+  - `1st: object` - the result object of `getGeocode`.
+  - `2nd: boolean` - should use the `short_name` or not from [API response](https://developers.google.com/places/web-service/details#PlaceDetailsResponses), default is `false`.
 - `zipCode: string | null` - the zip code. If the address doesn't have zip code it will be `null`.
 - `error: any` - an exception.
 
