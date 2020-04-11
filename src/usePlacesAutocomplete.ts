@@ -1,6 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import _debounce from 'lodash.debounce';
 
+import useLatest from './useLatest';
+
 export const loadApiErr =
   '> 💡use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library';
 
@@ -42,12 +44,14 @@ const usePlacesAutocomplete = ({
     data: [],
   });
   const asRef = useRef(null);
+  const requestOptionsRef = useLatest<RequestOptions>(requestOptions);
+  const googleMapsRef = useLatest(googleMaps);
 
   const init = useCallback(() => {
     const { google } = window;
+    const { current: gMaps } = googleMapsRef;
     const placesLib =
-      (googleMaps && googleMaps.places) ||
-      (google && google.maps && google.maps.places);
+      (gMaps && gMaps.places) || (google && google.maps && google.maps.places);
 
     if (!placesLib) {
       console.error(loadApiErr);
@@ -56,7 +60,8 @@ const usePlacesAutocomplete = ({
 
     asRef.current = new placesLib.AutocompleteService();
     setReady(true);
-  }, [googleMaps]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const clearSuggestions = useCallback(() => {
     setSuggestions({ loading: false, status: '', data: [] });
@@ -73,13 +78,13 @@ const usePlacesAutocomplete = ({
       setSuggestions((prevState) => ({ ...prevState, loading: true }));
 
       asRef.current.getPlacePredictions(
-        { ...requestOptions, input: val },
+        { ...requestOptionsRef.current, input: val },
         (data: Suggestion[] | null, status: string) => {
           setSuggestions({ loading: false, status, data: data || [] });
         }
       );
     }, debounce),
-    [requestOptions, debounce]
+    [debounce, clearSuggestions]
   );
 
   const setValue: SetValue = useCallback(
@@ -87,13 +92,13 @@ const usePlacesAutocomplete = ({
       setVal(val);
       if (shouldFetchData) fetchPredictions(val);
     },
-    [fetchPredictions] // eslint-disable-line react-hooks/exhaustive-deps
+    [fetchPredictions]
   );
 
   useEffect(() => {
     const { google } = window;
 
-    if (!googleMaps && !(google && google.maps) && callbackName) {
+    if (!googleMapsRef.current && !(google && google.maps) && callbackName) {
       (window as any)[callbackName] = init;
     } else {
       init();
@@ -102,7 +107,8 @@ const usePlacesAutocomplete = ({
     return (): void => {
       if ((window as any)[callbackName]) delete (window as any)[callbackName];
     };
-  }, [googleMaps, callbackName, init]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [callbackName, init]);
 
   return { ready, value, suggestions, setValue, clearSuggestions };
 };
