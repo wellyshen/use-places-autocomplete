@@ -7425,10 +7425,10 @@ randomfill@^1.0.3:
     randombytes "^2.0.5"
     safe-buffer "^5.1.0"
 
-react-cool-onclickoutside@^1.3.5:
-  version "1.3.7"
-  resolved "https://registry.yarnpkg.com/react-cool-onclickoutside/-/react-cool-onclickoutside-1.3.7.tgz#587dd4afef0c512ce3e0c4c6bf373fff19d81184"
-  integrity sha512-21cTY2Sgvob5sZv94fsvZiugytnUEGeydVJTGBkBl1n3WviooXvV4bz9bfffC3U0DPE0DFqGhr8B8++su0sNpg==
+react-cool-onclickoutside@latest:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-cool-onclickoutside/-/react-cool-onclickoutside-1.4.1.tgz#3980dfb94eecb83a4f63715ddbe458e651e34648"
+  integrity sha512-jvssP7T153jkRc69GwU8Px5/oPmZLWpMLaGDWYyJmWMZ+iru7SqM9oLRBX5y0tuCM65ZhAIwnxGdM6LrKMvszg==
 
 react-dom@^16.13.1:
   version "16.13.1"
