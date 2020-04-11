@@ -165,4 +165,13 @@ declare module 'use-places-autocomplete' {
   type LatLngReturn = Promise<LatLng>;
 
   export const getLatLng: (result: GeocodeResult) => LatLngReturn;
+
+  type ZipCode = string | null;
+
+  type ZipCodeReturn = Promise<ZipCode>;
+
+  export const getZipCode: (
+    result: GeocodeResult,
+    useShortName: boolean
+  ) => ZipCodeReturn;
 }

@@ -1,5 +1,5 @@
 import usePlacesAutocomplete from './usePlacesAutocomplete';
-import { getGeocode, getLatLng } from './geocoding';
+import { getGeocode, getLatLng, getZipCode } from './utils';
 
 export default usePlacesAutocomplete;
-export { getGeocode, getLatLng };
+export { getGeocode, getLatLng, getZipCode };

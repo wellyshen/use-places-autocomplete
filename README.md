@@ -208,7 +208,7 @@ import usePlacesAutocomplete from 'use-places-autocomplete';
 const PlacesAutocomplete = () => {
   const { value, setValue } = usePlacesAutocomplete();
 
-  const handleInput = e => {
+  const handleInput = (e) => {
     // Place a "string" to update the value of the input element
     setValue(e.target.value);
   };
@@ -306,7 +306,7 @@ const PlacesAutocomplete = () => {
 
 ## Utility Functions
 
-We provide [getGeocode](#getgeocode) and [getLatLng](#getlatlng) utils for you to do geocoding and get geographic coordinates when needed.
+We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng) and [getZipCode](#getzipcode) utils for you to do geocoding and get geographic coordinates when needed.
 
 ### getGeocode
 
@@ -318,14 +318,14 @@ import { getGeocode } from 'use-places-autocomplete';
 const parameter = {
   address: 'Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan',
   // or
-  placeId: 'ChIJraeA2rarQjQRPBBjyR3RxKw'
+  placeId: 'ChIJraeA2rarQjQRPBBjyR3RxKw',
 };
 
 getGeocode(parameter)
-  .then(results => {
+  .then((results) => {
     console.log('Geocoding results: ', results);
   })
-  .catch(error => {
+  .catch((error) => {
     console.log('Error: ', error);
   });
 ```
@@ -344,15 +344,18 @@ It helps you get the `lat` and `lng` from the result object of `getGeocode`.
 import { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 const parameter = {
-  address: 'Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan'
+  address: 'Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan',
 };
 
 getGeocode(parameter)
-  .then(results => getLatLng(results[0]))
-  .then(latLng => {
+  .then((results) => getLatLng(results[0]))
+  .then((latLng) => {
     const { lat, lng } = latLng;
 
     console.log('Coordinates: ', { lat, lng });
+  })
+  .catch((error) => {
+    console.log('Error: ', error);
   });
 ```
 
@@ -360,6 +363,36 @@ getGeocode(parameter)
 
 - `parameter: object` - the result object of `getGeocode`.
 - `latLng: object` - contains the latitude and longitude properties.
+- `error: any` - an exception.
+
+### getZipCode
+
+It helps you get the `postal_code` from the result object of `getGeocode`.
+
+```js
+import { getGeocode, getZipCode } from 'use-places-autocomplete';
+
+const parameter = {
+  address: 'Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan',
+};
+
+getGeocode(parameter)
+  // The second parameter tells the utility to use the "short_name" or not, default is "false"
+  .then((results) => getZipCode(results[0], false))
+  .then((zipCode) => {
+    console.log('ZIP Code: ', zipCode);
+  })
+  .catch((error) => {
+    console.log('Error: ', error);
+  });
+```
+
+`getZipCode` is an asynchronous function with the following API:
+
+- `parameter1: object` - the result object of `getGeocode`.
+- `parameter2: boolean` - should use the `short_name` or not from [API response](https://developers.google.com/places/web-service/details#PlaceDetailsResponses), default is `false`.
+- `zipCode: string | null` - the zip code. If the address doesn't have zip code it will be `null`.
+- `error: any` - an exception.
 
 ## Contributors ✨
 

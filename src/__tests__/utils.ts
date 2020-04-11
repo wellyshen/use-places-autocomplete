@@ -1,4 +1,4 @@
-import { getGeocode, getLatLng, LatLng } from '../geocoding';
+import { getGeocode, getLatLng, LatLng, getZipCode, ZipCode } from '../utils';
 
 describe('getGeocode', () => {
   const data = [{ place_id: '0109' }];
@@ -67,6 +67,37 @@ describe('getLatLng', () => {
   it('should handle failure correctly', () => {
     // @ts-ignore
     getLatLng({}).catch((error) => {
+      expect(error).toEqual(expect.any(Error));
+    });
+  });
+});
+
+describe('getZipCode', () => {
+  it('should handle success correctly', () => {
+    const zipCode = {
+      long_name: '12345',
+      short_name: '123',
+      types: ['postal_code'],
+    };
+    // @ts-ignore
+    getZipCode({ address_components: [zipCode] }).then((result: ZipCode) => {
+      expect(result).toEqual(zipCode.long_name);
+    });
+    // @ts-ignore
+    getZipCode({ address_components: [zipCode] }, true).then(
+      (result: ZipCode) => {
+        expect(result).toEqual(zipCode.short_name);
+      }
+    );
+    // @ts-ignore
+    getZipCode({ address_components: [] }).then((result: ZipCode) => {
+      expect(result).toBeNull();
+    });
+  });
+
+  it('should handle failure correctly', () => {
+    // @ts-ignore
+    getZipCode({}).catch((error) => {
       expect(error).toEqual(expect.any(Error));
     });
   });
