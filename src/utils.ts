@@ -1,19 +1,33 @@
 interface GeoArgs {
   address?: string;
   placeId?: string;
+  componentRestrictions?: GeocoderComponentRestrictions;
 }
 type GeocodeResult = google.maps.GeocoderResult;
 type GeoReturn = Promise<GeocodeResult[]>;
+type GeocoderComponentRestrictions = google.maps.GeocoderComponentRestrictions;
 
-export const getGeocode = ({ address, placeId }: GeoArgs): GeoReturn => {
+export const getGeocode = ({
+  address,
+  placeId,
+  componentRestrictions,
+}: GeoArgs): GeoReturn => {
   const geocoder = new window.google.maps.Geocoder();
 
   return new Promise((resolve, reject) => {
-    geocoder.geocode({ address, placeId }, (results, status) => {
-      if (status !== 'OK') reject(status);
-
-      resolve(results);
-    });
+    geocoder.geocode(
+      { address, placeId, componentRestrictions },
+      (results, status) => {
+        if (status !== 'OK') reject(status);
+        if (!address && !placeId && componentRestrictions) {
+          console.warn(
+            'getGeocode: Please provide an address or placeId in order for the componentRestrictions to work properly.'
+          );
+          resolve(results);
+        }
+        resolve(results);
+      }
+    );
   });
 };
 

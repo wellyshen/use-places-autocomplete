@@ -4,6 +4,7 @@ describe('getGeocode', () => {
   const data = [{ place_id: '0109' }];
   const error = 'ERROR';
   const geocode = jest.fn();
+  console.warn = jest.fn();
   const setupMaps = (type = 'success'): void => {
     // @ts-ignore
     global.google = {
@@ -44,6 +45,36 @@ describe('getGeocode', () => {
     setupMaps('failure');
     getGeocode({ address: 'Taipei' }).catch((err) => {
       expect(err).toBe(error);
+    });
+  });
+
+  it('should restrict the result to Taiwan and fail', () => {
+    setupMaps('failure');
+    getGeocode({
+      address: 'Belgrade',
+      componentRestrictions: { country: 'TW' },
+    }).catch((err) => {
+      expect(err).toBe(error);
+    });
+  });
+
+  it('should restrict the result to Taiwan and pass', () => {
+    setupMaps();
+    getGeocode({
+      address: 'Taipei',
+      componentRestrictions: { country: 'TW' },
+    }).then((results) => {
+      expect(results).toBe(data);
+    });
+  });
+
+  it('should warn the user for not providing the address or placeId but providing componentRestrictions and pass', () => {
+    setupMaps();
+    getGeocode({
+      componentRestrictions: { country: 'TW', postalCode: '100' },
+    }).then((results) => {
+      expect(console.warn).toBeCalled();
+      expect(results).toBe(data);
     });
   });
 });
