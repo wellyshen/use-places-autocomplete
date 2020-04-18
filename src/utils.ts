@@ -4,8 +4,8 @@ interface GeoArgs {
   componentRestrictions?: GeocoderComponentRestrictions;
 }
 type GeocodeResult = google.maps.GeocoderResult;
-type GeoReturn = Promise<GeocodeResult[]>;
 type GeocoderComponentRestrictions = google.maps.GeocoderComponentRestrictions;
+type GeoReturn = Promise<GeocodeResult[]>;
 
 export const getGeocode = ({
   address,
@@ -19,9 +19,9 @@ export const getGeocode = ({
       { address, placeId, componentRestrictions },
       (results, status) => {
         if (status !== 'OK') reject(status);
-        if (!address && !placeId && componentRestrictions) {
+        if (!address && componentRestrictions) {
           console.warn(
-            'getGeocode: Please provide an address or placeId in order for the componentRestrictions to work properly.'
+            'getGeocode: Please provide an address in order for the componentRestrictions to work properly.'
           );
           resolve(results);
         }

@@ -312,6 +312,8 @@ We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng) and [getZipCode](#
 
 It helps you convert address (e.g. "Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan") into geographic coordinates (e.g. latitude 25.033976 and longitude 121.5645389) or restrict the results to a specific area by [Google Maps Geocoding API](https://developers.google.com/maps/documentation/javascript/geocoding).
 
+In case you want to restrict the results to a specific area you will have to pass the `address` and the `componentRestrictions` matching the [GeocoderComponentRestrictions interface](https://developers.google.com/maps/documentation/javascript/reference/geocoder#GeocoderComponentRestrictions).
+
 ```js
 import { getGeocode } from 'use-places-autocomplete';
 
