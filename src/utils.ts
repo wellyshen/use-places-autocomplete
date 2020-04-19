@@ -1,3 +1,6 @@
+export const geocodeWarn =
+  '> 💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.';
+
 interface GeoArgs {
   address?: string;
   placeId?: string;
@@ -20,9 +23,7 @@ export const getGeocode = ({
       (results, status) => {
         if (status !== 'OK') reject(status);
         if (!address && componentRestrictions) {
-          console.warn(
-            'getGeocode: Please provide an address in order for the componentRestrictions to work properly.'
-          );
+          console.warn(geocodeWarn);
           resolve(results);
         }
         resolve(results);

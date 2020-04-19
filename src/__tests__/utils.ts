@@ -1,10 +1,18 @@
-import { getGeocode, getLatLng, LatLng, getZipCode, ZipCode } from '../utils';
+import {
+  getGeocode,
+  getLatLng,
+  LatLng,
+  getZipCode,
+  ZipCode,
+  geocodeWarn,
+} from '../utils';
 
 describe('getGeocode', () => {
+  console.warn = jest.fn();
+
   const data = [{ place_id: '0109' }];
   const error = 'ERROR';
   const geocode = jest.fn();
-  console.warn = jest.fn();
   const setupMaps = (type = 'success'): void => {
     // @ts-ignore
     global.google = {
@@ -73,7 +81,7 @@ describe('getGeocode', () => {
     getGeocode({
       componentRestrictions: { country: 'TW', postalCode: '100' },
     }).then((results) => {
-      expect(console.warn).toBeCalled();
+      expect(console.warn).toBeCalledWith(geocodeWarn);
       expect(results).toBe(data);
     });
   });
