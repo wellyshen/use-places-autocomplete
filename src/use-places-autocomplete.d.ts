@@ -88,6 +88,14 @@ declare module 'use-places-autocomplete' {
   }
 
   /** Geocoding */
+  interface GeocoderComponentRestrictions {
+    administrativeArea?: string;
+    country?: string | string[];
+    locality?: string;
+    postalCode?: string;
+    route?: string;
+  }
+
   interface GeocoderAddressComponent {
     long_name: string;
     short_name: string;
@@ -152,9 +160,10 @@ declare module 'use-places-autocomplete' {
   interface GeoArgs {
     address?: string;
     placeId?: string;
+    componentRestrictions?: GeocoderComponentRestrictions;
   }
 
-  export type GeocodeResult = google.maps.GeocoderResult;
+  export type GeocodeResult = GeocoderResult;
 
   type GeoReturn = Promise<GeocodeResult[]>;
 
