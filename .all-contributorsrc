@@ -24,6 +24,16 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "rejvban",
+      "name": "Lazar Karić",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/16634314?v=4",
+      "profile": "https://www.lkaric.tech",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
