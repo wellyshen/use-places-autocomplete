@@ -310,7 +310,9 @@ We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng) and [getZipCode](#
 
 ### getGeocode
 
-It helps you convert address (e.g. "Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan") into geographic coordinates (e.g. latitude 25.033976 and longitude 121.5645389) by [Google Maps Geocoding API](https://developers.google.com/maps/documentation/javascript/geocoding).
+It helps you convert address (e.g. "Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan") into geographic coordinates (e.g. latitude 25.033976 and longitude 121.5645389) or restrict the results to a specific area by [Google Maps Geocoding API](https://developers.google.com/maps/documentation/javascript/geocoding).
+
+In case you want to restrict the results to a specific area you will have to pass the `address` and the `componentRestrictions` matching the [GeocoderComponentRestrictions interface](https://developers.google.com/maps/documentation/javascript/reference/geocoder#GeocoderComponentRestrictions).
 
 ```js
 import { getGeocode } from 'use-places-autocomplete';
@@ -332,7 +334,7 @@ getGeocode(parameter)
 
 `getGeocode` is an asynchronous function with the following API:
 
-- `parameter: object` - you must supply one, only one of `address` or `placeId`. It'll be passed as [Geocoding Requests](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests).
+- `parameter: object` - you must supply one, only one of `address` or `placeId` and optionally `componentRestrictions` object in case you want your results to be restricted to a specific area. It'll be passed as [Geocoding Requests](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests).
 - `results: array` - an array of objects each contains all the [data](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingResults).
 - `error: string` - the error status of API response, which has these [values](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingStatusCodes) (except for "OK").
 
