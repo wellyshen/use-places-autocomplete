@@ -163,7 +163,7 @@ Easy right? This is the magic of the `usePlacesAutocomplete` ✨. I just show yo
 ## API
 
 ```js
-const return = usePlacesAutocomplete(parameter);
+const returnObj = usePlacesAutocomplete(parameterObj);
 ```
 
 ### Parameter object (optional)
