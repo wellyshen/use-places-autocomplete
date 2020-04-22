@@ -19,7 +19,7 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 
 ![demo](https://user-images.githubusercontent.com/21308003/72864420-e8a22b80-3d0e-11ea-9e8f-e16c85411b53.gif)
 
-⚡️ Try yourself: https://use-places-autocomplete.netlify.com
+⚡️ Try yourself: https://use-places-autocomplete.netlify.app
 
 ## Features
 
