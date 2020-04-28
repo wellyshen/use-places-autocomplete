@@ -14,9 +14,9 @@ export default ({ files }) => `
       <title>usePlacesAutocomplete</title>
       <meta property="og:title" content="usePlacesAutocomplete" />
       <meta property="og:type" content="website" />
-      <meta property="og:image" content="https://use-places-autocomplete.netlify.com/assets/og_image.png" />
+      <meta property="og:image" content="https://use-places-autocomplete.netlify.app/assets/og_image.png" />
       <meta property="og:description" content="React hook for Google Maps Places Autocomplete." />
-      <meta property="og:url" content="https://use-places-autocomplete.netlify.com" />
+      <meta property="og:url" content="https://use-places-autocomplete.netlify.app" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@use-places-autocomplete" />
       <meta name="twitter:creator" content="@wellyshen" />
