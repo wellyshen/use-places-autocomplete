@@ -101,17 +101,17 @@ describe('usePlacesAutocomplete', () => {
     delete global.google;
     renderHook(() => usePlacesAutocomplete());
 
-    expect(console.error).toBeCalledTimes(3);
-    expect(console.error).toBeCalledWith(loadApiErr);
+    expect(console.error).toHaveBeenCalledTimes(3);
+    expect(console.error).toHaveBeenCalledWith(loadApiErr);
   });
 
   it('should set debounce correctly', () => {
     renderHook(() => usePlacesAutocomplete());
-    expect(_debounce).toBeCalledWith(expect.any(Function), 200);
+    expect(_debounce).toHaveBeenCalledWith(expect.any(Function), 200);
 
     const debounce = 500;
     renderHook(() => usePlacesAutocomplete({ debounce }));
-    expect(_debounce).toBeCalledWith(expect.any(Function), debounce);
+    expect(_debounce).toHaveBeenCalledWith(expect.any(Function), debounce);
   });
 
   it('should set "requestOptions" correctly', () => {
@@ -122,7 +122,7 @@ describe('usePlacesAutocomplete', () => {
       usePlacesAutocomplete({ requestOptions: opts })
     );
     result.current.setValue(val);
-    expect(getPlacePredictions).toBeCalledWith(
+    expect(getPlacePredictions).toHaveBeenCalledWith(
       { ...opts, input: val },
       expect.any(Function)
     );

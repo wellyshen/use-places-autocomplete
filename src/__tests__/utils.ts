@@ -39,26 +39,26 @@ describe('getGeocode', () => {
     setupMaps('opts');
     const opts = { address: 'Taipei', placeId: '0109' };
     getGeocode(opts);
-    expect(geocode).toBeCalledWith(opts, expect.any(Function));
+    expect(geocode).toHaveBeenCalledWith(opts, expect.any(Function));
   });
 
   it('should handle success correctly', () => {
     setupMaps();
-    getGeocode({ address: 'Taipei' }).then((results) => {
+    return getGeocode({ address: 'Taipei' }).then((results) => {
       expect(results).toBe(data);
     });
   });
 
   it('should handle failure correctly', () => {
     setupMaps('failure');
-    getGeocode({ address: 'Taipei' }).catch((err) => {
+    return getGeocode({ address: 'Taipei' }).catch((err) => {
       expect(err).toBe(error);
     });
   });
 
   it('should restrict the result to Taiwan and fail', () => {
     setupMaps('failure');
-    getGeocode({
+    return getGeocode({
       address: 'Belgrade',
       componentRestrictions: { country: 'TW' },
     }).catch((err) => {
@@ -68,7 +68,7 @@ describe('getGeocode', () => {
 
   it('should restrict the result to Taiwan and pass', () => {
     setupMaps();
-    getGeocode({
+    return getGeocode({
       address: 'Taipei',
       componentRestrictions: { country: 'TW' },
     }).then((results) => {
@@ -78,10 +78,10 @@ describe('getGeocode', () => {
 
   it('should warn the user for not providing the address or placeId but providing componentRestrictions and pass', () => {
     setupMaps();
-    getGeocode({
+    return getGeocode({
       componentRestrictions: { country: 'TW', postalCode: '100' },
     }).then((results) => {
-      expect(console.warn).toBeCalledWith(geocodeWarn);
+      expect(console.warn).toHaveBeenCalledWith(geocodeWarn);
       expect(results).toBe(data);
     });
   });
@@ -90,7 +90,7 @@ describe('getGeocode', () => {
 describe('getLatLng', () => {
   it('should handle success correctly', () => {
     const latLng = { lat: 123, lng: 456 };
-    getLatLng({
+    return getLatLng({
       geometry: {
         // @ts-ignore
         location: {
@@ -105,38 +105,47 @@ describe('getLatLng', () => {
 
   it('should handle failure correctly', () => {
     // @ts-ignore
-    getLatLng({}).catch((error) => {
+    return getLatLng({}).catch((error) => {
       expect(error).toEqual(expect.any(Error));
     });
   });
 });
 
 describe('getZipCode', () => {
-  it('should handle success correctly', () => {
-    const zipCode = {
-      long_name: '12345',
-      short_name: '123',
-      types: ['postal_code'],
-    };
+  const zipCode = {
+    long_name: '12345',
+    short_name: '123',
+    types: ['postal_code'],
+  };
+
+  it('should handle success with long name correctly', () => {
     // @ts-ignore
-    getZipCode({ address_components: [zipCode] }).then((result: ZipCode) => {
-      expect(result).toEqual(zipCode.long_name);
-    });
+    return getZipCode({ address_components: [zipCode] }).then(
+      (result: ZipCode) => {
+        expect(result).toEqual(zipCode.long_name);
+      }
+    );
+  });
+
+  it('should handle success with short name correctly', () => {
     // @ts-ignore
-    getZipCode({ address_components: [zipCode] }, true).then(
+    return getZipCode({ address_components: [zipCode] }, true).then(
       (result: ZipCode) => {
         expect(result).toEqual(zipCode.short_name);
       }
     );
+  });
+
+  it('should handle success without result correctly', () => {
     // @ts-ignore
-    getZipCode({ address_components: [] }).then((result: ZipCode) => {
+    return getZipCode({ address_components: [] }).then((result: ZipCode) => {
       expect(result).toBeNull();
     });
   });
 
   it('should handle failure correctly', () => {
     // @ts-ignore
-    getZipCode({}).catch((error) => {
+    return getZipCode({}).catch((error) => {
       expect(error).toEqual(expect.any(Error));
     });
   });
