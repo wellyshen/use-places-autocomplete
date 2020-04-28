@@ -3,14 +3,14 @@ export default ({ files }) => `
   <!DOCTYPE html>
   <html lang="en">
     <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="assets/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#000000" />
-    <link rel="apple-touch-icon" href="assets/logo192.png" />
-    <link rel="manifest" href="assets/manifest.json" />
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href=${files.css[0].fileName}>
+      <meta charset="utf-8" />
+      <link rel="icon" href="assets/favicon.ico" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="theme-color" content="#000000" />
+      <link rel="apple-touch-icon" href="assets/logo192.png" />
+      <link rel="manifest" href="assets/manifest.json" />
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+      <link rel="stylesheet" href=${files.css[0].fileName} />
       <title>usePlacesAutocomplete</title>
       <meta property="og:title" content="usePlacesAutocomplete" />
       <meta property="og:type" content="website" />
