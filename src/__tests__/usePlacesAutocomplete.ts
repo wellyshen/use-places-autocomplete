@@ -1,7 +1,10 @@
 import { renderHook } from '@testing-library/react-hooks';
 import _debounce from 'lodash.debounce';
 
-import usePlacesAutocomplete, { loadApiErr } from '../usePlacesAutocomplete';
+import usePlacesAutocomplete, {
+  HookArgs,
+  loadApiErr,
+} from '../usePlacesAutocomplete';
 
 jest.mock('lodash.debounce');
 // @ts-ignore
@@ -10,6 +13,10 @@ _debounce.mockImplementation((fn) => fn);
 describe('usePlacesAutocomplete', () => {
   jest.useFakeTimers();
   global.console.error = jest.fn();
+
+  const callbackName = 'initMap';
+  const testHook = (args: HookArgs = {}): any =>
+    renderHook(() => usePlacesAutocomplete(args));
 
   const val = 'usePlacesAutocomplete so Cool 😎';
   const ok = 'OK';
@@ -63,8 +70,7 @@ describe('usePlacesAutocomplete', () => {
   });
 
   it('should set "callbackName" correctly', () => {
-    const callbackName = 'initMap';
-    renderHook(() => usePlacesAutocomplete({ callbackName }));
+    testHook({ callbackName });
     expect((window as any)[callbackName]).toBeUndefined();
 
     // @ts-ignore
@@ -75,15 +81,12 @@ describe('usePlacesAutocomplete', () => {
     );
     expect((window as any)[callbackName]).toBeUndefined();
 
-    renderHook(() => usePlacesAutocomplete({ callbackName }));
+    testHook({ callbackName });
     expect((window as any)[callbackName]).toEqual(expect.any(Function));
   });
 
   it('should delete "callbackName" when un-mount', () => {
-    const callbackName = 'initMap';
-    const { unmount } = renderHook(() =>
-      usePlacesAutocomplete({ callbackName })
-    );
+    const { unmount } = testHook({ callbackName });
     unmount();
     expect((window as any)[callbackName]).toBeUndefined();
   });
@@ -91,22 +94,22 @@ describe('usePlacesAutocomplete', () => {
   it('should throw error when no Places API', () => {
     // @ts-ignore
     delete global.google.maps.places;
-    renderHook(() => usePlacesAutocomplete());
+    testHook();
 
     // @ts-ignore
     delete global.google.maps;
-    renderHook(() => usePlacesAutocomplete());
+    testHook();
 
     // @ts-ignore
     delete global.google;
-    renderHook(() => usePlacesAutocomplete());
+    testHook();
 
     expect(console.error).toHaveBeenCalledTimes(3);
     expect(console.error).toHaveBeenCalledWith(loadApiErr);
   });
 
   it('should set debounce correctly', () => {
-    renderHook(() => usePlacesAutocomplete());
+    testHook();
     expect(_debounce).toHaveBeenCalledWith(expect.any(Function), 200);
 
     const debounce = 500;
@@ -118,9 +121,7 @@ describe('usePlacesAutocomplete', () => {
     // @ts-ignore
     global.google = getMaps('opts');
     const opts = { radius: 100 };
-    const { result } = renderHook(() =>
-      usePlacesAutocomplete({ requestOptions: opts })
-    );
+    const { result } = testHook({ requestOptions: opts });
     result.current.setValue(val);
     expect(getPlacePredictions).toHaveBeenCalledWith(
       { ...opts, input: val },
@@ -131,23 +132,21 @@ describe('usePlacesAutocomplete', () => {
   it('should return "ready" correctly', () => {
     // @ts-ignore
     delete global.google;
-    let res = renderHook(() =>
-      // @ts-ignore
-      usePlacesAutocomplete({ googleMaps: getMaps().maps })
-    ).result;
+    // @ts-ignore
+    let res = testHook({ googleMaps: getMaps().maps }).result;
     expect(res.current.ready).toBeTruthy();
 
-    res = renderHook(() => usePlacesAutocomplete()).result;
+    res = testHook().result;
     expect(res.current.ready).toBeFalsy();
 
     // @ts-ignore
     global.google = getMaps();
-    res = renderHook(() => usePlacesAutocomplete()).result;
+    res = testHook().result;
     expect(res.current.ready).toBeTruthy();
   });
 
   it('should return "value" correctly', () => {
-    const { result } = renderHook(() => usePlacesAutocomplete());
+    const { result } = testHook();
     expect(result.current.value).toBe('');
 
     result.current.setValue(val);
@@ -155,7 +154,7 @@ describe('usePlacesAutocomplete', () => {
   });
 
   it('should return "suggestions" correctly', () => {
-    let res = renderHook(() => usePlacesAutocomplete()).result;
+    let res = testHook().result;
     expect(res.current.suggestions).toEqual(defaultSuggestions);
 
     res.current.setValue('');
@@ -176,7 +175,7 @@ describe('usePlacesAutocomplete', () => {
 
     // @ts-ignore
     global.google = getMaps('failure');
-    res = renderHook(() => usePlacesAutocomplete()).result;
+    res = testHook().result;
     res.current.setValue(val);
     jest.runAllTimers();
     expect(res.current.suggestions).toEqual({
@@ -187,7 +186,7 @@ describe('usePlacesAutocomplete', () => {
   });
 
   it('should clear suggestions', () => {
-    const { result } = renderHook(() => usePlacesAutocomplete());
+    const { result } = testHook();
     result.current.setValue(val);
     jest.runAllTimers();
     expect(result.current.suggestions).toEqual(okSuggestions);
