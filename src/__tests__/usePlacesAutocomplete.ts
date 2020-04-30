@@ -16,7 +16,7 @@ describe('usePlacesAutocomplete', () => {
 
   const callbackName = 'initMap';
   const renderHelper = (args: HookArgs = {}): any =>
-    renderHook(() => usePlacesAutocomplete(args));
+    renderHook(() => usePlacesAutocomplete(args)).result;
 
   const val = 'usePlacesAutocomplete so Cool 😎';
   const ok = 'OK';
@@ -84,8 +84,7 @@ describe('usePlacesAutocomplete', () => {
   });
 
   it('should delete "callbackName" when un-mount', () => {
-    const { unmount } = renderHelper({ callbackName });
-    unmount();
+    renderHelper({ callbackName });
     expect((window as any)[callbackName]).toBeUndefined();
   });
 
@@ -119,7 +118,7 @@ describe('usePlacesAutocomplete', () => {
     // @ts-ignore
     global.google = getMaps('opts');
     const opts = { radius: 100 };
-    const { result } = renderHelper({ requestOptions: opts });
+    const result = renderHelper({ requestOptions: opts });
     result.current.setValue(val);
     expect(getPlacePredictions).toHaveBeenCalledWith(
       { ...opts, input: val },
@@ -131,20 +130,20 @@ describe('usePlacesAutocomplete', () => {
     // @ts-ignore
     delete global.google;
     // @ts-ignore
-    let res = renderHelper({ googleMaps: getMaps().maps }).result;
+    let res = renderHelper({ googleMaps: getMaps().maps });
     expect(res.current.ready).toBeTruthy();
 
-    res = renderHelper().result;
+    res = renderHelper();
     expect(res.current.ready).toBeFalsy();
 
     // @ts-ignore
     global.google = getMaps();
-    res = renderHelper().result;
+    res = renderHelper();
     expect(res.current.ready).toBeTruthy();
   });
 
   it('should return "value" correctly', () => {
-    const { result } = renderHelper();
+    const result = renderHelper();
     expect(result.current.value).toBe('');
 
     result.current.setValue(val);
@@ -152,7 +151,7 @@ describe('usePlacesAutocomplete', () => {
   });
 
   it('should return "suggestions" correctly', () => {
-    let res = renderHelper().result;
+    let res = renderHelper();
     expect(res.current.suggestions).toEqual(defaultSuggestions);
 
     res.current.setValue('');
@@ -173,7 +172,7 @@ describe('usePlacesAutocomplete', () => {
 
     // @ts-ignore
     global.google = getMaps('failure');
-    res = renderHelper().result;
+    res = renderHelper();
     res.current.setValue(val);
     jest.runAllTimers();
     expect(res.current.suggestions).toEqual({
@@ -184,7 +183,7 @@ describe('usePlacesAutocomplete', () => {
   });
 
   it('should clear suggestions', () => {
-    const { result } = renderHelper();
+    const result = renderHelper();
     result.current.setValue(val);
     jest.runAllTimers();
     expect(result.current.suggestions).toEqual(okSuggestions);
