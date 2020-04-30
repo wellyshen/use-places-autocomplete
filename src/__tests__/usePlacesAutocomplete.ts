@@ -3,6 +3,7 @@ import _debounce from 'lodash.debounce';
 
 import usePlacesAutocomplete, {
   HookArgs,
+  HookReturn as Current,
   loadApiErr,
 } from '../usePlacesAutocomplete';
 
@@ -15,7 +16,7 @@ describe('usePlacesAutocomplete', () => {
   global.console.error = jest.fn();
 
   const callbackName = 'initMap';
-  const renderHelper = (args: HookArgs = {}): any =>
+  const renderHelper = (args: HookArgs = {}): { current: Current } =>
     renderHook(() => usePlacesAutocomplete(args)).result;
 
   const val = 'usePlacesAutocomplete so Cool 😎';
