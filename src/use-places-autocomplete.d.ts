@@ -1,8 +1,8 @@
 /* eslint-disable */
 
 declare module 'use-places-autocomplete' {
-  /** Types from @types/googlemaps */
-  /** Hook */
+  /* Types from @types/googlemaps */
+  // Hook
   class GLatLng {
     constructor(lat: number, lng: number, noWrap?: boolean);
     constructor(literal: LatLngLiteral, noWrap?: boolean);
@@ -87,13 +87,22 @@ declare module 'use-places-autocomplete' {
     types: string[];
   }
 
-  /** Geocoding */
+  // Geocoding
   interface GeocoderComponentRestrictions {
     administrativeArea?: string;
     country?: string | string[];
     locality?: string;
     postalCode?: string;
     route?: string;
+  }
+
+  interface GeocoderRequest {
+    address?: string;
+    bounds?: LatLngBounds | LatLngBoundsLiteral;
+    componentRestrictions?: GeocoderComponentRestrictions;
+    location?: LatLng | LatLngLiteral;
+    placeId?: string;
+    region?: string;
   }
 
   interface GeocoderAddressComponent {
@@ -111,7 +120,7 @@ declare module 'use-places-autocomplete' {
 
   interface GeocoderGeometry {
     bounds: LatLngBounds;
-    location: GLatLng;
+    location: LatLng;
     location_type: GeocoderLocationType;
     viewport: LatLngBounds;
   }
@@ -126,7 +135,7 @@ declare module 'use-places-autocomplete' {
     types: string[];
   }
 
-  /** Hook types */
+  // Hook types
   export type RequestOptions = AutocompletionRequest;
 
   interface HookArgs {
@@ -156,12 +165,8 @@ declare module 'use-places-autocomplete' {
 
   export default usePlacesAutocomplete;
 
-  /** Geocoding types */
-  interface GeoArgs {
-    address?: string;
-    placeId?: string;
-    componentRestrictions?: GeocoderComponentRestrictions;
-  }
+  // Geocoding types
+  type GeoArgs = GeocoderRequest;
 
   export type GeocodeResult = GeocoderResult;
 

@@ -4,12 +4,10 @@ import {
   LatLng,
   getZipCode,
   ZipCode,
-  geocodeWarn,
+  geocodeErr,
 } from '../utils';
 
 describe('getGeocode', () => {
-  console.warn = jest.fn();
-
   const data = [{ place_id: '0109' }];
   const error = 'ERROR';
   const geocode = jest.fn();
@@ -76,12 +74,14 @@ describe('getGeocode', () => {
     });
   });
 
-  it('should warn the user for not providing the address or placeId but providing componentRestrictions and pass', () => {
+  it('should throw error when providing componentRestrictions without address', () => {
+    console.error = jest.fn();
+
     setupMaps();
     return getGeocode({
       componentRestrictions: { country: 'TW', postalCode: '100' },
     }).then((results) => {
-      expect(console.warn).toHaveBeenCalledWith(geocodeWarn);
+      expect(console.error).toHaveBeenCalledWith(geocodeErr);
       expect(results).toBe(data);
     });
   });

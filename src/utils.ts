@@ -1,34 +1,22 @@
-export const geocodeWarn =
+export const geocodeErr =
   '> 💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.';
 
-interface GeoArgs {
-  address?: string;
-  placeId?: string;
-  componentRestrictions?: GeocoderComponentRestrictions;
-}
+type GeoArgs = google.maps.GeocoderRequest;
 type GeocodeResult = google.maps.GeocoderResult;
-type GeocoderComponentRestrictions = google.maps.GeocoderComponentRestrictions;
 type GeoReturn = Promise<GeocodeResult[]>;
 
-export const getGeocode = ({
-  address,
-  placeId,
-  componentRestrictions,
-}: GeoArgs): GeoReturn => {
+export const getGeocode = (args: GeoArgs): GeoReturn => {
   const geocoder = new window.google.maps.Geocoder();
 
   return new Promise((resolve, reject) => {
-    geocoder.geocode(
-      { address, placeId, componentRestrictions },
-      (results, status) => {
-        if (status !== 'OK') reject(status);
-        if (!address && componentRestrictions) {
-          console.warn(geocodeWarn);
-          resolve(results);
-        }
+    geocoder.geocode(args, (results, status) => {
+      if (status !== 'OK') reject(status);
+      if (!args.address && args.componentRestrictions) {
+        console.error(geocodeErr);
         resolve(results);
       }
-    );
+      resolve(results);
+    });
   });
 };
 

@@ -334,7 +334,7 @@ getGeocode(parameter)
 
 `getGeocode` is an asynchronous function with the following API:
 
-- `parameter: object` - you must supply one, only one of `address` or `placeId` and optionally `componentRestrictions` object in case you want your results to be restricted to a specific area. It'll be passed as [Geocoding Requests](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests).
+- `parameter: object` - you must supply one, only one of `address` or `location` or `placeId` and optionally `bounds`, `componentRestrictions`, `region`. It'll be passed as [Geocoding Requests](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests).
 - `results: array` - an array of objects each contains all the [data](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingResults).
 - `error: string` - the error status of API response, which has these [values](https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingStatusCodes) (except for "OK").
 
