@@ -13,7 +13,7 @@ _debounce.mockImplementation((fn) => fn);
 
 describe('usePlacesAutocomplete', () => {
   jest.useFakeTimers();
-  global.console.error = jest.fn();
+  console.error = jest.fn();
 
   const callbackName = 'initMap';
   const renderHelper = (args: HookArgs = {}): { current: Current } =>
@@ -67,7 +67,7 @@ describe('usePlacesAutocomplete', () => {
     // @ts-ignore
     _debounce.mockClear();
     // @ts-ignore
-    global.console.error.mockClear();
+    console.error.mockClear();
   });
 
   it('should set "callbackName" correctly', () => {
