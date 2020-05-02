@@ -79,7 +79,7 @@ export const listBox = css`
 export const listItem = css`
   padding: 0.75rem 1.15rem;
   width: 15rem;
-  cursor: default;
+  cursor: pointer;
   ${sm} {
     width: 20rem;
   }
