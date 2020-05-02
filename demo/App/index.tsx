@@ -25,6 +25,7 @@ import {
   listItem,
   listItemDarken,
   subText,
+  logo,
 } from './styles';
 
 let cachedVal = '';
@@ -92,8 +93,8 @@ const App: SFC<{}> = () => {
     setValue(data[nextIndex] ? data[nextIndex].description : cachedVal, false);
   };
 
-  const renderSuggestions = (): JSX.Element[] =>
-    data.map((suggestion: Suggestion, idx: number) => {
+  const renderSuggestions = (): JSX.Element => {
+    const suggestions = data.map((suggestion: Suggestion, idx: number) => {
       const {
         id,
         structured_formatting: { main_text, secondary_text },
@@ -115,6 +116,19 @@ const App: SFC<{}> = () => {
         </li>
       );
     });
+
+    return (
+      <>
+        {suggestions}
+        <li css={logo}>
+          <img
+            src="https://developers.google.com/maps/documentation/images/powered_by_google_on_white.png"
+            alt="Powered by Google"
+          />
+        </li>
+      </>
+    );
+  };
 
   return (
     <>

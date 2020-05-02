@@ -92,3 +92,8 @@ export const listItemDarken = css`
 export const subText = css`
   color: #8c8c8c;
 `;
+
+export const logo = css`
+  padding: 0.75rem 1.15rem;
+  text-align: right;
+`;
