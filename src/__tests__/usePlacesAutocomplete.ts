@@ -75,6 +75,12 @@ describe('usePlacesAutocomplete', () => {
     expect((window as any)[callbackName]).toBeUndefined();
 
     // @ts-ignore
+    delete global.google.maps;
+    // @ts-ignore
+    renderHelper({ callbackName, googleMaps: getMaps().maps });
+    expect((window as any)[callbackName]).toBeUndefined();
+
+    // @ts-ignore
     delete global.google;
     // @ts-ignore
     renderHelper({ callbackName, googleMaps: getMaps().maps });

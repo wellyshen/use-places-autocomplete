@@ -50,8 +50,7 @@ const usePlacesAutocomplete = ({
   const init = useCallback(() => {
     const { google } = window;
     const { current: gMaps } = googleMapsRef;
-    const placesLib =
-      (gMaps && gMaps.places) || (google && google.maps && google.maps.places);
+    const placesLib = gMaps?.places || google?.maps?.places;
 
     if (!placesLib) {
       console.error(loadApiErr);
@@ -98,7 +97,7 @@ const usePlacesAutocomplete = ({
   useEffect(() => {
     const { google } = window;
 
-    if (!googleMapsRef.current && !(google && google.maps) && callbackName) {
+    if (!googleMapsRef.current && !google?.maps && callbackName) {
       (window as any)[callbackName] = init;
     } else {
       init();
