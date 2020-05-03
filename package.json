@@ -158,7 +158,6 @@
       "import/extensions": "off",
       "import/no-extraneous-dependencies": "off",
       "no-useless-constructor": "off",
-      "@typescript-eslint/no-useless-constructor": "error",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/ban-ts-ignore": "off",
       "@typescript-eslint/camelcase": "off",
@@ -174,9 +173,6 @@
     "public",
     "dist"
   ],
-  "prettier": {
-    "singleQuote": true
-  },
   "stylelint": {
     "plugins": [
       "stylelint-prettier"
