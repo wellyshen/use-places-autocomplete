@@ -82,10 +82,10 @@ const App: SFC<{}> = () => {
 
     if (e.keyCode === 38) {
       e.preventDefault();
-      nextIndex = currIndex !== null ? currIndex : data.length;
+      nextIndex = currIndex ?? data.length;
       nextIndex = nextIndex > 0 ? nextIndex - 1 : null;
     } else {
-      nextIndex = currIndex !== null ? currIndex : -1;
+      nextIndex = currIndex ?? -1;
       nextIndex = nextIndex < data.length - 1 ? nextIndex + 1 : null;
     }
 
@@ -162,11 +162,7 @@ const App: SFC<{}> = () => {
             aria-autocomplete="list"
             aria-controls="ex-list-box"
             aria-activedescendant={
-              currIndex !== null &&
-              currIndex >= 0 &&
-              currIndex <= data.length - 1
-                ? `ex-list-item-${currIndex}`
-                : null
+              currIndex !== null ? `ex-list-item-${currIndex}` : null
             }
           />
           {hasSuggestions && (
