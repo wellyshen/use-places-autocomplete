@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-declare module 'use-places-autocomplete' {
+declare module "use-places-autocomplete" {
   /* Types from @types/googlemaps */
   // Hook
   class GLatLng {

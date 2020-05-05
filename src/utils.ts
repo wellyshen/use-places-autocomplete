@@ -1,3 +1,5 @@
+/* eslint-disable compat/compat */
+
 export const geocodeErr =
   "> 💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.";
 
