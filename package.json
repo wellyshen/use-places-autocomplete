@@ -155,12 +155,7 @@
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/ban-ts-ignore": "off",
       "@typescript-eslint/camelcase": "off",
-      "prettier/prettier": [
-        "error",
-        {
-          "singleQuote": true
-        }
-      ]
+      "prettier/prettier": "error"
     }
   },
   "eslintIgnore": [

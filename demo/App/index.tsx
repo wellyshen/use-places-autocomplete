@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
-import React, { FC, ChangeEvent, KeyboardEvent, useState, useRef } from 'react';
-import useOnclickOutside from 'react-cool-onclickoutside';
-import { Global, css } from '@emotion/core';
-import normalize from 'normalize.css';
+import React, { FC, ChangeEvent, KeyboardEvent, useState, useRef } from "react";
+import useOnclickOutside from "react-cool-onclickoutside";
+import { Global, css } from "@emotion/core";
+import normalize from "normalize.css";
 
-import GitHubCorner from '../GitHubCorner';
-import usePlacesAutocomplete from '../../src';
+import GitHubCorner from "../GitHubCorner";
+import usePlacesAutocomplete from "../../src";
 import {
   root,
   container,
@@ -20,9 +20,9 @@ import {
   listItemDarken,
   subText,
   logo,
-} from './styles';
+} from "./styles";
 
-let cachedVal = '';
+let cachedVal = "";
 const acceptedKeys = [38, 40, 13, 27];
 
 type Suggestion = google.maps.places.AutocompletePrediction;
@@ -36,7 +36,7 @@ const App: FC<{}> = () => {
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete();
-  const hasSuggestions = status === 'OK';
+  const hasSuggestions = status === "OK";
 
   const dismissSuggestions = (): void => {
     setCurrIndex(null);
@@ -105,7 +105,7 @@ const App: FC<{}> = () => {
           role="option"
           aria-selected={idx === currIndex}
         >
-          <strong>{main_text}</strong>{' '}
+          <strong>{main_text}</strong>{" "}
           <small css={subText}>{secondary_text}</small>
         </li>
       );

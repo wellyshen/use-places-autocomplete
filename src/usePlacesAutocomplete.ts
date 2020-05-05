@@ -1,12 +1,12 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
-import _debounce from 'lodash.debounce';
+import { useState, useRef, useCallback, useEffect } from "react";
+import _debounce from "lodash.debounce";
 
-import useLatest from './useLatest';
+import useLatest from "./useLatest";
 
 export const loadApiErr =
-  '> 💡use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library';
+  "> 💡use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library";
 
-type RequestOptions = Omit<google.maps.places.AutocompletionRequest, 'input'>;
+type RequestOptions = Omit<google.maps.places.AutocompletionRequest, "input">;
 export interface HookArgs {
   requestOptions?: RequestOptions;
   debounce?: number;
@@ -37,10 +37,10 @@ const usePlacesAutocomplete = ({
   callbackName,
 }: HookArgs = {}): HookReturn => {
   const [ready, setReady] = useState<boolean>(false);
-  const [value, setVal] = useState<string>('');
+  const [value, setVal] = useState<string>("");
   const [suggestions, setSuggestions] = useState<Suggestions>({
     loading: false,
-    status: '',
+    status: "",
     data: [],
   });
   const asRef = useRef(null);
@@ -63,7 +63,7 @@ const usePlacesAutocomplete = ({
   }, []);
 
   const clearSuggestions = useCallback(() => {
-    setSuggestions({ loading: false, status: '', data: [] });
+    setSuggestions({ loading: false, status: "", data: [] });
   }, []);
 
   const fetchPredictions = useCallback(

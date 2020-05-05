@@ -1,28 +1,28 @@
-import { renderHook } from '@testing-library/react-hooks';
-import _debounce from 'lodash.debounce';
+import { renderHook } from "@testing-library/react-hooks";
+import _debounce from "lodash.debounce";
 
 import usePlacesAutocomplete, {
   HookArgs,
   HookReturn as Current,
   loadApiErr,
-} from '../usePlacesAutocomplete';
+} from "../usePlacesAutocomplete";
 
-jest.mock('lodash.debounce');
+jest.mock("lodash.debounce");
 // @ts-ignore
 _debounce.mockImplementation((fn) => fn);
 
-describe('usePlacesAutocomplete', () => {
+describe("usePlacesAutocomplete", () => {
   jest.useFakeTimers();
   console.error = jest.fn();
 
-  const callbackName = 'initMap';
+  const callbackName = "initMap";
   const renderHelper = (args: HookArgs = {}): { current: Current } =>
     renderHook(() => usePlacesAutocomplete(args)).result;
 
-  const val = 'usePlacesAutocomplete so Cool 😎';
-  const ok = 'OK';
-  const error = 'ERROR';
-  const data = [{ place_id: '0109' }];
+  const val = "usePlacesAutocomplete so Cool 😎";
+  const ok = "OK";
+  const error = "ERROR";
+  const data = [{ place_id: "0109" }];
   const okSuggestions = {
     loading: false,
     status: ok,
@@ -30,17 +30,17 @@ describe('usePlacesAutocomplete', () => {
   };
   const defaultSuggestions = {
     loading: false,
-    status: '',
+    status: "",
     // @ts-ignore
     data: [],
   };
   const getPlacePredictions = jest.fn();
-  const getMaps = (type = 'success'): object => ({
+  const getMaps = (type = "success"): object => ({
     maps: {
       places: {
         AutocompleteService: class {
           getPlacePredictions =
-            type === 'opts'
+            type === "opts"
               ? getPlacePredictions
               : (
                   _: object,
@@ -48,8 +48,8 @@ describe('usePlacesAutocomplete', () => {
                 ): void => {
                   setTimeout(() => {
                     cb(
-                      type === 'success' ? data : null,
-                      type === 'success' ? ok : error
+                      type === "success" ? data : null,
+                      type === "success" ? ok : error
                     );
                   }, 500);
                 };
@@ -95,7 +95,7 @@ describe('usePlacesAutocomplete', () => {
     expect((window as any)[callbackName]).toBeUndefined();
   });
 
-  it('should throw error when no Places API', () => {
+  it("should throw error when no Places API", () => {
     // @ts-ignore
     delete global.google.maps.places;
     renderHelper();
@@ -112,7 +112,7 @@ describe('usePlacesAutocomplete', () => {
     expect(console.error).toHaveBeenCalledWith(loadApiErr);
   });
 
-  it('should set debounce correctly', () => {
+  it("should set debounce correctly", () => {
     renderHelper();
     expect(_debounce).toHaveBeenCalledWith(expect.any(Function), 200);
 
@@ -123,7 +123,7 @@ describe('usePlacesAutocomplete', () => {
 
   it('should set "requestOptions" correctly', () => {
     // @ts-ignore
-    global.google = getMaps('opts');
+    global.google = getMaps("opts");
     const opts = { radius: 100 };
     const result = renderHelper({ requestOptions: opts });
     result.current.setValue(val);
@@ -151,7 +151,7 @@ describe('usePlacesAutocomplete', () => {
 
   it('should return "value" correctly', () => {
     const result = renderHelper();
-    expect(result.current.value).toBe('');
+    expect(result.current.value).toBe("");
 
     result.current.setValue(val);
     expect(result.current.value).toBe(val);
@@ -161,7 +161,7 @@ describe('usePlacesAutocomplete', () => {
     let res = renderHelper();
     expect(res.current.suggestions).toEqual(defaultSuggestions);
 
-    res.current.setValue('');
+    res.current.setValue("");
     expect(res.current.suggestions).toEqual(defaultSuggestions);
 
     res.current.setValue(val, false);
@@ -178,7 +178,7 @@ describe('usePlacesAutocomplete', () => {
     expect(res.current.suggestions).toEqual(okSuggestions);
 
     // @ts-ignore
-    global.google = getMaps('failure');
+    global.google = getMaps("failure");
     res = renderHelper();
     res.current.setValue(val);
     jest.runAllTimers();
@@ -189,7 +189,7 @@ describe('usePlacesAutocomplete', () => {
     });
   });
 
-  it('should clear suggestions', () => {
+  it("should clear suggestions", () => {
     const result = renderHelper();
     result.current.setValue(val);
     jest.runAllTimers();

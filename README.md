@@ -202,8 +202,8 @@ The search result of Google Maps Places API, which contains the following proper
 Set the `value` of the input element. Use case as below.
 
 ```js
-import React from 'react';
-import usePlacesAutocomplete from 'use-places-autocomplete';
+import React from "react";
+import usePlacesAutocomplete from "use-places-autocomplete";
 
 const PlacesAutocomplete = () => {
   const { value, setValue } = usePlacesAutocomplete();
@@ -315,20 +315,20 @@ It helps you convert address (e.g. "Section 5, Xinyi Road, Xinyi District, Taipe
 In case you want to restrict the results to a specific area you will have to pass the `address` and the `componentRestrictions` matching the [GeocoderComponentRestrictions interface](https://developers.google.com/maps/documentation/javascript/reference/geocoder#GeocoderComponentRestrictions).
 
 ```js
-import { getGeocode } from 'use-places-autocomplete';
+import { getGeocode } from "use-places-autocomplete";
 
 const parameter = {
-  address: 'Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan',
+  address: "Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan",
   // or
-  placeId: 'ChIJraeA2rarQjQRPBBjyR3RxKw',
+  placeId: "ChIJraeA2rarQjQRPBBjyR3RxKw",
 };
 
 getGeocode(parameter)
   .then((results) => {
-    console.log('Geocoding results: ', results);
+    console.log("Geocoding results: ", results);
   })
   .catch((error) => {
-    console.log('Error: ', error);
+    console.log("Error: ", error);
   });
 ```
 
@@ -343,10 +343,10 @@ getGeocode(parameter)
 It helps you get the `lat` and `lng` from the result object of `getGeocode`.
 
 ```js
-import { getGeocode, getLatLng } from 'use-places-autocomplete';
+import { getGeocode, getLatLng } from "use-places-autocomplete";
 
 const parameter = {
-  address: 'Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan',
+  address: "Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan",
 };
 
 getGeocode(parameter)
@@ -354,10 +354,10 @@ getGeocode(parameter)
   .then((latLng) => {
     const { lat, lng } = latLng;
 
-    console.log('Coordinates: ', { lat, lng });
+    console.log("Coordinates: ", { lat, lng });
   })
   .catch((error) => {
-    console.log('Error: ', error);
+    console.log("Error: ", error);
   });
 ```
 
@@ -372,10 +372,10 @@ getGeocode(parameter)
 It helps you get the `postal_code` from the result object of `getGeocode`.
 
 ```js
-import { getGeocode, getZipCode } from 'use-places-autocomplete';
+import { getGeocode, getZipCode } from "use-places-autocomplete";
 
 const parameter = {
-  address: 'Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan',
+  address: "Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan",
 };
 
 getGeocode(parameter)
@@ -383,10 +383,10 @@ getGeocode(parameter)
   // by setting the second parameter as "true"
   .then((results) => getZipCode(results[0], false))
   .then((zipCode) => {
-    console.log('ZIP Code: ', zipCode);
+    console.log("ZIP Code: ", zipCode);
   })
   .catch((error) => {
-    console.log('Error: ', error);
+    console.log("Error: ", error);
   });
 ```
 

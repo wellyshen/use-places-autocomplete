@@ -1,5 +1,5 @@
 export const geocodeErr =
-  '> 💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.';
+  "> 💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.";
 
 type GeoArgs = google.maps.GeocoderRequest;
 type GeocodeResult = google.maps.GeocoderResult;
@@ -10,7 +10,7 @@ export const getGeocode = (args: GeoArgs): GeoReturn => {
 
   return new Promise((resolve, reject) => {
     geocoder.geocode(args, (results, status) => {
-      if (status !== 'OK') reject(status);
+      if (status !== "OK") reject(status);
       if (!args.address && args.componentRestrictions) {
         console.error(geocodeErr);
         resolve(results);
@@ -46,7 +46,7 @@ export const getZipCode = (
       let zipCode = null;
 
       result.address_components.forEach(({ long_name, short_name, types }) => {
-        if (types.includes('postal_code'))
+        if (types.includes("postal_code"))
           zipCode = useShortName ? short_name : long_name;
       });
 
