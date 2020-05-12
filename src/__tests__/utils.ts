@@ -1,7 +1,7 @@
 import {
   getGeocode,
   getLatLng,
-  LatLng,
+  LatLon,
   getZipCode,
   ZipCode,
   geocodeErr,
@@ -98,7 +98,7 @@ describe("getLatLng", () => {
           lng: (): number => latLng.lng,
         },
       },
-    }).then((result: LatLng) => {
+    }).then((result: LatLon) => {
       expect(result).toEqual(latLng);
     });
   });
