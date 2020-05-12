@@ -22,10 +22,10 @@ export const getGeocode = (args: GeoArgs): GeoReturn => {
   });
 };
 
-export type LatLng = { lat: number; lng: number };
-type LatLngReturn = Promise<LatLng>;
+export type LatLon = { lat: number; lng: number };
+type LatLonReturn = Promise<LatLon>;
 
-export const getLatLng = (result: GeocodeResult): LatLngReturn =>
+export const getLatLng = (result: GeocodeResult): LatLonReturn =>
   new Promise((resolve, reject) => {
     try {
       const { lat, lng } = result.geometry.location;

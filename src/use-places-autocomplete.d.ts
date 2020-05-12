@@ -1,10 +1,10 @@
 declare module "use-places-autocomplete" {
   /* Types from @types/googlemaps */
   // Hook
-  class GLatLng {
+  class LatLng {
     constructor(lat: number, lng: number, noWrap?: boolean);
     constructor(literal: LatLngLiteral, noWrap?: boolean);
-    equals(other: GLatLng): boolean;
+    equals(other: LatLng): boolean;
     lat(): number;
     lng(): number;
     toString(): string;
@@ -13,17 +13,17 @@ declare module "use-places-autocomplete" {
   }
 
   class LatLngBounds {
-    constructor(sw?: GLatLng | LatLngLiteral, ne?: GLatLng | LatLngLiteral);
-    contains(latLng: GLatLng | LatLngLiteral): boolean;
+    constructor(sw?: LatLng | LatLngLiteral, ne?: LatLng | LatLngLiteral);
+    contains(latLng: LatLng | LatLngLiteral): boolean;
     equals(other: LatLngBounds | LatLngBoundsLiteral): boolean;
-    extend(point: GLatLng | LatLngLiteral): LatLngBounds;
-    getCenter(): GLatLng;
-    getNorthEast(): GLatLng;
-    getSouthWest(): GLatLng;
+    extend(point: LatLng | LatLngLiteral): LatLngBounds;
+    getCenter(): LatLng;
+    getNorthEast(): LatLng;
+    getSouthWest(): LatLng;
     intersects(other: LatLngBounds | LatLngBoundsLiteral): boolean;
     isEmpty(): boolean;
     toJSON(): LatLngBoundsLiteral;
-    toSpan(): GLatLng;
+    toSpan(): LatLng;
     toString(): string;
     toUrlValue(precision?: number): string;
     union(other: LatLngBounds | LatLngBoundsLiteral): LatLngBounds;
@@ -50,7 +50,7 @@ declare module "use-places-autocomplete" {
   interface AutocompletionRequest {
     bounds?: LatLngBounds | LatLngBoundsLiteral;
     componentRestrictions?: ComponentRestrictions;
-    location?: GLatLng;
+    location?: LatLng;
     offset?: number;
     radius?: number;
     sessionToken?: AutocompleteSessionToken;
@@ -172,11 +172,11 @@ declare module "use-places-autocomplete" {
 
   export const getGeocode: (args: GeoArgs) => GeoReturn;
 
-  export type LatLng = { lat: number; lng: number };
+  export type LatLon = { lat: number; lng: number };
 
-  type LatLngReturn = Promise<LatLng>;
+  type LatLonReturn = Promise<LatLon>;
 
-  export const getLatLng: (result: GeocodeResult) => LatLngReturn;
+  export const getLatLng: (result: GeocodeResult) => LatLonReturn;
 
   type ZipCode = string | null;
 
