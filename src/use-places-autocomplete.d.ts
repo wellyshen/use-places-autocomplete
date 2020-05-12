@@ -133,7 +133,7 @@ declare module "use-places-autocomplete" {
     types: string[];
   }
 
-  // Hook types
+  /* Hook types */
   export type RequestOptions = AutocompletionRequest;
 
   interface HookArgs {
