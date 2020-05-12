@@ -174,9 +174,9 @@ declare module "use-places-autocomplete" {
 
   export type LatLon = { lat: number; lng: number };
 
-  type LatLonReturn = Promise<LatLon>;
+  type LatLngReturn = Promise<LatLon>;
 
-  export const getLatLng: (result: GeocodeResult) => LatLonReturn;
+  export const getLatLng: (result: GeocodeResult) => LatLngReturn;
 
   type ZipCode = string | null;
 
