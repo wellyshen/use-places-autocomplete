@@ -13,7 +13,6 @@ _debounce.mockImplementation((fn) => fn);
 
 describe("usePlacesAutocomplete", () => {
   jest.useFakeTimers();
-  console.error = jest.fn();
 
   const callbackName = "initMap";
   const renderHelper = (args: HookArgs = {}): { current: Current } =>
@@ -66,8 +65,6 @@ describe("usePlacesAutocomplete", () => {
   afterEach(() => {
     // @ts-ignore
     _debounce.mockClear();
-    // @ts-ignore
-    console.error.mockClear();
   });
 
   it('should set "callbackName" correctly', () => {
@@ -96,14 +93,14 @@ describe("usePlacesAutocomplete", () => {
   });
 
   it("should throw error when no Places API", () => {
+    console.error = jest.fn();
+
     // @ts-ignore
     delete global.google.maps.places;
     renderHelper();
-
     // @ts-ignore
     delete global.google.maps;
     renderHelper();
-
     // @ts-ignore
     delete global.google;
     renderHelper();
