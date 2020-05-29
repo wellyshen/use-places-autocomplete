@@ -102,6 +102,7 @@
       "welly"
     ],
     "rules": {
+      "camelcase": "off",
       "no-console": [
         "warn",
         {

@@ -20,8 +20,8 @@ describe("getGeocode", () => {
             type === "opts"
               ? geocode
               : (
-                  _: object,
-                  cb: (data: object[] | null, status: string) => void
+                  _: any,
+                  cb: (data: any | null, status: string) => void
                 ): void => {
                   cb(
                     type === "success" ? data : null,

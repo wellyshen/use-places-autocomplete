@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
-
 import React, { FC, ChangeEvent, KeyboardEvent, useState, useRef } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { Global, css } from "@emotion/core";
@@ -27,7 +25,7 @@ const acceptedKeys = [38, 40, 13, 27];
 
 type Suggestion = google.maps.places.AutocompletePrediction;
 
-const App: FC<{}> = () => {
+const App: FC = () => {
   const [currIndex, setCurrIndex] = useState<number | null>(null);
   const {
     ready,

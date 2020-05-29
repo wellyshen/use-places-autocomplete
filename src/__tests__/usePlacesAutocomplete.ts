@@ -34,7 +34,7 @@ describe("usePlacesAutocomplete", () => {
     data: [],
   };
   const getPlacePredictions = jest.fn();
-  const getMaps = (type = "success"): object => ({
+  const getMaps = (type = "success"): any => ({
     maps: {
       places: {
         AutocompleteService: class {
@@ -42,8 +42,8 @@ describe("usePlacesAutocomplete", () => {
             type === "opts"
               ? getPlacePredictions
               : (
-                  _: object,
-                  cb: (data: object[] | null, status: string) => void
+                  _: any,
+                  cb: (data: any | null, status: string) => void
                 ): void => {
                   setTimeout(() => {
                     cb(
