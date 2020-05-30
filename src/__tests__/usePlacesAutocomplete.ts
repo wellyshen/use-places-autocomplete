@@ -41,10 +41,7 @@ describe("usePlacesAutocomplete", () => {
           getPlacePredictions =
             type === "opts"
               ? getPlacePredictions
-              : (
-                  _: any,
-                  cb: (data: any | null, status: string) => void
-                ): void => {
+              : (_: any, cb: (data: any, status: string) => void): void => {
                   setTimeout(() => {
                     cb(
                       type === "success" ? data : null,
