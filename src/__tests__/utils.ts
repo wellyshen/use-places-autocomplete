@@ -15,6 +15,7 @@ describe("getGeocode", () => {
     // @ts-ignore
     global.google = {
       maps: {
+        // @ts-ignore
         Geocoder: class {
           geocode =
             type === "opts"
