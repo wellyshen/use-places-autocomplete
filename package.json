@@ -3,7 +3,7 @@
   "version": "1.3.5",
   "description": "React hook for Google Maps Places Autocomplete.",
   "license": "MIT",
-  "homepage": "https://use-places-autocomplete.netlify.com",
+  "homepage": "https://use-places-autocomplete.netlify.app",
   "repository": "https://github.com/wellyshen/use-places-autocomplete",
   "bugs": "https://github.com/wellyshen/use-places-autocomplete/issues",
   "keywords": [
