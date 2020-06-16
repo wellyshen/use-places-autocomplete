@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, KeyboardEvent, useState, useRef } from "react";
+import React, { FC, ChangeEvent, KeyboardEvent, useState } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { Global, css } from "@emotion/core";
 import normalize from "normalize.css";
@@ -41,8 +41,7 @@ const App: FC = () => {
     clearSuggestions();
   };
 
-  const ref = useRef<HTMLDivElement>();
-  useOnclickOutside(ref, dismissSuggestions);
+  const ref = useOnclickOutside(dismissSuggestions);
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
     setValue(e.target.value);
