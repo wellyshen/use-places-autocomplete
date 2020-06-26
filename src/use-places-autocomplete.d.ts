@@ -52,6 +52,7 @@ declare module "use-places-autocomplete" {
     componentRestrictions?: ComponentRestrictions;
     location?: LatLng;
     offset?: number;
+    origin?: LatLng | LatLngLiteral;
     radius?: number;
     sessionToken?: AutocompleteSessionToken;
     types?: string[];
@@ -76,6 +77,7 @@ declare module "use-places-autocomplete" {
 
   interface AutocompletePrediction {
     description: string;
+    distance_meters?: number;
     id: string;
     matched_substrings: PredictionSubstring[];
     place_id: string;
@@ -110,10 +112,10 @@ declare module "use-places-autocomplete" {
   }
 
   enum GeocoderLocationType {
-    APPROXIMATE = 'APPROXIMATE',
-    GEOMETRIC_CENTER = 'GEOMETRIC_CENTER',
-    RANGE_INTERPOLATED = 'RANGE_INTERPOLATED',
-    ROOFTOP = 'ROOFTOP',
+    APPROXIMATE = "APPROXIMATE",
+    GEOMETRIC_CENTER = "GEOMETRIC_CENTER",
+    RANGE_INTERPOLATED = "RANGE_INTERPOLATED",
+    ROOFTOP = "ROOFTOP",
   }
 
   interface GeocoderGeometry {
