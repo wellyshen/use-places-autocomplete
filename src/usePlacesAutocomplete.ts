@@ -22,7 +22,7 @@ interface Suggestions {
 interface SetValue {
   (val: string, shouldFetchData?: boolean): void;
 }
-export interface HookReturn {
+interface HookReturn {
   readonly ready: boolean;
   readonly value: string;
   readonly suggestions: Suggestions;
