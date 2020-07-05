@@ -64,7 +64,7 @@ Use the `script` tag to load the library in your project.
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
 ```
 
-We also support asynchronous script loading. By doing so you need to pass the `initMap` as the [callbackName](#parameter-optional) option.
+We also support asynchronous script loading. By doing so you need to pass the `initMap` to the [callbackName](#parameter-optional) option.
 
 <!-- prettier-ignore-start -->
 ```js
@@ -114,7 +114,7 @@ const PlacesAutocomplete = () => {
 
   const handleSelect = ({ description }) => () => {
     // When user selects a place, we can replace the keyword without request data from API
-    // by setting the second parameter as "false"
+    // by setting the second parameter to "false"
     setValue(description, false);
     clearSuggestions();
 
@@ -222,7 +222,7 @@ When use `usePlacesAutocomplete` you can configure the following options via the
 | Key              | Type   | Default              | Description                                                                                                                                                                                                             |
 | ---------------- | ------ | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `requestOptions` | object |                      | The [request options](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest) of Google Maps Places API except for `input` (e.g. bounds, radius etc.). |
-| `googleMaps`     | object | `window.google.maps` | In case you want to provide your own Google Maps object, pass it in as `google.maps`.                                                                                                                                   |
+| `googleMaps`     | object | `window.google.maps` | In case you want to provide your own Google Maps object, pass the `google.maps` to it.                                                                                                                                  |
 | `callbackName`   | string |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
 | `debounce`       | number | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
 
@@ -428,7 +428,7 @@ const parameter = {
 
 getGeocode(parameter)
   // By default we use the "long_name" value from API response, you can tell the utility to use "short_name"
-  // by setting the second parameter as "true"
+  // by setting the second parameter to "true"
   .then((results) => getZipCode(results[0], false))
   .then((zipCode) => {
     console.log("ZIP Code: ", zipCode);
