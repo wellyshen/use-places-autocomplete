@@ -101,8 +101,7 @@ describe("usePlacesAutocomplete", () => {
     delete global.google;
     renderHelper();
 
-    expect(console.error).toHaveBeenCalledTimes(3);
-    expect(console.error).toHaveBeenCalledWith(loadApiErr);
+    expect(console.error).toHaveBeenNthCalledWith(3, loadApiErr);
   });
 
   it("should set debounce correctly", () => {
