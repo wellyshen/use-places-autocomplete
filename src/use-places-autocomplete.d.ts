@@ -78,7 +78,7 @@ declare module "use-places-autocomplete" {
   interface AutocompletePrediction {
     description: string;
     distance_meters?: number;
-    id: string;
+    id?: string;
     matched_substrings: PredictionSubstring[];
     place_id: string;
     reference: string;
