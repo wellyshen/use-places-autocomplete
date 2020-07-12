@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useState, useRef, useCallback, useEffect } from "react";
 import _debounce from "lodash.debounce";
 
@@ -59,7 +61,6 @@ const usePlacesAutocomplete = ({
 
     asRef.current = new placesLib.AutocompleteService();
     setReady(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const clearSuggestions = useCallback(() => {
@@ -106,7 +107,6 @@ const usePlacesAutocomplete = ({
     return (): void => {
       if ((window as any)[callbackName]) delete (window as any)[callbackName];
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callbackName, init]);
 
   return { ready, value, suggestions, setValue, clearSuggestions };
