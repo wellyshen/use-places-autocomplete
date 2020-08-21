@@ -12,10 +12,9 @@ describe("getGeocode", () => {
   const error = "ERROR";
   const geocode = jest.fn();
   const setupMaps = (type = "success"): void => {
-    // @ts-ignore
     global.google = {
       maps: {
-        // @ts-ignore
+        // @ts-expect-error
         Geocoder: class {
           geocode =
             type === "opts"
@@ -90,7 +89,7 @@ describe("getLatLng", () => {
     const latLng = { lat: 123, lng: 456 };
     return getLatLng({
       geometry: {
-        // @ts-ignore
+        // @ts-expect-error
         location: {
           lat: (): number => latLng.lat,
           lng: (): number => latLng.lng,
@@ -102,7 +101,7 @@ describe("getLatLng", () => {
   });
 
   it("should handle failure correctly", () => {
-    // @ts-ignore
+    // @ts-expect-error
     return getLatLng({}).catch((error) => {
       expect(error).toEqual(expect.any(Error));
     });
@@ -117,7 +116,7 @@ describe("getZipCode", () => {
   };
 
   it("should handle success with long name correctly", () => {
-    // @ts-ignore
+    // @ts-expect-error
     return getZipCode({ address_components: [zipCode] }).then(
       (result: ZipCode) => {
         expect(result).toEqual(zipCode.long_name);
@@ -126,7 +125,7 @@ describe("getZipCode", () => {
   });
 
   it("should handle success with short name correctly", () => {
-    // @ts-ignore
+    // @ts-expect-error
     return getZipCode({ address_components: [zipCode] }, true).then(
       (result: ZipCode) => {
         expect(result).toEqual(zipCode.short_name);
@@ -135,14 +134,14 @@ describe("getZipCode", () => {
   });
 
   it("should handle success without result correctly", () => {
-    // @ts-ignore
+    // @ts-expect-error
     return getZipCode({ address_components: [] }).then((result: ZipCode) => {
       expect(result).toBeNull();
     });
   });
 
   it("should handle failure correctly", () => {
-    // @ts-ignore
+    // @ts-expect-error
     return getZipCode({}).catch((error) => {
       expect(error).toEqual(expect.any(Error));
     });

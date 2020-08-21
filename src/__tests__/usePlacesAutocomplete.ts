@@ -7,7 +7,7 @@ import usePlacesAutocomplete, {
 } from "../usePlacesAutocomplete";
 
 jest.mock("lodash.debounce");
-// @ts-ignore
+// @ts-expect-error
 _debounce.mockImplementation((fn) => fn);
 
 describe("usePlacesAutocomplete", () => {
@@ -29,7 +29,7 @@ describe("usePlacesAutocomplete", () => {
   const defaultSuggestions = {
     loading: false,
     status: "",
-    // @ts-ignore
+    // @ts-expect-error
     data: [],
   };
   const getPlacePredictions = jest.fn();
@@ -54,12 +54,11 @@ describe("usePlacesAutocomplete", () => {
   });
 
   beforeEach(() => {
-    // @ts-ignore
     global.google = getMaps();
   });
 
   afterEach(() => {
-    // @ts-ignore
+    // @ts-expect-error
     _debounce.mockClear();
   });
 
@@ -67,15 +66,11 @@ describe("usePlacesAutocomplete", () => {
     renderHelper({ callbackName });
     expect((window as any)[callbackName]).toBeUndefined();
 
-    // @ts-ignore
     delete global.google.maps;
-    // @ts-ignore
     renderHelper({ callbackName, googleMaps: getMaps().maps });
     expect((window as any)[callbackName]).toBeUndefined();
 
-    // @ts-ignore
     delete global.google;
-    // @ts-ignore
     renderHelper({ callbackName, googleMaps: getMaps().maps });
     expect((window as any)[callbackName]).toBeUndefined();
 
@@ -91,13 +86,10 @@ describe("usePlacesAutocomplete", () => {
   it("should throw error when no Places API", () => {
     console.error = jest.fn();
 
-    // @ts-ignore
     delete global.google.maps.places;
     renderHelper();
-    // @ts-ignore
     delete global.google.maps;
     renderHelper();
-    // @ts-ignore
     delete global.google;
     renderHelper();
 
@@ -114,7 +106,6 @@ describe("usePlacesAutocomplete", () => {
   });
 
   it('should set "requestOptions" correctly', () => {
-    // @ts-ignore
     global.google = getMaps("opts");
     const opts = { radius: 100 };
     const result = renderHelper({ requestOptions: opts });
@@ -126,16 +117,13 @@ describe("usePlacesAutocomplete", () => {
   });
 
   it('should return "ready" correctly', () => {
-    // @ts-ignore
     delete global.google;
-    // @ts-ignore
     let res = renderHelper({ googleMaps: getMaps().maps });
     expect(res.current.ready).toBeTruthy();
 
     res = renderHelper();
     expect(res.current.ready).toBeFalsy();
 
-    // @ts-ignore
     global.google = getMaps();
     res = renderHelper();
     expect(res.current.ready).toBeTruthy();
@@ -169,7 +157,6 @@ describe("usePlacesAutocomplete", () => {
     jest.runAllTimers();
     expect(res.current.suggestions).toEqual(okSuggestions);
 
-    // @ts-ignore
     global.google = getMaps("failure");
     res = renderHelper();
     res.current.setValue(val);
