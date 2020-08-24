@@ -12,7 +12,6 @@ import {
   subtitle,
   autocomplete,
   input,
-  inputNoBottomRadius,
   listBox,
   listItem,
   listItemDarken,
@@ -102,7 +101,7 @@ const App: FC = () => {
           role="option"
           aria-selected={idx === currIndex}
         >
-          <strong>{main_text}</strong>{" "}
+          <strong>{main_text}</strong>
           <small css={subText}>{secondary_text}</small>
         </li>
       );
@@ -131,7 +130,7 @@ const App: FC = () => {
       />
       <div css={container}>
         <GitHubCorner url="https://github.com/wellyshen/use-places-autocomplete" />
-        <h1 css={title}>usePlacesAutocomplete</h1>
+        <h1 css={title}>USE-PLACES-AUTOCOMPLETE</h1>
         <p css={subtitle}>React hook for Google Maps Places Autocomplete.</p>
         <div
           css={autocomplete}
@@ -143,12 +142,12 @@ const App: FC = () => {
           aria-expanded={hasSuggestions}
         >
           <input
-            css={hasSuggestions ? [input, inputNoBottomRadius] : input}
+            css={input}
             value={value}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
             disabled={!ready}
-            placeholder="Where are you going?"
+            placeholder="WHERE ARE YOU GOING?"
             type="text"
             aria-autocomplete="list"
             aria-controls="ex-list-box"

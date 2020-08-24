@@ -6,7 +6,10 @@ const { sm, md, lg } = mq;
 
 export const root = css`
   body {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", sans-serif;
+    h1 {
+      font-family: "Bungee Shade", cursive;
+    }
   }
 `;
 
@@ -14,7 +17,8 @@ export const container = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5rem 5%;
+  padding: 3.5rem 5%;
+  text-align: center;
   ${sm} {
     padding-left: 10%;
     padding-right: 10%;
@@ -30,15 +34,19 @@ export const container = css`
 `;
 
 export const title = css`
-  margin: 0 0 0.75rem;
-  font-size: 1.5rem;
-  ${sm} {
-    font-size: 2rem;
+  margin: 0 0 1rem;
+  font-size: 8vw;
+  ${md} {
+    font-size: 4vw;
   }
 `;
 
 export const subtitle = css`
-  margin: 0 0 2.5rem;
+  margin: 0 0 3.5rem;
+  font-size: 3vw;
+  ${md} {
+    font-size: 1.5vw;
+  }
 `;
 
 export const autocomplete = css`
@@ -46,20 +54,15 @@ export const autocomplete = css`
 `;
 
 export const input = css`
-  padding: 0.9rem 1.15rem;
+  padding: 1rem 1.2rem;
   width: 15rem;
-  border: 1px solid #bbb;
-  border-radius: 8px;
+  border: 5px solid;
   outline: none;
-  line-height: 1.2;
+  font-weight: bold;
+  line-height: 1.5;
   ${sm} {
     width: 20rem;
   }
-`;
-
-export const inputNoBottomRadius = css`
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
 `;
 
 export const listBox = css`
@@ -67,17 +70,15 @@ export const listBox = css`
   margin: 0;
   padding: 0;
   max-height: 60%;
-  overflow-y: auto;
-  border: 1px solid #bbb;
+  border: 5px solid;
   border-top: none;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
   list-style-type: none;
   text-align: left;
+  overflow-y: auto;
 `;
 
 export const listItem = css`
-  padding: 0.75rem 1.15rem;
+  padding: 1rem 1.2rem;
   width: 15rem;
   cursor: pointer;
   ${sm} {
@@ -86,14 +87,16 @@ export const listItem = css`
 `;
 
 export const listItemDarken = css`
-  background: #eee;
+  color: #fff;
+  background: #000;
 `;
 
 export const subText = css`
+  margin-left: 0.5rem;
   color: #8c8c8c;
 `;
 
 export const logo = css`
-  padding: 0.75rem 1.15rem;
+  padding: 1rem 1.2rem;
   text-align: right;
 `;

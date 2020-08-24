@@ -1,4 +1,4 @@
-# Contributing to usePlacesAutocomplete
+# Contributing to USE-PLACES-AUTOCOMPLETE
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
@@ -20,7 +20,7 @@ Please note we have a [code of conduct](https://github.com/wellyshen/use-places-
 
 ## Development Workflow
 
-After cloning usePlacesAutocomplete, run `yarn` to fetch its dependencies. Then, you can run several commands:
+After cloning USE-PLACES-AUTOCOMPLETE, run `yarn` to fetch its dependencies. Then, you can run several commands:
 
 - `yarn dev` runs the [demo app](https://github.com/wellyshen/use-places-autocomplete/tree/master/demo/App) as your playground at `localhost:10001`. Support live reloading.
 - `yarn lint:code` lints all `.js` and `.tsx?` files.
@@ -48,4 +48,4 @@ However, there are still some styles that the linter cannot pick up. If you are 
 
 ## License
 
-By contributing to **usePlacesAutocomplete**, you agree that your contributions will be licensed under its MIT license.
+By contributing to **USE-PLACES-AUTOCOMPLETE**, you agree that your contributions will be licensed under its MIT license.
