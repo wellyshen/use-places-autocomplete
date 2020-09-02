@@ -1,6 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  MutableRefObject,
+} from "react";
 import _debounce from "lodash.debounce";
 
 import useLatest from "./useLatest";
