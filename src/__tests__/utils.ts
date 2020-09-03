@@ -19,7 +19,7 @@ describe("getGeocode", () => {
           geocode =
             type === "opts"
               ? geocode
-              : (_: any, cb: (data: any, status: string) => void) => {
+              : (_: any, cb: (dataArg: any, status: string) => void) => {
                   cb(
                     type === "success" ? data : null,
                     type === "success" ? "OK" : error
