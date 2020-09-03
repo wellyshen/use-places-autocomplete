@@ -354,7 +354,7 @@ const PlacesAutocomplete = () => {
 
 ## Utility Functions
 
-We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng) and [getZipCode](#getzipcode) utils for you to do geocoding and get geographic coordinates when needed.
+We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng), [getZipCode](#getzipcode) and [getDetails](#getDetails) utils for you to do geocoding and get geographic coordinates when needed.
 
 ### getGeocode
 
@@ -444,6 +444,14 @@ getGeocode(parameter)
   - `1st: object` - the result object of `getGeocode`.
   - `2nd: boolean` - should use the `short_name` or not from [API response](https://developers.google.com/places/web-service/details#PlaceDetailsResponses), default is `false`.
 - `zipCode: string | null` - the zip code. If the address doesn't have zip code it will be `null`.
+- `error: any` - an exception.
+
+`getDetails` is an asynchronous function with the following API:
+
+- `parameters` - there're two parameters:
+  - `1st: div element` - a ref to a div element in your autocomplete UI.
+  - `2nd: string | object` - the place ID that you would like details about, or the entire suggestion object returned as part of the sugesstions collection from usePlacesAutocomplete.
+- `placeResult: object | null` - [the details](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult) about the spcific place your queried.
 - `error: any` - an exception.
 
 ## Contributors ✨
