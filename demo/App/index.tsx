@@ -68,7 +68,7 @@ const App: FC = () => {
       return;
     }
 
-    let nextIndex: number;
+    let nextIndex: number | null;
 
     if (e.keyCode === 38) {
       e.preventDefault();
@@ -80,6 +80,7 @@ const App: FC = () => {
     }
 
     setCurrIndex(nextIndex);
+    // @ts-expect-error
     setValue(data[nextIndex] ? data[nextIndex].description : cachedVal, false);
   };
 
@@ -152,7 +153,7 @@ const App: FC = () => {
             aria-autocomplete="list"
             aria-controls="ex-list-box"
             aria-activedescendant={
-              currIndex !== null ? `ex-list-item-${currIndex}` : null
+              currIndex !== null ? `ex-list-item-${currIndex}` : undefined
             }
           />
           {hasSuggestions && (

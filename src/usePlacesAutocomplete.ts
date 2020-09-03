@@ -46,7 +46,9 @@ const usePlacesAutocomplete = ({
     data: [],
   });
   const asRef = useRef(null);
-  const requestOptionsRef = useLatest<RequestOptions>(requestOptions);
+  const requestOptionsRef = useLatest<RequestOptions | undefined>(
+    requestOptions
+  );
   const googleMapsRef = useLatest(googleMaps);
 
   const init = useCallback(() => {
@@ -77,6 +79,7 @@ const usePlacesAutocomplete = ({
       // To keep the previous suggestions
       setSuggestions((prevState) => ({ ...prevState, loading: true }));
 
+      // @ts-expect-error
       asRef.current.getPlacePredictions(
         { ...requestOptionsRef.current, input: val },
         (data: Suggestion[] | null, status: string) => {
@@ -105,6 +108,7 @@ const usePlacesAutocomplete = ({
     }
 
     return () => {
+      // @ts-expect-error
       if ((window as any)[callbackName]) delete (window as any)[callbackName];
     };
   }, [callbackName, init]);
