@@ -104,7 +104,7 @@ const usePlacesAutocomplete = ({
       init();
     }
 
-    return (): void => {
+    return () => {
       if ((window as any)[callbackName]) delete (window as any)[callbackName];
     };
   }, [callbackName, init]);

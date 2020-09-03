@@ -11,7 +11,7 @@ describe("getGeocode", () => {
   const data = [{ place_id: "0109" }];
   const error = "ERROR";
   const geocode = jest.fn();
-  const setupMaps = (type = "success"): void => {
+  const setupMaps = (type = "success") => {
     global.google = {
       maps: {
         // @ts-expect-error
@@ -19,7 +19,7 @@ describe("getGeocode", () => {
           geocode =
             type === "opts"
               ? geocode
-              : (_: any, cb: (data: any, status: string) => void): void => {
+              : (_: any, cb: (data: any, status: string) => void) => {
                   cb(
                     type === "success" ? data : null,
                     type === "success" ? "OK" : error

@@ -35,32 +35,32 @@ const App: FC = () => {
   } = usePlacesAutocomplete();
   const hasSuggestions = status === "OK";
 
-  const dismissSuggestions = (): void => {
+  const dismissSuggestions = () => {
     setCurrIndex(null);
     clearSuggestions();
   };
 
   const ref = useOnclickOutside(dismissSuggestions);
 
-  const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     cachedVal = e.target.value;
   };
 
-  const handleSelect = ({ description }: Suggestion) => (): void => {
+  const handleSelect = ({ description }: Suggestion) => () => {
     setValue(description, false);
     dismissSuggestions();
   };
 
-  const handleEnter = (idx: number) => (): void => {
+  const handleEnter = (idx: number) => () => {
     setCurrIndex(idx);
   };
 
-  const handleLeave = (): void => {
+  const handleLeave = () => {
     setCurrIndex(null);
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (!hasSuggestions || !acceptedKeys.includes(e.keyCode)) return;
 
     if (e.keyCode === 13 || e.keyCode === 27) {
