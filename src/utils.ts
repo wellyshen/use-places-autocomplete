@@ -1,5 +1,4 @@
 /* eslint-disable compat/compat */
-import { RefObject } from "react";
 
 export const geocodeErr =
   "> 💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.";
@@ -64,11 +63,10 @@ export const getDetailsErr =
 type GetDetailsArgs = google.maps.places.AutocompletePrediction | string;
 type DetailsResult = Promise<google.maps.places.PlaceResult | string>;
 
-export const getDetails = (
-  ref: HTMLDivElement,
-  args: GetDetailsArgs
-): DetailsResult => {
-  const PlacesService = new window.google.maps.places.PlacesService(ref);
+export const getDetails = (args: GetDetailsArgs): DetailsResult => {
+  const PlacesService = new window.google.maps.places.PlacesService(
+    document.createElement("div")
+  );
   const placeId = typeof args === "object" ? args.place_id : args;
 
   if (typeof placeId !== "string") {
