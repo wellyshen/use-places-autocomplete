@@ -354,7 +354,7 @@ const PlacesAutocomplete = () => {
 
 ## Utility Functions
 
-We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng) and [getZipCode](#getzipcode) utils for you to do geocoding and get geographic coordinates when needed.
+We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng), [getZipCode](#getzipcode) and [getDetails](#getDetails) utils for you to do geocoding and get geographic coordinates when needed.
 
 ### getGeocode
 
@@ -444,6 +444,48 @@ getGeocode(parameter)
   - `1st: object` - the result object of `getGeocode`.
   - `2nd: boolean` - should use the `short_name` or not from [API response](https://developers.google.com/places/web-service/details#PlaceDetailsResponses), default is `false`.
 - `zipCode: string | null` - the zip code. If the address doesn't have zip code it will be `null`.
+- `error: any` - an exception.
+
+### getDetails
+
+Retrieves a great deal of information about a particular place ID (`suggestion`).
+
+```js
+import React, { useRef } from "react";
+import usePlacesAutocomplete, { getDetails } from "use-places-autocomplete";
+
+const PlacesAutocomplete = () => {
+  const { suggestions, value, setValue } = usePlacesAutocomplete();
+  const ref = useRef(null);
+  const handleInput = (e) => {
+    // Place a "string" to update the value of the input element
+    setValue(e.target.value);
+  };
+  const submit = () => {
+    // use the suggestion from the drop down (object), or just
+    // the place ID (string) if you like.  Here just taking first
+    // suggestion for brevity.
+    const details = getDetails(ref, suggestions[0]);
+    // Now submit the details or a subset of details
+    // however you like.
+  };
+
+  return (
+    <div ref={ref}>
+      <input value={value} onChange={handleInput} />
+      {/* Render dropdown */}
+      <button onClick={submit}>Submit Suggestion</button>
+    </div>
+  );
+};
+```
+
+`getDetails` is an asynchronous function with the following API:
+
+- `parameters` - there're two parameters:
+  - `1st: div element` - a ref to a div element in your autocomplete UI.
+  - `2nd: string | object` - the place ID that you would like details about, or the entire suggestion object returned as part of the sugesstions collection from usePlacesAutocomplete.
+- `placeResult: object | null` - [the details](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult) about the spcific place your queried.
 - `error: any` - an exception.
 
 ## Contributors ✨

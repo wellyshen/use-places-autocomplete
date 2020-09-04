@@ -1,4 +1,5 @@
 /* eslint-disable compat/compat */
+import { RefObject } from "react";
 
 export const geocodeErr =
   "> 💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.";
@@ -57,3 +58,28 @@ export const getZipCode = (
       reject(error);
     }
   });
+
+export const getDetailsErr =
+  "> 💡use-places-autocomplete: Please provide a place Id when using getDetails() either as a string or as part of an Autocomplete Prediction.";
+type GetDetailsArgs = google.maps.places.AutocompletePrediction | string;
+type DetailsResult = Promise<google.maps.places.PlaceResult | string>;
+
+export const getDetails = (
+  ref: HTMLDivElement,
+  args: GetDetailsArgs
+): DetailsResult => {
+  const PlacesService = new window.google.maps.places.PlacesService(ref);
+  const placeId = typeof args === "object" ? args.place_id : args;
+
+  if (typeof placeId !== "string") {
+    console.error(getDetailsErr);
+    return Promise.reject(getDetailsErr);
+  }
+
+  return new Promise((resolve, reject) => {
+    PlacesService.getDetails({ placeId }, (results, status) => {
+      if (status !== "OK") reject(status);
+      resolve(results);
+    });
+  });
+};

@@ -188,4 +188,11 @@ declare module "use-places-autocomplete" {
     result: GeocodeResult,
     useShortName: boolean
   ) => ZipCodeReturn;
+
+  // getDetails types
+  type GetDetailsArgs = google.maps.places.AutocompletePrediction | string;
+
+  type DetailsResult = Promise<google.maps.places.PlaceResult | string>;
+
+  export const getDtails: (args: GetDetailsArgs) => DetailsResult;
 }
