@@ -135,6 +135,95 @@ declare module "use-places-autocomplete" {
     types: string[];
   }
 
+  // getDetails
+  interface PlaceResult {
+    address_components?: GeocoderAddressComponent[];
+    adr_address?: string;
+    aspects?: PlaceAspectRating[];
+    formatted_address?: string;
+    formatted_phone_number?: string;
+    geometry?: PlaceGeometry;
+    html_attributions?: string[];
+    icon?: string;
+    id?: string;
+    international_phone_number?: string;
+    name: string;
+    opening_hours?: OpeningHours;
+    permanently_closed?: boolean;
+    photos?: PlacePhoto[];
+    place_id?: string;
+    plus_code?: PlacePlusCode;
+    price_level?: number;
+    rating?: number;
+    reviews?: PlaceReview[];
+    types?: string[];
+    url?: string;
+    user_ratings_total?: number;
+    utc_offset?: number;
+    utc_offset_minutes?: number;
+    vicinity?: string;
+    website?: string;
+  }
+
+  interface PlaceAspectRating {
+    rating: number;
+    type: string;
+  }
+
+  interface PlaceGeometry {
+    location: LatLng;
+    viewport: LatLngBounds;
+  }
+
+  interface OpeningHours {
+    open_now: boolean;
+    periods: OpeningPeriod[];
+    weekday_text: string[];
+    isOpen(date?: Date): boolean;
+  }
+
+  interface OpeningPeriod {
+    open: OpeningHoursTime;
+    close?: OpeningHoursTime;
+  }
+
+  interface OpeningHoursTime {
+    day: number;
+    hours: number;
+    minutes: number;
+    nextDate: number;
+    time: string;
+  }
+
+  interface PlacePhoto {
+    height: number;
+    html_attributions: string[];
+    width: number;
+    getUrl(opts: PhotoOptions): string;
+  }
+
+  interface PhotoOptions {
+    maxHeight?: number;
+    maxWidth?: number;
+  }
+
+  interface PlacePlusCode {
+    compound_code?: string;
+    global_code: string;
+  }
+
+  interface PlaceReview {
+    aspects: PlaceAspectRating[];
+    author_name: string;
+    author_url?: string;
+    language: string;
+    profile_photo_url: string;
+    rating: number;
+    relative_time_description: string;
+    text: string;
+    time: number;
+  }
+
   /* Hook types */
   export type RequestOptions = AutocompletionRequest;
 
@@ -190,9 +279,9 @@ declare module "use-places-autocomplete" {
   ) => ZipCodeReturn;
 
   // getDetails types
-  type GetDetailsArgs = google.maps.places.AutocompletePrediction | string;
+  type GetDetailsArgs = AutocompletePrediction | string;
 
-  type DetailsResult = Promise<google.maps.places.PlaceResult | string>;
+  type DetailsResult = Promise<PlaceResult | string>;
 
   export const getDtails: (args: GetDetailsArgs) => DetailsResult;
 }
