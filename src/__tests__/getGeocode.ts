@@ -1,11 +1,4 @@
-import {
-  getGeocode,
-  getLatLng,
-  LatLon,
-  getZipCode,
-  ZipCode,
-  geocodeErr,
-} from "../utils";
+import { getGeocode, geocodeErr } from "../utils";
 
 describe("getGeocode", () => {
   const data = [{ place_id: "0109" }];
@@ -80,70 +73,6 @@ describe("getGeocode", () => {
     }).then((results) => {
       expect(console.error).toHaveBeenCalledWith(geocodeErr);
       expect(results).toBe(data);
-    });
-  });
-});
-
-describe("getLatLng", () => {
-  it("should handle success correctly", () => {
-    const latLng = { lat: 123, lng: 456 };
-    return getLatLng({
-      geometry: {
-        // @ts-expect-error
-        location: {
-          lat: (): number => latLng.lat,
-          lng: (): number => latLng.lng,
-        },
-      },
-    }).then((result: LatLon) => {
-      expect(result).toEqual(latLng);
-    });
-  });
-
-  it("should handle failure correctly", () => {
-    // @ts-expect-error
-    return getLatLng({}).catch((error) => {
-      expect(error).toEqual(expect.any(Error));
-    });
-  });
-});
-
-describe("getZipCode", () => {
-  const zipCode = {
-    long_name: "12345",
-    short_name: "123",
-    types: ["postal_code"],
-  };
-
-  it("should handle success with long name correctly", () => {
-    // @ts-expect-error
-    return getZipCode({ address_components: [zipCode] }).then(
-      (result: ZipCode) => {
-        expect(result).toEqual(zipCode.long_name);
-      }
-    );
-  });
-
-  it("should handle success with short name correctly", () => {
-    // @ts-expect-error
-    return getZipCode({ address_components: [zipCode] }, true).then(
-      (result: ZipCode) => {
-        expect(result).toEqual(zipCode.short_name);
-      }
-    );
-  });
-
-  it("should handle success without result correctly", () => {
-    // @ts-expect-error
-    return getZipCode({ address_components: [] }).then((result: ZipCode) => {
-      expect(result).toBeNull();
-    });
-  });
-
-  it("should handle failure correctly", () => {
-    // @ts-expect-error
-    return getZipCode({}).catch((error) => {
-      expect(error).toEqual(expect.any(Error));
     });
   });
 });
