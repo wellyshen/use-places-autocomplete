@@ -456,15 +456,22 @@ import usePlacesAutocomplete, { getDetails } from "use-places-autocomplete";
 
 const PlacesAutocomplete = () => {
   const { suggestions, value, setValue } = usePlacesAutocomplete();
+
   const handleInput = (e) => {
     // Place a "string" to update the value of the input element
     setValue(e.target.value);
   };
+
   const submit = () => {
     // Use the suggestion from the drop down (object), or just the place ID (string) if you like
     // Here just taking first suggestion for brevity
-    const details = getDetails(suggestions[0]);
-    // Now submit the details or a subset of details however you like
+    getDetails(suggestions[0])
+      .then((details) => {
+        console.log("Details: ", details);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
   };
 
   return (
