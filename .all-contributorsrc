@@ -45,6 +45,15 @@
         "doc",
         "ideas"
       ]
+    },
+    {
+      "login": "Xerxes-J",
+      "name": "Xerxes Jarquin",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/18053412?v=4",
+      "profile": "https://github.com/Xerxes-J",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
