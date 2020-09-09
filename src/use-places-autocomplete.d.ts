@@ -283,5 +283,5 @@ declare module "use-places-autocomplete" {
 
   type DetailsResult = Promise<PlaceResult | string>;
 
-  export const getDtails: (args: GetDetailsArgs) => DetailsResult;
+  export const getDetails: (args: GetDetailsArgs) => DetailsResult;
 }
