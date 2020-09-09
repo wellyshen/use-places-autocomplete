@@ -101,6 +101,7 @@
       "welly"
     ],
     "rules": {
+      "no-use-before-define": "off",
       "camelcase": "off",
       "no-console": [
         "warn",
