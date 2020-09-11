@@ -135,8 +135,12 @@ describe("usePlacesAutocomplete", () => {
   });
 
   it('should return "value" correctly', () => {
-    const result = renderHelper();
+    let result = renderHelper();
     expect(result.current.value).toBe("");
+
+    const defaultValue = "Welly";
+    result = renderHelper({ defaultValue });
+    expect(result.current.value).toBe(defaultValue);
 
     result.current.setValue(val);
     expect(result.current.value).toBe(val);

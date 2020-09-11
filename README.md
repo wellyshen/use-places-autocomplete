@@ -225,6 +225,7 @@ When use `usePlacesAutocomplete` you can configure the following options via the
 | `googleMaps`     | object | `window.google.maps` | In case you want to provide your own Google Maps object, pass the `google.maps` to it.                                                                                                                                  |
 | `callbackName`   | string |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
 | `debounce`       | number | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
+| `defaultValue`   | string | `""`                 | Default value for the `input` element.                                                                                                                                                                                  |
 
 ### Return object
 
@@ -233,7 +234,7 @@ It's returned with the following properties.
 | Key                | Type     | Default                                    | Description                                  |
 | ------------------ | -------- | ------------------------------------------ | -------------------------------------------- |
 | `ready`            | boolean  | `false`                                    | The ready status of `usePlacesAutocomplete`. |
-| `value`            | string   | `''`                                       | `value` for the input element.               |
+| `value`            | string   | `""`                                       | `value` for the input element.               |
 | `suggestions`      | object   | `{ loading: false, status: '', data: [] }` | See [suggestions](#suggestions).             |
 | `setValue`         | function | `(value, shouldFetchData = true) => {}`    | See [setValue](#setvalue).                   |
 | `clearSuggestions` | function |                                            | See [clearSuggestions](#clearsuggestions).   |

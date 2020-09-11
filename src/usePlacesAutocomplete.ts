@@ -14,6 +14,7 @@ export interface HookArgs {
   debounce?: number;
   googleMaps?: any;
   callbackName?: string;
+  defaultValue?: string;
 }
 type Suggestion = google.maps.places.AutocompletePrediction;
 interface Suggestions {
@@ -37,9 +38,10 @@ const usePlacesAutocomplete = ({
   debounce = 200,
   googleMaps,
   callbackName,
+  defaultValue = "",
 }: HookArgs = {}): HookReturn => {
   const [ready, setReady] = useState<boolean>(false);
-  const [value, setVal] = useState<string>("");
+  const [value, setVal] = useState<string>(defaultValue);
   const [suggestions, setSuggestions] = useState<Suggestions>({
     loading: false,
     status: "",

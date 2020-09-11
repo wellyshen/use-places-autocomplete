@@ -232,6 +232,7 @@ declare module "use-places-autocomplete" {
     debounce?: number;
     googleMaps?: any;
     callbackName?: string;
+    defaultValue?: string;
   }
 
   export type Suggestion = AutocompletePrediction;
