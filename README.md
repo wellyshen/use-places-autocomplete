@@ -235,7 +235,7 @@ It's returned with the following properties.
 | ------------------ | -------- | ------------------------------------------ | -------------------------------------------- |
 | `ready`            | boolean  | `false`                                    | The ready status of `usePlacesAutocomplete`. |
 | `value`            | string   | `""`                                       | `value` for the input element.               |
-| `suggestions`      | object   | `{ loading: false, status: '', data: [] }` | See [suggestions](#suggestions).             |
+| `suggestions`      | object   | `{ loading: false, status: "", data: [] }` | See [suggestions](#suggestions).             |
 | `setValue`         | function | `(value, shouldFetchData = true) => {}`    | See [setValue](#setvalue).                   |
 | `clearSuggestions` | function |                                            | See [clearSuggestions](#clearsuggestions).   |
 
