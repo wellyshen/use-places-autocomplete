@@ -6,7 +6,7 @@ import _debounce from "lodash.debounce";
 import useLatest from "./useLatest";
 
 export const loadApiErr =
-  "> 💡use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library";
+  "💡use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library";
 
 type RequestOptions = Omit<google.maps.places.AutocompletionRequest, "input">;
 export interface HookArgs {

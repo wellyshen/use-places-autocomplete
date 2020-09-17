@@ -1,7 +1,7 @@
 /* eslint-disable compat/compat */
 
 export const geocodeErr =
-  "> 💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.";
+  "💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.";
 
 type GeoArgs = google.maps.GeocoderRequest;
 type GeocodeResult = google.maps.GeocoderResult;
@@ -59,7 +59,7 @@ export const getZipCode = (
   });
 
 export const getDetailsErr =
-  "> 💡use-places-autocomplete: Please provide a place Id when using getDetails() either as a string or as part of an Autocomplete Prediction.";
+  "💡use-places-autocomplete: Please provide a place Id when using getDetails() either as a string or as part of an Autocomplete Prediction.";
 type GetDetailsArgs = google.maps.places.AutocompletePrediction | string;
 type DetailsResult = Promise<google.maps.places.PlaceResult | string>;
 
