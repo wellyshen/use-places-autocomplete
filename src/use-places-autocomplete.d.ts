@@ -244,11 +244,11 @@ declare module "use-places-autocomplete" {
   }
 
   interface HookReturn {
-    readonly ready: boolean;
-    readonly value: string;
-    readonly suggestions: Suggestions;
-    readonly setValue: (val: string, shouldFetchData?: boolean) => void;
-    readonly clearSuggestions: () => void;
+    ready: boolean;
+    value: string;
+    suggestions: Suggestions;
+    setValue: (val: string, shouldFetchData?: boolean) => void;
+    clearSuggestions: () => void;
   }
 
   const usePlacesAutocomplete: (args?: HookArgs) => HookReturn;

@@ -26,11 +26,11 @@ interface SetValue {
   (val: string, shouldFetchData?: boolean): void;
 }
 interface HookReturn {
-  readonly ready: boolean;
-  readonly value: string;
-  readonly suggestions: Suggestions;
-  readonly setValue: SetValue;
-  readonly clearSuggestions: () => void;
+  ready: boolean;
+  value: string;
+  suggestions: Suggestions;
+  setValue: SetValue;
+  clearSuggestions: () => void;
 }
 
 const usePlacesAutocomplete = ({
