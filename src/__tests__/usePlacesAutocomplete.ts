@@ -29,7 +29,6 @@ describe("usePlacesAutocomplete", () => {
   const defaultSuggestions = {
     loading: false,
     status: "",
-    // @ts-expect-error
     data: [],
   };
   const getPlacePredictions = jest.fn();
@@ -40,7 +39,7 @@ describe("usePlacesAutocomplete", () => {
           getPlacePredictions =
             type === "opts"
               ? getPlacePredictions
-              : (_: any, cb: (data: any, status: string) => void): void => {
+              : (_: any, cb: (dataArg: any, status: string) => void) => {
                   setTimeout(() => {
                     cb(
                       type === "success" ? data : null,
@@ -66,10 +65,12 @@ describe("usePlacesAutocomplete", () => {
     renderHelper({ callbackName });
     expect((window as any)[callbackName]).toBeUndefined();
 
+    // @ts-ignore
     delete global.google.maps;
     renderHelper({ callbackName, googleMaps: getMaps().maps });
     expect((window as any)[callbackName]).toBeUndefined();
 
+    // @ts-ignore
     delete global.google;
     renderHelper({ callbackName, googleMaps: getMaps().maps });
     expect((window as any)[callbackName]).toBeUndefined();
@@ -86,10 +87,13 @@ describe("usePlacesAutocomplete", () => {
   it("should throw error when no Places API", () => {
     console.error = jest.fn();
 
+    // @ts-ignore
     delete global.google.maps.places;
     renderHelper();
+    // @ts-ignore
     delete global.google.maps;
     renderHelper();
+    // @ts-ignore
     delete global.google;
     renderHelper();
 
@@ -117,6 +121,7 @@ describe("usePlacesAutocomplete", () => {
   });
 
   it('should return "ready" correctly', () => {
+    // @ts-ignore
     delete global.google;
     let res = renderHelper({ googleMaps: getMaps().maps });
     expect(res.current.ready).toBeTruthy();
@@ -130,8 +135,12 @@ describe("usePlacesAutocomplete", () => {
   });
 
   it('should return "value" correctly', () => {
-    const result = renderHelper();
+    let result = renderHelper();
     expect(result.current.value).toBe("");
+
+    const defaultValue = "Welly";
+    result = renderHelper({ defaultValue });
+    expect(result.current.value).toBe(defaultValue);
 
     result.current.setValue(val);
     expect(result.current.value).toBe(val);

@@ -3,7 +3,7 @@
 
 node_modules
 demo/.dev
-dist
 public
+dist
 coverage
 .size-snapshot.json

@@ -3,8 +3,7 @@ import { getDetailsErr, getDetails } from "../utils";
 describe("getDetails", () => {
   const data = { formatted_address: "123", name: "abc" };
   const error = "ERROR";
-  const getdetails = jest.fn();
-  const ref = document.createElement("div");
+  const getDetailsFn = jest.fn();
   const autocompletePrediction = {
     description: "1230 East 38th 1/2 Street, Austin, TX, USA",
     matched_substrings: [
@@ -49,7 +48,7 @@ describe("getDetails", () => {
     ],
     types: ["street_address", "geocode"],
   };
-  const setupMaps = (type = "success"): void => {
+  const setupMaps = (type = "success") => {
     global.google = {
       maps: {
         places: {
@@ -57,8 +56,8 @@ describe("getDetails", () => {
           PlacesService: class {
             getDetails =
               type === "opts"
-                ? getdetails
-                : (_: any, cb: (data: any, status: string) => void): void => {
+                ? getDetailsFn
+                : (_: any, cb: (dataArg: any, status: string) => void) => {
                     cb(
                       type === "success" ? data : null,
                       type === "success" ? "OK" : error
@@ -73,8 +72,8 @@ describe("getDetails", () => {
   it("should make call with places_id when placesId passed in", () => {
     setupMaps("opts");
     const opts = "0109";
-    getDetails(ref, opts);
-    expect(getdetails).toHaveBeenCalledWith(
+    getDetails(opts);
+    expect(getDetailsFn).toHaveBeenCalledWith(
       { placeId: "0109" },
       expect.any(Function)
     );
@@ -82,8 +81,8 @@ describe("getDetails", () => {
 
   it("should make call with places_id when AutocompletePrediction passed in", () => {
     setupMaps("opts");
-    getDetails(ref, autocompletePrediction);
-    expect(getdetails).toHaveBeenCalledWith(
+    getDetails(autocompletePrediction);
+    expect(getDetailsFn).toHaveBeenCalledWith(
       { placeId: "0109" },
       expect.any(Function)
     );
@@ -91,24 +90,27 @@ describe("getDetails", () => {
 
   it("should handle success correctly", () => {
     setupMaps();
-    return getDetails(ref, "0109").then((results) => {
+    return getDetails("0109").then((results) => {
       expect(results).toBe(data);
     });
   });
 
   it("should throw error when place_id is not provided", () => {
     console.error = jest.fn();
-    const auto = { ...autocompletePrediction, place_id: "" };
+
+    const auto = { ...autocompletePrediction, place_id: null };
     setupMaps();
-    return getDetails(ref, auto).catch((err) => {
+    // @ts-expect-error
+    return getDetails(auto).catch((err) => {
+      expect(console.error).toHaveBeenCalledWith(getDetailsErr);
       expect(err).toBe(getDetailsErr);
     });
   });
 
   it("should handle failure correctly", () => {
     const auto = { ...autocompletePrediction, place_id: "" };
-    setupMaps();
-    return getDetails(ref, auto).catch((err) => {
+    setupMaps("failure");
+    return getDetails(auto).catch((err) => {
       expect(err).toBe(error);
     });
   });

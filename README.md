@@ -11,7 +11,7 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 [![npm downloads](https://img.shields.io/npm/dt/use-places-autocomplete?style=flat-square)](https://www.npmtrends.com/use-places-autocomplete)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/use-places-autocomplete?style=flat-square)](https://bundlephobia.com/result?p=use-places-autocomplete)
 [![MIT licensed](https://img.shields.io/github/license/wellyshen/use-places-autocomplete?style=flat-square)](https://raw.githubusercontent.com/wellyshen/use-places-autocomplete/master/LICENSE)
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/wellyshen/use-places-autocomplete/blob/master/CONTRIBUTING.md)
 [![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fwellyshen%2Fuse-places-autocomplete)](https://twitter.com/intent/tweet?text=With%20@use-places-autocomplete,%20I%20can%20build%20a%20component%20with%20the%20feature%20of%20place%20autocomplete%20easily!%20Thanks,%20@Welly%20Shen%20🤩)
 
@@ -225,6 +225,7 @@ When use `usePlacesAutocomplete` you can configure the following options via the
 | `googleMaps`     | object | `window.google.maps` | In case you want to provide your own Google Maps object, pass the `google.maps` to it.                                                                                                                                  |
 | `callbackName`   | string |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
 | `debounce`       | number | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
+| `defaultValue`   | string | `""`                 | Default value for the `input` element.                                                                                                                                                                                  |
 
 ### Return object
 
@@ -233,8 +234,8 @@ It's returned with the following properties.
 | Key                | Type     | Default                                    | Description                                  |
 | ------------------ | -------- | ------------------------------------------ | -------------------------------------------- |
 | `ready`            | boolean  | `false`                                    | The ready status of `usePlacesAutocomplete`. |
-| `value`            | string   | `''`                                       | `value` for the input element.               |
-| `suggestions`      | object   | `{ loading: false, status: '', data: [] }` | See [suggestions](#suggestions).             |
+| `value`            | string   | `""`                                       | `value` for the input element.               |
+| `suggestions`      | object   | `{ loading: false, status: "", data: [] }` | See [suggestions](#suggestions).             |
 | `setValue`         | function | `(value, shouldFetchData = true) => {}`    | See [setValue](#setvalue).                   |
 | `clearSuggestions` | function |                                            | See [clearSuggestions](#clearsuggestions).   |
 
@@ -451,27 +452,31 @@ getGeocode(parameter)
 Retrieves a great deal of information about a particular place ID (`suggestion`).
 
 ```js
-import React, { useRef } from "react";
+import React from "react";
 import usePlacesAutocomplete, { getDetails } from "use-places-autocomplete";
 
 const PlacesAutocomplete = () => {
   const { suggestions, value, setValue } = usePlacesAutocomplete();
-  const ref = useRef(null);
+
   const handleInput = (e) => {
     // Place a "string" to update the value of the input element
     setValue(e.target.value);
   };
+
   const submit = () => {
-    // use the suggestion from the drop down (object), or just
-    // the place ID (string) if you like.  Here just taking first
-    // suggestion for brevity.
-    const details = getDetails(ref, suggestions[0]);
-    // Now submit the details or a subset of details
-    // however you like.
+    // Use the suggestion from the drop down (object), or just the place ID (string) if you like
+    // Here just taking first suggestion for brevity
+    getDetails(suggestions[0])
+      .then((details) => {
+        console.log("Details: ", details);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
   };
 
   return (
-    <div ref={ref}>
+    <div>
       <input value={value} onChange={handleInput} />
       {/* Render dropdown */}
       <button onClick={submit}>Submit Suggestion</button>
@@ -482,10 +487,8 @@ const PlacesAutocomplete = () => {
 
 `getDetails` is an asynchronous function with the following API:
 
-- `parameters` - there're two parameters:
-  - `1st: div element` - a ref to a div element in your autocomplete UI.
-  - `2nd: string | object` - the place ID that you would like details about, or the entire suggestion object returned as part of the sugesstions collection from usePlacesAutocomplete.
-- `placeResult: object | null` - [the details](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult) about the spcific place your queried.
+- `parameters: string | object` - the place ID that you would like details about, or the entire suggestion object returned as part of the suggestions collection from usePlacesAutocomplete.
+- `placeResult: object | null` - [the details](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult) about the specific place your queried.
 - `error: any` - an exception.
 
 ## Contributors ✨
@@ -500,6 +503,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://wellyshen.com"><img src="https://avatars1.githubusercontent.com/u/21308003?v=4" width="100px;" alt=""/><br /><sub><b>Welly</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=wellyshen" title="Code">💻</a> <a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=wellyshen" title="Documentation">📖</a> <a href="#maintenance-wellyshen" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://kylekirkby.github.io"><img src="https://avatars0.githubusercontent.com/u/4564433?v=4" width="100px;" alt=""/><br /><sub><b>Kyle</b></sub></a><br /><a href="#translation-kylekirkby" title="Translation">🌍</a></td>
     <td align="center"><a href="https://www.lkaric.tech"><img src="https://avatars0.githubusercontent.com/u/16634314?v=4" width="100px;" alt=""/><br /><sub><b>Lazar Karić</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=rejvban" title="Code">💻</a> <a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=rejvban" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/reharik"><img src="https://avatars2.githubusercontent.com/u/882382?v=4" width="100px;" alt=""/><br /><sub><b>Raif Harik</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=reharik" title="Code">💻</a> <a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=reharik" title="Documentation">📖</a> <a href="#ideas-reharik" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/Xerxes-J"><img src="https://avatars0.githubusercontent.com/u/18053412?v=4" width="100px;" alt=""/><br /><sub><b>Xerxes Jarquin</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/issues?q=author%3AXerxes-J" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 

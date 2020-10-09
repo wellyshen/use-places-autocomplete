@@ -1,8 +1,7 @@
 /* eslint-disable compat/compat */
-import { RefObject } from "react";
 
 export const geocodeErr =
-  "> 💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.";
+  "💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.";
 
 type GeoArgs = google.maps.GeocoderRequest;
 type GeocodeResult = google.maps.GeocoderResult;
@@ -60,15 +59,14 @@ export const getZipCode = (
   });
 
 export const getDetailsErr =
-  "> 💡use-places-autocomplete: Please provide a place Id when using getDetails() either as a string or as part of an Autocomplete Prediction.";
+  "💡use-places-autocomplete: Please provide a place Id when using getDetails() either as a string or as part of an Autocomplete Prediction.";
 type GetDetailsArgs = google.maps.places.AutocompletePrediction | string;
 type DetailsResult = Promise<google.maps.places.PlaceResult | string>;
 
-export const getDetails = (
-  ref: HTMLDivElement,
-  args: GetDetailsArgs
-): DetailsResult => {
-  const PlacesService = new window.google.maps.places.PlacesService(ref);
+export const getDetails = (args: GetDetailsArgs): DetailsResult => {
+  const PlacesService = new window.google.maps.places.PlacesService(
+    document.createElement("div")
+  );
   const placeId = typeof args === "object" ? args.place_id : args;
 
   if (typeof placeId !== "string") {
