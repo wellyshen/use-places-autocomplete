@@ -1561,7 +1561,7 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/googlemaps@^3.39.13":
+"@types/googlemaps@^3.40.0":
   version "3.40.0"
   resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.40.0.tgz#786743648ab464fbeaa4cfe15230a7297273b309"
   integrity sha512-KcAYVKjd5fL0Ur9G4xNL5YG/Bp5HFfdd8s/7j97eFcTyTpp7vIRcf8mtRBAIOM3QNgN2iJhSEecWTG2x8D+bnQ==
@@ -1684,7 +1684,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.9.49":
+"@types/react@*", "@types/react@^16.9.51":
   version "16.9.51"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.51.tgz#f8aa51ffa9996f1387f63686696d9b59713d2b60"
   integrity sha512-lQa12IyO+DMlnSZ3+AGHRUiUcpK47aakMMoBG8f7HGxJT8Yfe+WE128HIXaHOHVPReAW0oDS3KAI0JI2DDe1PQ==
@@ -3876,7 +3876,7 @@ eslint-config-prettier@^6.12.0:
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-config-welly@^1.4.10:
+eslint-config-welly@^1.4.11:
   version "1.4.11"
   resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-1.4.11.tgz#5ecd262b947ca3d3af34a9e4885397c3afb42391"
   integrity sha512-wasooyoeAhct3R1W1xfmpqE9YXbWZ2Ras6zVHcDx18z8tI8o5Ka23NwSShnyzy1qAeJWhBtjvaijr+n41L4lAQ==
@@ -5900,7 +5900,7 @@ jest-worker@^26.5.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jest@^26.4.2:
+jest@^26.5.2:
   version "26.5.2"
   resolved "https://registry.yarnpkg.com/jest/-/jest-26.5.2.tgz#c6791642b331fe7abd2f993b0a74aa546f7be0fb"
   integrity sha512-4HFabJVwsgDwul/7rhXJ3yFAF/aUkVIXiJWmgFxb+WMdZG39fVvOwYAs8/3r4AlFPc4m/n5sTMtuMbOL3kNtrQ==
@@ -8316,7 +8316,7 @@ rollup-pluginutils@^2.8.2:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.28.2:
+rollup@^2.29.0:
   version "2.29.0"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.29.0.tgz#0c5c5968530b21ca0e32f8b94b7cd9346cfb0eec"
   integrity sha512-gtU0sjxMpsVlpuAf4QXienPmUAhd6Kc7owQ4f5lypoxBW18fw2UNYZ4NssLGsri6WhUZkE/Ts3EMRebN+gNLiQ==
