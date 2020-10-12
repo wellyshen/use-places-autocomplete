@@ -19,6 +19,11 @@ const isDev = BUILD === "dev";
 const isDemo = BUILD === "demo";
 const isDist = BUILD === "dist";
 
+const createExternalResolver = (external) =>
+  !external.length
+    ? () => false
+    : (id) => new RegExp(`^(${external.join("|")})($|/)`).test(id);
+
 const cjs = {
   file: isDist ? pkg.main : "demo/.dev/bundle.js",
   format: "cjs",
@@ -77,6 +82,9 @@ export default {
   output: isDist ? [cjs, esm] : [cjs],
   plugins,
   external: isDist
-    ? [...Object.keys(pkg.peerDependencies), /@babel\/runtime/]
+    ? createExternalResolver([
+        ...Object.keys(pkg.peerDependencies),
+        ...Object.keys(pkg.dependencies),
+      ])
     : [],
 };
