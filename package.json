@@ -83,9 +83,6 @@
       "@babel/typescript",
       "@babel/react"
     ],
-    "plugins": [
-      "@babel/plugin-transform-runtime"
-    ],
     "env": {
       "development": {
         "presets": [
@@ -142,13 +139,8 @@
       "!src/index.ts"
     ]
   },
-  "dependencies": {
-    "@babel/runtime": "^7.11.2",
-    "lodash.debounce": "^4.0.8"
-  },
   "devDependencies": {
     "@babel/core": "^7.11.6",
-    "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",

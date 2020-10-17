@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState, useRef, useCallback, useEffect } from "react";
-import _debounce from "lodash.debounce";
 
 import useLatest from "./useLatest";
+import _debounce from "./debounce";
 
 export const loadApiErr =
   "💡use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library";

@@ -19,11 +19,6 @@ const isDev = BUILD === "dev";
 const isDemo = BUILD === "demo";
 const isDist = BUILD === "dist";
 
-const makeExternalPredicate = (external) =>
-  !external.length
-    ? () => false
-    : (id) => new RegExp(`^(${external.join("|")})($|/)`).test(id);
-
 const cjs = {
   file: isDist ? pkg.main : "demo/.dev/bundle.js",
   format: "cjs",
@@ -42,7 +37,7 @@ const extensions = [".js", ".ts", ".tsx", ".json"];
 const plugins = [
   resolve({ extensions }),
   commonjs(),
-  babel({ exclude: "node_modules/**", babelHelpers: "runtime", extensions }),
+  babel({ exclude: "node_modules/**", extensions }),
   replace({
     "process.env.NODE_ENV": JSON.stringify(
       isDev ? "development" : "production"
@@ -81,10 +76,5 @@ export default {
   input: isDist ? "src" : "demo",
   output: isDist ? [cjs, esm] : [cjs],
   plugins,
-  external: isDist
-    ? makeExternalPredicate([
-        ...Object.keys(pkg.peerDependencies),
-        ...Object.keys(pkg.dependencies),
-      ])
-    : [],
+  external: isDist ? Object.keys(pkg.peerDependencies) : [],
 };
