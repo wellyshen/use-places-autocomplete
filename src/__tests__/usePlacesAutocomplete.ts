@@ -1,12 +1,12 @@
 import { renderHook } from "@testing-library/react-hooks";
-import _debounce from "lodash.debounce";
 
 import usePlacesAutocomplete, {
   HookArgs,
   loadApiErr,
 } from "../usePlacesAutocomplete";
+import _debounce from "../debounce";
 
-jest.mock("lodash.debounce");
+jest.mock("../debounce");
 // @ts-expect-error
 _debounce.mockImplementation((fn) => fn);
 
