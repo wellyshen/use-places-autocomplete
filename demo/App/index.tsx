@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, KeyboardEvent, useState } from "react";
+import React, { FC, ChangeEvent, useState } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { Global, css } from "@emotion/core";
 import normalize from "normalize.css";
@@ -20,7 +20,7 @@ import {
 } from "./styles";
 
 let cachedVal = "";
-const acceptedKeys = [38, 40, 13, 27];
+const acceptedKeys = ["ArrowUp", "ArrowDown", "Escape", "Enter"];
 
 type Suggestion = google.maps.places.AutocompletePrediction;
 
@@ -60,17 +60,17 @@ const App: FC = () => {
     setCurrIndex(null);
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (!hasSuggestions || !acceptedKeys.includes(e.keyCode)) return;
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (!hasSuggestions || !acceptedKeys.includes(e.code)) return;
 
-    if (e.keyCode === 13 || e.keyCode === 27) {
+    if (e.code === "Enter" || e.code === "Escape") {
       dismissSuggestions();
       return;
     }
 
     let nextIndex: number | null;
 
-    if (e.keyCode === 38) {
+    if (e.code === "ArrowUp") {
       e.preventDefault();
       nextIndex = currIndex ?? data.length;
       nextIndex = nextIndex > 0 ? nextIndex - 1 : null;
