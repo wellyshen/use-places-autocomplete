@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useState } from "react";
+import React, { FC, ChangeEvent, KeyboardEvent, useState } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { Global, css } from "@emotion/core";
 import normalize from "normalize.css";
@@ -60,17 +60,17 @@ const App: FC = () => {
     setCurrIndex(null);
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (!hasSuggestions || !acceptedKeys.includes(e.code)) return;
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (!hasSuggestions || !acceptedKeys.includes(e.key)) return;
 
-    if (e.code === "Enter" || e.code === "Escape") {
+    if (e.key === "Enter" || e.key === "Escape") {
       dismissSuggestions();
       return;
     }
 
     let nextIndex: number | null;
 
-    if (e.code === "ArrowUp") {
+    if (e.key === "ArrowUp") {
       e.preventDefault();
       nextIndex = currIndex ?? data.length;
       nextIndex = nextIndex > 0 ? nextIndex - 1 : null;
