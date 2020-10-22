@@ -1631,7 +1631,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin@^4.4.1":
+"@typescript-eslint/eslint-plugin@^4.5.0":
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.5.0.tgz#4ff9c1d8535ae832e239f0ef6d7210592d9b0b07"
   integrity sha512-mjb/gwNcmDKNt+6mb7Aj/TjKzIJjOPcoCJpjBQC9ZnTRnBt1p4q5dJSSmIqAtsZ/Pff5N+hJlbiPc5bl6QN4OQ==
@@ -1667,7 +1667,7 @@
     eslint-scope "^5.0.0"
     eslint-utils "^2.0.0"
 
-"@typescript-eslint/parser@^4.4.1":
+"@typescript-eslint/parser@^4.5.0":
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-4.5.0.tgz#b2d659f25eec0041c7bc5660b91db1eefe8d7122"
   integrity sha512-xb+gmyhQcnDWe+5+xxaQk5iCw6KqXd8VQxGiTeELTMoYeRjpocZYYRP1gFVM2C8Yl0SpUvLa1lhprwqZ00w3Iw==
@@ -3722,12 +3722,12 @@ eslint-config-prettier@^6.13.0:
     get-stdin "^6.0.0"
 
 eslint-config-welly@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-1.6.1.tgz#2f8a01183094666ba0fd904c01f3f170fd73c265"
-  integrity sha512-TJyNluPZ9ZX3Ht5hjkqu3dosC6aGNorUzwgqXx1TIaz9swuy/MTtjhri4LfQjjvSWU66UF7Npm/OCxNGfxnt9w==
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-1.6.2.tgz#fa89d6f63bceca1a89f78a603f414fc6d8659027"
+  integrity sha512-jJIUOc+6GYgW9jCmtdi1YQNac9ittGIw52BJGQAGM8OHM2XI9XpPeTAikZ4gafOqQwPPkLDL+yhFoHiNaZLBzw==
   dependencies:
-    "@typescript-eslint/eslint-plugin" "^4.4.1"
-    "@typescript-eslint/parser" "^4.4.1"
+    "@typescript-eslint/eslint-plugin" "^4.5.0"
+    "@typescript-eslint/parser" "^4.5.0"
     eslint-config-airbnb "^18.2.0"
     eslint-config-prettier "^6.13.0"
     eslint-import-resolver-typescript "^2.3.0"
