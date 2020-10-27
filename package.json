@@ -1,6 +1,6 @@
 {
   "name": "use-places-autocomplete",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "React hook for Google Maps Places Autocomplete.",
   "license": "MIT",
   "homepage": "https://use-places-autocomplete.netlify.app",
