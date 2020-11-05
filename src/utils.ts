@@ -1,7 +1,7 @@
 /* eslint-disable compat/compat */
 
 export const geocodeErr =
-  "💡use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.";
+  "💡 use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.";
 
 type GeoArgs = google.maps.GeocoderRequest;
 type GeocodeResult = google.maps.GeocoderResult;
