@@ -87,14 +87,14 @@ const App: FC = () => {
   const renderSuggestions = (): JSX.Element => {
     const suggestions = data.map((suggestion: Suggestion, idx: number) => {
       const {
-        id,
+        place_id,
         structured_formatting: { main_text, secondary_text },
       } = suggestion;
 
       return (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         <li
-          key={id}
+          key={place_id}
           id={`ex-list-item-${idx}`}
           css={idx === currIndex ? [listItem, listItemDarken] : listItem}
           onClick={handleSelect(suggestion)}
