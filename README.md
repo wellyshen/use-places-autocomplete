@@ -133,12 +133,12 @@ const PlacesAutocomplete = () => {
   const renderSuggestions = () =>
     data.map((suggestion) => {
       const {
-        id,
+        place_id,
         structured_formatting: { main_text, secondary_text },
       } = suggestion;
 
       return (
-        <li key={id} onClick={handleSelect(suggestion)}>
+        <li key={place_id} onClick={handleSelect(suggestion)}>
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       );
@@ -198,8 +198,8 @@ const PlacesAutocomplete = () => {
       <ComboboxPopover>
         <ComboboxList>
           {status === "OK" &&
-            data.map(({ id, description }) => (
-              <ComboboxOption key={id} value={description} />
+            data.map(({ place_id, description }) => (
+              <ComboboxOption key={place_id} value={description} />
             ))}
         </ComboboxList>
       </ComboboxPopover>
