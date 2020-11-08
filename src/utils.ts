@@ -60,22 +60,21 @@ export const getZipCode = (
 
 export const getDetailsErr =
   "💡use-places-autocomplete: Please provide a place Id when using getDetails() either as a string or as part of an Autocomplete Prediction.";
-type GetDetailsArgs = google.maps.places.AutocompletePrediction | string;
+type GetDetailsArgs = google.maps.places.PlaceDetailsRequest;
 type DetailsResult = Promise<google.maps.places.PlaceResult | string>;
 
 export const getDetails = (args: GetDetailsArgs): DetailsResult => {
   const PlacesService = new window.google.maps.places.PlacesService(
     document.createElement("div")
   );
-  const placeId = typeof args === "object" ? args.place_id : args;
 
-  if (typeof placeId !== "string") {
+  if (!args.placeId) {
     console.error(getDetailsErr);
     return Promise.reject(getDetailsErr);
   }
 
   return new Promise((resolve, reject) => {
-    PlacesService.getDetails({ placeId }, (results, status) => {
+    PlacesService.getDetails(args, (results, status) => {
       if (status !== "OK") reject(status);
       resolve(results);
     });

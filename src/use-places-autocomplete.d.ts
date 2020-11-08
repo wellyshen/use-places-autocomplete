@@ -136,6 +136,12 @@ declare module "use-places-autocomplete" {
   }
 
   // getDetails
+  interface PlaceDetailsRequest {
+    placeId: string;
+    fields?: string[];
+    sessionToken?: AutocompleteSessionToken;
+  }
+
   interface PlaceResult {
     address_components?: GeocoderAddressComponent[];
     adr_address?: string;
@@ -224,7 +230,8 @@ declare module "use-places-autocomplete" {
     time: number;
   }
 
-  /* Hook types */
+  /* Package types */
+  // Hook
   export type RequestOptions = AutocompletionRequest;
 
   interface HookArgs {
@@ -255,8 +262,8 @@ declare module "use-places-autocomplete" {
 
   export default usePlacesAutocomplete;
 
-  // Geocoding types
-  type GeoArgs = GeocoderRequest;
+  // Utils
+  export type GeoArgs = GeocoderRequest;
 
   export type GeocodeResult = GeocoderResult;
 
@@ -279,8 +286,7 @@ declare module "use-places-autocomplete" {
     useShortName: boolean
   ) => ZipCodeReturn;
 
-  // getDetails types
-  type GetDetailsArgs = AutocompletePrediction | string;
+  export type GetDetailsArgs = PlaceDetailsRequest;
 
   type DetailsResult = Promise<PlaceResult | string>;
 
