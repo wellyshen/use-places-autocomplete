@@ -295,7 +295,7 @@ const PlacesAutocomplete = () => {
   const renderSuggestions = () =>
     data.map(suggestion => (
         <li
-          key={suggestion.id}
+          key={suggestion.place_id}
           onClick={handleSelect(suggestion)}
         >
           {/* Render suggestion text */}
@@ -336,7 +336,7 @@ const PlacesAutocomplete = () => {
   const renderSuggestions = () =>
     data.map(suggestion => (
         <li
-          key={suggestion.id}
+          key={suggestion.place_id}
           onClick={handleSelect(suggestion)}
         >
           {/* Render suggestion text */}
@@ -465,9 +465,14 @@ const PlacesAutocomplete = () => {
   };
 
   const submit = () => {
-    // Use the suggestion from the drop down (object), or just the place ID (string) if you like
-    // Here just taking first suggestion for brevity
-    getDetails(suggestions[0])
+    const parameter = {
+      // Use the "place_id" of suggestion from the dropdown (object), here just taking first suggestion for brevity
+      placeId: suggestions[0].place_id,
+      // Specify the return data that you want (optional)
+      fields: ["name", "rating"],
+    };
+
+    getDetails(parameter)
       .then((details) => {
         console.log("Details: ", details);
       })
@@ -488,7 +493,7 @@ const PlacesAutocomplete = () => {
 
 `getDetails` is an asynchronous function with the following API:
 
-- `parameters: string | object` - the place ID that you would like details about, or the entire suggestion object returned as part of the suggestions collection from usePlacesAutocomplete.
+- `parameter: object` - [the request](https://developers.google.com/maps/documentation/javascript/places#place_details_requests) of the PlacesService's `getDetails()` method. You must supply the `placeId` that you would like details about.
 - `placeResult: object | null` - [the details](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult) about the specific place your queried.
 - `error: any` - an exception.
 
