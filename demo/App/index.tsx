@@ -1,6 +1,6 @@
 import React, { FC, ChangeEvent, KeyboardEvent, useState } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { Global, css } from "@emotion/core";
+import { Global, css } from "@emotion/react";
 import normalize from "normalize.css";
 
 import GitHubCorner from "../GitHubCorner";
