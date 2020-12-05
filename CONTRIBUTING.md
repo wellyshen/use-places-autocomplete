@@ -22,10 +22,10 @@ After cloning USE-PLACES-AUTOCOMPLETE, run `yarn` to fetch its dependencies. The
 
 - `yarn dev` runs the [demo app](https://github.com/wellyshen/use-places-autocomplete/tree/master/demo/App) as your playground at `localhost:10001`. Support live reloading.
 - `yarn lint:code` lints all `.js` and `.tsx?` files.
-- `yarn lint:type` runs the [Typescript](https://www.typescriptlang.org) type-checks.
+- `yarn lint:type` runs the [TypeScript](https://www.typescriptlang.org) type-checks.
 - `yarn lint:style` lints all `.css` and `.tsx?` (for [Emotion](https://emotion.sh)) files.
 - `yarn lint:format` formats all files except the file list of `.prettierignore`.
-- `yarn lint` lints both `code` and `style`.
+- `yarn lint` lints `code`, `type`, `style`, and `format`.
 - `yarn test` runs the complete test suite.
 - `yarn test:watch` runs an interactive test watcher (helpful in development).
 - `yarn test:cov` runs the complete test suite with coverage report.
