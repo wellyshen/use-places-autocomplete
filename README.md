@@ -82,7 +82,6 @@ We also support asynchronous script loading. By doing so you need to pass the `i
 Now we can start to build our component. Check the [API](#api) out to learn more.
 
 ```js
-import React from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -164,7 +163,6 @@ const PlacesAutocomplete = () => {
 Easy right? This is the magic of the `usePlacesAutocomplete` ✨. I just show you how does it work via the minimal example. However you can build an UX rich autocomplete component, like [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword interaction as my [demo](#live-demo) by checking the [code](https://github.com/wellyshen/use-places-autocomplete/blob/master/demo/App/index.tsx) or integrate this hook with the [combobox](https://reacttraining.com/reach-ui/combobox) of [Reach UI](https://reacttraining.com/reach-ui) to achieve that.
 
 ```js
-import React from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 import {
   Combobox,
@@ -253,7 +251,6 @@ The search result of Google Maps Places API, which contains the following proper
 Set the `value` of the input element. Use case as below.
 
 ```js
-import React from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 
 const PlacesAutocomplete = () => {
@@ -276,7 +273,6 @@ const PlacesAutocomplete = () => {
 In addition, the `setValue` method has an extra parameter, which can be used to disable hitting Google Maps Places API.
 
 ```js
-import React from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 
 const PlacesAutocomplete = () => {
@@ -317,7 +313,6 @@ const PlacesAutocomplete = () => {
 Calling the method will clear and reset all the properties of the `suggestions` object to default. It's useful for dismissing the dropdown.
 
 ```js
-import React from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 
@@ -453,7 +448,6 @@ getGeocode(parameter)
 Retrieves a great deal of information about a particular place ID (`suggestion`).
 
 ```js
-import React from "react";
 import usePlacesAutocomplete, { getDetails } from "use-places-autocomplete";
 
 const PlacesAutocomplete = () => {
