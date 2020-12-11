@@ -7,35 +7,29 @@ describe("getZipCode", () => {
     types: ["postal_code"],
   };
 
-  it("should handle success with long name correctly", () => {
+  it("should handle success with long name correctly", () =>
     // @ts-expect-error
-    return getZipCode({ address_components: [zipCode] }).then(
-      (result: ZipCode) => {
-        expect(result).toEqual(zipCode.long_name);
-      }
-    );
-  });
+    getZipCode({ address_components: [zipCode] }).then((result: ZipCode) => {
+      expect(result).toEqual(zipCode.long_name);
+    }));
 
-  it("should handle success with short name correctly", () => {
+  it("should handle success with short name correctly", () =>
     // @ts-expect-error
-    return getZipCode({ address_components: [zipCode] }, true).then(
+    getZipCode({ address_components: [zipCode] }, true).then(
       (result: ZipCode) => {
         expect(result).toEqual(zipCode.short_name);
       }
-    );
-  });
+    ));
 
-  it("should handle success without result correctly", () => {
+  it("should handle success without result correctly", () =>
     // @ts-expect-error
-    return getZipCode({ address_components: [] }).then((result: ZipCode) => {
+    getZipCode({ address_components: [] }).then((result: ZipCode) => {
       expect(result).toBeNull();
-    });
-  });
+    }));
 
-  it("should handle failure correctly", () => {
+  it("should handle failure correctly", () =>
     // @ts-expect-error
-    return getZipCode({}).catch((error) => {
+    getZipCode({}).catch((error) => {
       expect(error).toEqual(expect.any(Error));
-    });
-  });
+    }));
 });

@@ -1,6 +1,6 @@
-import React, { FC, ChangeEvent, KeyboardEvent, useState } from "react";
+import { FC, ChangeEvent, KeyboardEvent, useState } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { Global, css } from "@emotion/core";
+import { Global, css } from "@emotion/react";
 import normalize from "normalize.css";
 
 import GitHubCorner from "../GitHubCorner";
@@ -20,7 +20,7 @@ import {
 } from "./styles";
 
 let cachedVal = "";
-const acceptedKeys = [38, 40, 13, 27];
+const acceptedKeys = ["ArrowUp", "ArrowDown", "Escape", "Enter"];
 
 type Suggestion = google.maps.places.AutocompletePrediction;
 
@@ -61,16 +61,16 @@ const App: FC = () => {
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (!hasSuggestions || !acceptedKeys.includes(e.keyCode)) return;
+    if (!hasSuggestions || !acceptedKeys.includes(e.key)) return;
 
-    if (e.keyCode === 13 || e.keyCode === 27) {
+    if (e.key === "Enter" || e.key === "Escape") {
       dismissSuggestions();
       return;
     }
 
     let nextIndex: number | null;
 
-    if (e.keyCode === 38) {
+    if (e.key === "ArrowUp") {
       e.preventDefault();
       nextIndex = currIndex ?? data.length;
       nextIndex = nextIndex > 0 ? nextIndex - 1 : null;
@@ -87,14 +87,14 @@ const App: FC = () => {
   const renderSuggestions = (): JSX.Element => {
     const suggestions = data.map((suggestion: Suggestion, idx: number) => {
       const {
-        id,
+        place_id,
         structured_formatting: { main_text, secondary_text },
       } = suggestion;
 
       return (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         <li
-          key={id}
+          key={place_id}
           id={`ex-list-item-${idx}`}
           css={idx === currIndex ? [listItem, listItemDarken] : listItem}
           onClick={handleSelect(suggestion)}

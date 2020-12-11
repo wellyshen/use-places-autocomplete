@@ -11,7 +11,7 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 [![npm downloads](https://img.shields.io/npm/dt/use-places-autocomplete?style=flat-square)](https://www.npmtrends.com/use-places-autocomplete)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/use-places-autocomplete?style=flat-square)](https://bundlephobia.com/result?p=use-places-autocomplete)
 [![MIT licensed](https://img.shields.io/github/license/wellyshen/use-places-autocomplete?style=flat-square)](https://raw.githubusercontent.com/wellyshen/use-places-autocomplete/master/LICENSE)
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/wellyshen/use-places-autocomplete/blob/master/CONTRIBUTING.md)
 [![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fwellyshen%2Fuse-places-autocomplete)](https://twitter.com/intent/tweet?text=With%20@use-places-autocomplete,%20I%20can%20build%20a%20component%20with%20the%20feature%20of%20place%20autocomplete%20easily!%20Thanks,%20@Welly%20Shen%20🤩)
 
@@ -30,6 +30,7 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 - 🚀 Supports asynchronous Google script loading.
 - 📜 Supports [TypeScript](https://www.typescriptlang.org) type definition.
 - ⌨️ Builds an UX rich component (e.g. [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword support) via comprehensive [demo code](https://github.com/wellyshen/use-places-autocomplete/blob/master/demo/App/index.tsx).
+- 🦠 Tiny size ([~ 1.3KB gzipped](https://bundlephobia.com/result?p=use-places-autocomplete)). No external dependencies, aside for the `react`.
 
 ## Requirement
 
@@ -81,7 +82,6 @@ We also support asynchronous script loading. By doing so you need to pass the `i
 Now we can start to build our component. Check the [API](#api) out to learn more.
 
 ```js
-import React from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -132,12 +132,12 @@ const PlacesAutocomplete = () => {
   const renderSuggestions = () =>
     data.map((suggestion) => {
       const {
-        id,
+        place_id,
         structured_formatting: { main_text, secondary_text },
       } = suggestion;
 
       return (
-        <li key={id} onClick={handleSelect(suggestion)}>
+        <li key={place_id} onClick={handleSelect(suggestion)}>
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       );
@@ -163,7 +163,6 @@ const PlacesAutocomplete = () => {
 Easy right? This is the magic of the `usePlacesAutocomplete` ✨. I just show you how does it work via the minimal example. However you can build an UX rich autocomplete component, like [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword interaction as my [demo](#live-demo) by checking the [code](https://github.com/wellyshen/use-places-autocomplete/blob/master/demo/App/index.tsx) or integrate this hook with the [combobox](https://reacttraining.com/reach-ui/combobox) of [Reach UI](https://reacttraining.com/reach-ui) to achieve that.
 
 ```js
-import React from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 import {
   Combobox,
@@ -197,8 +196,8 @@ const PlacesAutocomplete = () => {
       <ComboboxPopover>
         <ComboboxList>
           {status === "OK" &&
-            data.map(({ id, description }) => (
-              <ComboboxOption key={id} value={description} />
+            data.map(({ place_id, description }) => (
+              <ComboboxOption key={place_id} value={description} />
             ))}
         </ComboboxList>
       </ComboboxPopover>
@@ -252,7 +251,6 @@ The search result of Google Maps Places API, which contains the following proper
 Set the `value` of the input element. Use case as below.
 
 ```js
-import React from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 
 const PlacesAutocomplete = () => {
@@ -275,7 +273,6 @@ const PlacesAutocomplete = () => {
 In addition, the `setValue` method has an extra parameter, which can be used to disable hitting Google Maps Places API.
 
 ```js
-import React from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 
 const PlacesAutocomplete = () => {
@@ -294,7 +291,7 @@ const PlacesAutocomplete = () => {
   const renderSuggestions = () =>
     data.map(suggestion => (
         <li
-          key={suggestion.id}
+          key={suggestion.place_id}
           onClick={handleSelect(suggestion)}
         >
           {/* Render suggestion text */}
@@ -316,7 +313,6 @@ const PlacesAutocomplete = () => {
 Calling the method will clear and reset all the properties of the `suggestions` object to default. It's useful for dismissing the dropdown.
 
 ```js
-import React from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 
@@ -335,7 +331,7 @@ const PlacesAutocomplete = () => {
   const renderSuggestions = () =>
     data.map(suggestion => (
         <li
-          key={suggestion.id}
+          key={suggestion.place_id}
           onClick={handleSelect(suggestion)}
         >
           {/* Render suggestion text */}
@@ -452,7 +448,6 @@ getGeocode(parameter)
 Retrieves a great deal of information about a particular place ID (`suggestion`).
 
 ```js
-import React from "react";
 import usePlacesAutocomplete, { getDetails } from "use-places-autocomplete";
 
 const PlacesAutocomplete = () => {
@@ -464,9 +459,14 @@ const PlacesAutocomplete = () => {
   };
 
   const submit = () => {
-    // Use the suggestion from the drop down (object), or just the place ID (string) if you like
-    // Here just taking first suggestion for brevity
-    getDetails(suggestions[0])
+    const parameter = {
+      // Use the "place_id" of suggestion from the dropdown (object), here just taking first suggestion for brevity
+      placeId: suggestions[0].place_id,
+      // Specify the return data that you want (optional)
+      fields: ["name", "rating"],
+    };
+
+    getDetails(parameter)
       .then((details) => {
         console.log("Details: ", details);
       })
@@ -487,7 +487,7 @@ const PlacesAutocomplete = () => {
 
 `getDetails` is an asynchronous function with the following API:
 
-- `parameters: string | object` - the place ID that you would like details about, or the entire suggestion object returned as part of the suggestions collection from usePlacesAutocomplete.
+- `parameter: object` - [the request](https://developers.google.com/maps/documentation/javascript/places#place_details_requests) of the PlacesService's `getDetails()` method. You must supply the `placeId` that you would like details about.
 - `placeResult: object | null` - [the details](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult) about the specific place your queried.
 - `error: any` - an exception.
 
@@ -505,6 +505,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://www.lkaric.tech"><img src="https://avatars0.githubusercontent.com/u/16634314?v=4" width="100px;" alt=""/><br /><sub><b>Lazar Karić</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=rejvban" title="Code">💻</a> <a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=rejvban" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/reharik"><img src="https://avatars2.githubusercontent.com/u/882382?v=4" width="100px;" alt=""/><br /><sub><b>Raif Harik</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=reharik" title="Code">💻</a> <a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=reharik" title="Documentation">📖</a> <a href="#ideas-reharik" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/Xerxes-J"><img src="https://avatars0.githubusercontent.com/u/18053412?v=4" width="100px;" alt=""/><br /><sub><b>Xerxes Jarquin</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/issues?q=author%3AXerxes-J" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://www.lucasoconnell.net/"><img src="https://avatars1.githubusercontent.com/u/63400356?v=4" width="100px;" alt=""/><br /><sub><b>Lucas O'Connell</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=Isoaxe" title="Documentation">📖</a></td>
   </tr>
 </table>
 

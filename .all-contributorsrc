@@ -54,6 +54,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "Isoaxe",
+      "name": "Lucas O'Connell",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/63400356?v=4",
+      "profile": "https://www.lucasoconnell.net/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

@@ -1,16 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState, useRef, useCallback, useEffect } from "react";
-import _debounce from "lodash.debounce";
 
 import useLatest from "./useLatest";
+import _debounce from "./debounce";
 
 export const loadApiErr =
-  "💡use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library";
+  "💡 use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library";
 
-type RequestOptions = Omit<google.maps.places.AutocompletionRequest, "input">;
 export interface HookArgs {
-  requestOptions?: RequestOptions;
+  requestOptions?: Omit<google.maps.places.AutocompletionRequest, "input">;
   debounce?: number;
   googleMaps?: any;
   callbackName?: string;
@@ -48,9 +47,7 @@ const usePlacesAutocomplete = ({
     data: [],
   });
   const asRef = useRef(null);
-  const requestOptionsRef = useLatest<RequestOptions | undefined>(
-    requestOptions
-  );
+  const requestOptionsRef = useLatest(requestOptions);
   const googleMapsRef = useLatest(googleMaps);
 
   const init = useCallback(() => {

@@ -2,10 +2,13 @@ name: CI
 
 on:
   push:
-    branches: ["**"]
-    tags-ignore: ["**"]
+    branches:
+      - master
+    tags-ignore:
+      - "**"
   pull_request:
-    branches: ["**"]
+    branches:
+      - master
 
 jobs:
   build:
@@ -13,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -35,8 +38,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Run type check
-        run: yarn type-check
       - name: Run lint
         run: yarn lint
       - name: Run test
@@ -45,7 +46,7 @@ jobs:
         run: yarn build:dist
 
       - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@v1.1.1
+        uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 

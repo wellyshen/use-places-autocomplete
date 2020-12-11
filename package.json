@@ -1,6 +1,6 @@
 {
   "name": "use-places-autocomplete",
-  "version": "1.5.2",
+  "version": "1.6.1",
   "description": "React hook for Google Maps Places Autocomplete.",
   "license": "MIT",
   "homepage": "https://use-places-autocomplete.netlify.app",
@@ -40,24 +40,20 @@
   "files": [
     "dist"
   ],
-  "engines": {
-    "node": ">=10",
-    "npm": ">=6"
-  },
   "scripts": {
     "dev": "yarn clean:dev && rollup -c rollup/config.js -w --environment BUILD:dev",
+    "lint": "run-s lint:*",
     "lint:code": "eslint --fix . --ext .js,.ts,.tsx",
+    "lint:type": "tsc",
     "lint:style": "stylelint --fix \"**/*.{css,ts,tsx}\"",
-    "lint": "run-p lint:*",
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "yarn type-check --watch",
+    "lint:format": "prettier -w . -u --loglevel silent",
     "test": "jest",
     "test:watch": "yarn test --watch",
     "test:cov": "yarn clean:cov && yarn test --coverage",
     "build:demo": "yarn clean:dev && yarn clean:demo && rollup -c rollup/config.js --environment BUILD:demo",
     "build:dist": "yarn clean:dist && BABEL_ENV=dist rollup -c rollup/config.js --environment BUILD:dist",
     "build": "run-s build:*",
-    "preversion": "run-s type-check lint test build:dist",
+    "preversion": "run-s lint test build:dist",
     "postversion": "git push --follow-tags --no-verify && npm publish && yarn clean:dist",
     "clean:dev": "rimraf demo/.dev",
     "clean:demo": "rimraf public",
@@ -74,130 +70,54 @@
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --fix",
     "*.{css,ts,tsx}": "stylelint --fix",
-    "*.{json,md,yml}": "prettier --write"
-  },
-  "babel": {
-    "presets": [
-      "@babel/env",
-      "@babel/typescript",
-      "@babel/react"
-    ],
-    "plugins": [
-      "@babel/proposal-object-rest-spread"
-    ],
-    "env": {
-      "development": {
-        "presets": [
-          "@emotion/babel-preset-css-prop"
-        ],
-        "plugins": [
-          "emotion"
-        ]
-      }
-    }
-  },
-  "eslintConfig": {
-    "extends": [
-      "welly"
-    ],
-    "rules": {
-      "camelcase": "off",
-      "no-console": [
-        "warn",
-        {
-          "allow": [
-            "warn",
-            "error"
-          ]
-        }
-      ],
-      "@typescript-eslint/camelcase": "off",
-      "emotion/jsx-import": "off"
-    }
-  },
-  "eslintIgnore": [
-    "src/use-places-autocomplete.d.ts",
-    "public",
-    "dist"
-  ],
-  "stylelint": {
-    "plugins": [
-      "stylelint-prettier"
-    ],
-    "extends": [
-      "stylelint-config-standard",
-      "stylelint-prettier/recommended"
-    ],
-    "rules": {
-      "prettier/prettier": true
-    },
-    "ignoreFiles": [
-      "public/**/*.css",
-      "coverage/**/*.css"
-    ]
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "moduleNameMapper": {
-      "\\.(apng|bmp|gif|ico|cur|jpg|jpeg|jfif|pjpeg|pjp|png|svg|tif|tiff|webp)$": "<rootDir>/__mocks__/file.ts"
-    },
-    "collectCoverageFrom": [
-      "src/*.(ts|tsx)",
-      "!src/*.d.ts",
-      "!src/index.ts"
-    ]
-  },
-  "dependencies": {
-    "lodash.debounce": "^4.0.8"
+    "**/*": "prettier -w -u"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.6",
-    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/preset-react": "^7.10.4",
-    "@babel/preset-typescript": "^7.10.4",
-    "@emotion/babel-preset-css-prop": "^10.0.27",
-    "@emotion/core": "^10.0.35",
-    "@rollup/plugin-babel": "^5.2.1",
-    "@rollup/plugin-commonjs": "^15.1.0",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "@babel/preset-react": "^7.12.10",
+    "@babel/preset-typescript": "^7.12.7",
+    "@emotion/babel-plugin": "^11.1.2",
+    "@emotion/react": "^11.1.2",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-html": "^0.2.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
-    "@rollup/plugin-replace": "^2.3.3",
-    "@rollup/plugin-url": "^5.0.1",
-    "@testing-library/react": "^11.0.4",
-    "@testing-library/react-hooks": "^3.4.2",
-    "@types/googlemaps": "^3.39.13",
-    "@types/jest": "^26.0.14",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-replace": "^2.3.4",
+    "@rollup/plugin-url": "^6.0.0",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/react-hooks": "^3.7.0",
+    "@types/googlemaps": "^3.40.4",
+    "@types/jest": "^26.0.18",
     "@types/lodash.debounce": "^4.0.6",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
-    "babel-plugin-emotion": "^10.0.33",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "eslint": "^7.2.0",
-    "eslint-config-welly": "^1.4.10",
-    "husky": "^4.3.0",
-    "jest": "^26.4.2",
-    "lint-staged": "^10.4.0",
+    "eslint-config-welly": "^1.8.6",
+    "husky": "^4.3.5",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.3",
     "normalize.css": "^8.0.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.1.2",
-    "react": "^16.13.1",
+    "postcss": "^8.2.1",
+    "prettier": "^2.2.1",
+    "react": "^17.0.1",
     "react-cool-onclickoutside": "latest",
-    "react-dom": "^16.13.1",
-    "react-test-renderer": "^16.13.1",
+    "react-dom": "^17.0.1",
+    "react-test-renderer": "^17.0.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.28.2",
+    "rollup": "^2.34.2",
     "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-postcss": "^3.1.8",
-    "rollup-plugin-serve": "^1.0.4",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-serve": "^1.1.0",
     "rollup-plugin-size-snapshot": "^0.12.0",
     "rollup-plugin-terser": "^7.0.2",
-    "stylelint": "^13.7.2",
+    "stylelint": "^13.8.0",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0",
-    "stylelint-prettier": "^1.1.2",
-    "ts-jest": "^26.4.1",
-    "typescript": "^4.0.3"
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.2"
   },
   "peerDependencies": {
     "react": ">= 16.8.0"
