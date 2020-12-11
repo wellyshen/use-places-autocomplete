@@ -487,9 +487,11 @@ const PlacesAutocomplete = () => {
 
 `getDetails` is an asynchronous function with the following API:
 
-- `parameter: object` - [the request](https://developers.google.com/maps/documentation/javascript/places#place_details_requests) of the PlacesService's `getDetails()` method. You must supply the `placeId` that you would like details about.
+- `parameter: object` - [the request](https://developers.google.com/maps/documentation/javascript/places#place_details_requests) of the PlacesService's `getDetails()` method. You must supply the `placeId` that you would like details about. If you do not specify any fields or omit the fields parameter you will get every field available.
 - `placeResult: object | null` - [the details](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult) about the specific place your queried.
 - `error: any` - an exception.
+
+<span style="color:#f75a4f " > \*\* warning, you are billed based on how much information you retrieve, So it is adviced that you retrieve just what you </span>
 
 ## Contributors ✨
 
