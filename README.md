@@ -491,7 +491,7 @@ const PlacesAutocomplete = () => {
 - `placeResult: object | null` - [the details](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult) about the specific place your queried.
 - `error: any` - an exception.
 
-<span style="color:#f75a4f " > \*\* warning, you are billed based on how much information you retrieve, So it is adviced that you retrieve just what you </span>
+> ⚠️ warning, you are billed based on how much information you retrieve, So it is advised that you retrieve just what you.
 
 ## Contributors ✨
 
@@ -513,6 +513,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
