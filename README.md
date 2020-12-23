@@ -29,7 +29,7 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 - 💰 Built-in debounce mechanism for you to lower the cost of Google APIs.
 - 🚀 Supports asynchronous Google script loading.
 - 📜 Supports [TypeScript](https://www.typescriptlang.org) type definition.
-- ⌨️ Builds an UX rich component (e.g. [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword support) via comprehensive [demo code](https://github.com/wellyshen/use-places-autocomplete/blob/master/demo/App/index.tsx).
+- ⌨️ Builds a UX-rich component (e.g. [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword support) via comprehensive [demo code](https://github.com/wellyshen/use-places-autocomplete/blob/master/demo/App/index.tsx).
 - 🦔 Tiny size ([~ 1.3KB gzipped](https://bundlephobia.com/result?p=use-places-autocomplete)). No external dependencies, aside for the `react`.
 
 ## Requirement
