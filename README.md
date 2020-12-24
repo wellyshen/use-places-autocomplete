@@ -46,6 +46,14 @@ $ yarn add use-places-autocomplete
 $ npm install --save use-places-autocomplete
 ```
 
+When working with TypeScript you need to install the [@types/googlemaps](https://www.npmjs.com/package/@types/googlemaps) as a `devDependencies`.
+
+```sh
+$ yarn add --dev @types/googlemaps
+# or
+$ npm install --save-dev @types/googlemaps
+```
+
 ## Getting Started
 
 `usePlacesAutocomplete` is based on the [Places Autocomplete](https://developers.google.com/maps/documentation/javascript/places-autocomplete) (or more specific [docs](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service)) of [Google Maps Place API](https://developers.google.com/maps/documentation/javascript/places). If you are unfamiliar with these APIs, we recommend you reviewing them before we start.
