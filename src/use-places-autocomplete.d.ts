@@ -1,6 +1,9 @@
 declare module "use-places-autocomplete" {
   // Hook
-  export type RequestOptions = AutocompletionRequest;
+  export type RequestOptions = Omit<
+    google.maps.places.AutocompletionRequest,
+    "input"
+  >;
 
   interface HookArgs {
     requestOptions?: RequestOptions;
@@ -10,7 +13,7 @@ declare module "use-places-autocomplete" {
     defaultValue?: string;
   }
 
-  export type Suggestion = AutocompletePrediction;
+  export type Suggestion = google.maps.places.AutocompletePrediction;
 
   export interface Suggestions {
     readonly loading: boolean;
@@ -31,9 +34,9 @@ declare module "use-places-autocomplete" {
   export default usePlacesAutocomplete;
 
   // Utils
-  export type GeoArgs = GeocoderRequest;
+  export type GeoArgs = google.maps.GeocoderRequest;
 
-  export type GeocodeResult = GeocoderResult;
+  export type GeocodeResult = google.maps.GeocoderResult;
 
   type GeoReturn = Promise<GeocodeResult[]>;
 
@@ -45,18 +48,16 @@ declare module "use-places-autocomplete" {
 
   export const getLatLng: (result: GeocodeResult) => LatLngReturn;
 
-  type ZipCode = string | null;
-
-  type ZipCodeReturn = Promise<ZipCode>;
+  type ZipCodeReturn = Promise<string | null>;
 
   export const getZipCode: (
     result: GeocodeResult,
     useShortName: boolean
   ) => ZipCodeReturn;
 
-  export type GetDetailsArgs = PlaceDetailsRequest;
+  export type GetDetailsArgs = google.maps.places.PlaceDetailsRequest;
 
-  type DetailsResult = Promise<PlaceResult | string>;
+  type DetailsResult = Promise<google.maps.places.PlaceResult | string>;
 
   export const getDetails: (args: GetDetailsArgs) => DetailsResult;
 }

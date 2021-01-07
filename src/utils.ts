@@ -59,7 +59,7 @@ export const getZipCode = (
   });
 
 export const getDetailsErr =
-  "💡use-places-autocomplete: Please provide a place Id when using getDetails() either as a string or as part of an Autocomplete Prediction.";
+  "💡 use-places-autocomplete: Please provide a place Id when using getDetails() either as a string or as part of an Autocomplete Prediction.";
 type GetDetailsArgs = google.maps.places.PlaceDetailsRequest;
 type DetailsResult = Promise<google.maps.places.PlaceResult | string>;
 
