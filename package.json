@@ -86,7 +86,7 @@
     "@rollup/plugin-replace": "^2.3.4",
     "@rollup/plugin-url": "^6.0.0",
     "@testing-library/react": "^11.2.2",
-    "@testing-library/react-hooks": "^4.0.0",
+    "@testing-library/react-hooks": "^5.0.3",
     "@types/googlemaps": "^3.43.1",
     "@types/jest": "^26.0.19",
     "@types/lodash.debounce": "^4.0.6",
