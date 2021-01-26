@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react-hooks";
 
 import usePlacesAutocomplete, {
   HookArgs,
@@ -54,9 +54,6 @@ describe("usePlacesAutocomplete", () => {
 
   beforeEach(() => {
     global.google = getMaps();
-  });
-
-  afterEach(() => {
     // @ts-expect-error
     _debounce.mockClear();
   });
@@ -113,7 +110,7 @@ describe("usePlacesAutocomplete", () => {
     global.google = getMaps("opts");
     const opts = { radius: 100 };
     const result = renderHelper({ requestOptions: opts });
-    result.current.setValue(val);
+    act(() => result.current.setValue(val));
     expect(getPlacePredictions).toHaveBeenCalledWith(
       { ...opts, input: val },
       expect.any(Function)
@@ -121,6 +118,8 @@ describe("usePlacesAutocomplete", () => {
   });
 
   it('should return "ready" correctly', () => {
+    console.error = () => null;
+
     // @ts-ignore
     delete global.google;
     let res = renderHelper({ googleMaps: getMaps().maps });
@@ -142,7 +141,10 @@ describe("usePlacesAutocomplete", () => {
     result = renderHelper({ defaultValue });
     expect(result.current.value).toBe(defaultValue);
 
-    result.current.setValue(val);
+    act(() => {
+      result.current.setValue(val);
+      jest.runAllTimers();
+    });
     expect(result.current.value).toBe(val);
   });
 
@@ -150,26 +152,30 @@ describe("usePlacesAutocomplete", () => {
     let res = renderHelper();
     expect(res.current.suggestions).toEqual(defaultSuggestions);
 
-    res.current.setValue("");
+    act(() => res.current.setValue(""));
     expect(res.current.suggestions).toEqual(defaultSuggestions);
 
-    res.current.setValue(val, false);
+    act(() => res.current.setValue(val, false));
     expect(res.current.suggestions).toEqual(defaultSuggestions);
 
-    res.current.setValue(val);
+    act(() => res.current.setValue(val));
     expect(res.current.suggestions).toEqual({
       ...defaultSuggestions,
       loading: true,
     });
 
-    res.current.setValue(val);
-    jest.runAllTimers();
+    act(() => {
+      res.current.setValue(val);
+      jest.runAllTimers();
+    });
     expect(res.current.suggestions).toEqual(okSuggestions);
 
     global.google = getMaps("failure");
     res = renderHelper();
-    res.current.setValue(val);
-    jest.runAllTimers();
+    act(() => {
+      res.current.setValue(val);
+      jest.runAllTimers();
+    });
     expect(res.current.suggestions).toEqual({
       loading: false,
       status: error,
@@ -179,11 +185,13 @@ describe("usePlacesAutocomplete", () => {
 
   it("should clear suggestions", () => {
     const result = renderHelper();
-    result.current.setValue(val);
-    jest.runAllTimers();
+    act(() => {
+      result.current.setValue(val);
+      jest.runAllTimers();
+    });
     expect(result.current.suggestions).toEqual(okSuggestions);
 
-    result.current.clearSuggestions();
+    act(() => result.current.clearSuggestions());
     expect(result.current.suggestions).toEqual(defaultSuggestions);
   });
 });
