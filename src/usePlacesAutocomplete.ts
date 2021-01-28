@@ -36,7 +36,7 @@ interface HookReturn {
 const usePlacesAutocomplete = ({
   requestOptions,
   debounce = 200,
-  cache = 24 * 60 * 60 * 1000,
+  cache = 24 * 60 * 60,
   googleMaps,
   callbackName,
   defaultValue = "",
@@ -113,7 +113,7 @@ const usePlacesAutocomplete = ({
           if (cache && status === "OK") {
             cachedData[val] = {
               data: data as Suggestion[],
-              maxAge: Date.now() + cache,
+              maxAge: Date.now() + cache * 1000,
             };
 
             try {

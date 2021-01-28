@@ -226,10 +226,10 @@ describe("usePlacesAutocomplete", () => {
     });
     // @ts-expect-error
     expect(JSON.parse(sessionStorage.getItem("upa"))).toEqual({
-      prev: { data, maxAge: now + cache + 500 },
+      prev: { data, maxAge: now + cache * 1000 + 500 },
     });
 
-    now = 1000;
+    now = 100000;
     jest.setSystemTime(now);
     act(() => {
       res.current.setValue("next");
@@ -237,7 +237,7 @@ describe("usePlacesAutocomplete", () => {
     });
     // @ts-expect-error
     expect(JSON.parse(sessionStorage.getItem("upa"))).toEqual({
-      next: { data, maxAge: now + cache + 500 },
+      next: { data, maxAge: now + cache * 1000 + 500 },
     });
   });
 

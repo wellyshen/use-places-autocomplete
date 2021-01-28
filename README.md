@@ -225,8 +225,8 @@ By default, this library caches the response data to help you saving the [cost o
 
 ```js
 const methods = usePlacesAutocomplete({
-  // Provide the cache time in milliseconds, default is 24 hours
-  cache: 24 * 60 * 60 * 1000,
+  // Provide the cache time in seconds, default is 24 hours
+  cache: 24 * 60 * 60,
 });
 ```
 
@@ -242,14 +242,14 @@ const returnObj = usePlacesAutocomplete(parameterObj);
 
 When use `usePlacesAutocomplete` you can configure the following options via the parameter.
 
-| Key              | Type            | Default               | Description                                                                                                                                                                                                             |
-| ---------------- | --------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `requestOptions` | object          |                       | The [request options](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest) of Google Maps Places API except for `input` (e.g. bounds, radius etc.). |
-| `googleMaps`     | object          | `window.google.maps`  | In case you want to provide your own Google Maps object, pass the `google.maps` to it.                                                                                                                                  |
-| `callbackName`   | string          |                       | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
-| `debounce`       | number          | `200`                 | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
-| `cache`          | number \| false | `86400000` (24 hours) | Number of milliseconds to [cache the response data of Google Maps Places API](#cache-data-for-you).                                                                                                                     |
-| `defaultValue`   | string          | `""`                  | Default value for the `input` element.                                                                                                                                                                                  |
+| Key              | Type            | Default              | Description                                                                                                                                                                                                             |
+| ---------------- | --------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `requestOptions` | object          |                      | The [request options](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest) of Google Maps Places API except for `input` (e.g. bounds, radius etc.). |
+| `googleMaps`     | object          | `window.google.maps` | In case you want to provide your own Google Maps object, pass the `google.maps` to it.                                                                                                                                  |
+| `callbackName`   | string          |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
+| `debounce`       | number          | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
+| `cache`          | number \| false | `86400` (24 hours)   | Number of seconds to [cache the response data of Google Maps Places API](#cache-data-for-you).                                                                                                                          |
+| `defaultValue`   | string          | `""`                 | Default value for the `input` element.                                                                                                                                                                                  |
 
 ### Return object
 
