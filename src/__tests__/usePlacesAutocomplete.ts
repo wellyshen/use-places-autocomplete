@@ -184,23 +184,23 @@ describe("usePlacesAutocomplete", () => {
   });
 
   it('should return "suggestions" with cache correctly', () => {
-    let res = renderHelper({ cache: 10 });
+    let res = renderHelper({ cache: 0 });
     act(() => {
       res.current.setValue("test");
       jest.runAllTimers();
     });
     expect(res.current.suggestions).toEqual(okSuggestions);
 
-    const newData = [{ place_id: "1119" }];
-    global.google = getMaps("success", newData);
-    res = renderHelper({ cache: 0 });
+    const cachedData = [{ place_id: "1119" }];
+    global.google = getMaps("success", cachedData);
+    res = renderHelper({ cache: 10 });
     act(() => {
       res.current.setValue("test");
       jest.runAllTimers();
     });
     expect(res.current.suggestions).toEqual({
       ...okSuggestions,
-      data: newData,
+      data: cachedData,
     });
 
     res = renderHelper({ cache: 10 });
@@ -208,10 +208,13 @@ describe("usePlacesAutocomplete", () => {
       res.current.setValue("test");
       jest.runAllTimers();
     });
-    expect(res.current.suggestions).toEqual(okSuggestions);
+    expect(res.current.suggestions).toEqual({
+      ...okSuggestions,
+      data: cachedData,
+    });
   });
 
-  it("should clear expired cached data", () => {
+  it("should set/clear cached data correctly", () => {
     let now = 0;
     jest.setSystemTime(now);
 
