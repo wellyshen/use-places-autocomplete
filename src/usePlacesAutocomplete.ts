@@ -11,6 +11,7 @@ export const loadApiErr =
 export interface HookArgs {
   requestOptions?: Omit<google.maps.places.AutocompletionRequest, "input">;
   debounce?: number;
+  cache?: number | false;
   googleMaps?: any;
   callbackName?: string;
   defaultValue?: string;
@@ -35,6 +36,7 @@ interface HookReturn {
 const usePlacesAutocomplete = ({
   requestOptions,
   debounce = 200,
+  cache = 24 * 60 * 60 * 1000,
   googleMaps,
   callbackName,
   defaultValue = "",
@@ -78,11 +80,48 @@ const usePlacesAutocomplete = ({
       // To keep the previous suggestions
       setSuggestions((prevState) => ({ ...prevState, loading: true }));
 
+      let cachedData = JSON.parse(
+        sessionStorage.getItem("upa") || "{}"
+      ) as Record<string, { data: Suggestion[]; maxAge: number }>;
+
+      if (cache) {
+        cachedData = Object.keys(cachedData).reduce(
+          (acc: typeof cachedData, key) => {
+            if (cachedData[key].maxAge - Date.now() >= 0)
+              acc[key] = cachedData[key];
+            return acc;
+          },
+          {}
+        );
+
+        if (cachedData[val]) {
+          setSuggestions({
+            loading: false,
+            status: "OK",
+            data: cachedData[val].data,
+          });
+          return;
+        }
+      }
+
       // @ts-expect-error
       asRef.current.getPlacePredictions(
         { ...requestOptionsRef.current, input: val },
         (data: Suggestion[] | null, status: string) => {
           setSuggestions({ loading: false, status, data: data || [] });
+
+          if (cache && status === "OK") {
+            cachedData[val] = {
+              data: data as Suggestion[],
+              maxAge: Date.now() + cache,
+            };
+
+            try {
+              sessionStorage.setItem("upa", JSON.stringify(cachedData));
+            } catch (error) {
+              // skip exception
+            }
+          }
         }
       );
     }, debounce),
