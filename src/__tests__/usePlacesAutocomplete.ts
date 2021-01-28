@@ -11,13 +11,12 @@ jest.mock("../debounce");
 _debounce.mockImplementation((fn) => fn);
 
 describe("usePlacesAutocomplete", () => {
-  jest.useFakeTimers();
+  jest.useFakeTimers("modern");
 
   const callbackName = "initMap";
   const renderHelper = (args: HookArgs = {}) =>
-    renderHook(() => usePlacesAutocomplete(args)).result;
+    renderHook(() => usePlacesAutocomplete({ cache: false, ...args })).result;
 
-  const val = "usePlacesAutocomplete so Cool 😎";
   const ok = "OK";
   const error = "ERROR";
   const data = [{ place_id: "0109" }];
@@ -32,7 +31,7 @@ describe("usePlacesAutocomplete", () => {
     data: [],
   };
   const getPlacePredictions = jest.fn();
-  const getMaps = (type = "success"): any => ({
+  const getMaps = (type = "success", d = data): any => ({
     maps: {
       places: {
         AutocompleteService: class {
@@ -42,7 +41,7 @@ describe("usePlacesAutocomplete", () => {
               : (_: any, cb: (dataArg: any, status: string) => void) => {
                   setTimeout(() => {
                     cb(
-                      type === "success" ? data : null,
+                      type === "success" ? d : null,
                       type === "success" ? ok : error
                     );
                   }, 500);
@@ -56,6 +55,7 @@ describe("usePlacesAutocomplete", () => {
     global.google = getMaps();
     // @ts-expect-error
     _debounce.mockClear();
+    sessionStorage.clear();
   });
 
   it('should set "callbackName" correctly', () => {
@@ -110,9 +110,9 @@ describe("usePlacesAutocomplete", () => {
     global.google = getMaps("opts");
     const opts = { radius: 100 };
     const result = renderHelper({ requestOptions: opts });
-    act(() => result.current.setValue(val));
+    act(() => result.current.setValue("test"));
     expect(getPlacePredictions).toHaveBeenCalledWith(
-      { ...opts, input: val },
+      { ...opts, input: "test" },
       expect.any(Function)
     );
   });
@@ -142,10 +142,10 @@ describe("usePlacesAutocomplete", () => {
     expect(result.current.value).toBe(defaultValue);
 
     act(() => {
-      result.current.setValue(val);
+      result.current.setValue("test");
       jest.runAllTimers();
     });
-    expect(result.current.value).toBe(val);
+    expect(result.current.value).toBe("test");
   });
 
   it('should return "suggestions" correctly', () => {
@@ -155,17 +155,17 @@ describe("usePlacesAutocomplete", () => {
     act(() => res.current.setValue(""));
     expect(res.current.suggestions).toEqual(defaultSuggestions);
 
-    act(() => res.current.setValue(val, false));
+    act(() => res.current.setValue("test", false));
     expect(res.current.suggestions).toEqual(defaultSuggestions);
 
-    act(() => res.current.setValue(val));
+    act(() => res.current.setValue("test"));
     expect(res.current.suggestions).toEqual({
       ...defaultSuggestions,
       loading: true,
     });
 
     act(() => {
-      res.current.setValue(val);
+      res.current.setValue("test");
       jest.runAllTimers();
     });
     expect(res.current.suggestions).toEqual(okSuggestions);
@@ -173,7 +173,7 @@ describe("usePlacesAutocomplete", () => {
     global.google = getMaps("failure");
     res = renderHelper();
     act(() => {
-      res.current.setValue(val);
+      res.current.setValue("test");
       jest.runAllTimers();
     });
     expect(res.current.suggestions).toEqual({
@@ -183,10 +183,68 @@ describe("usePlacesAutocomplete", () => {
     });
   });
 
+  it('should return "suggestions" with cache correctly', () => {
+    let res = renderHelper({ cache: 0 });
+    act(() => {
+      res.current.setValue("test");
+      jest.runAllTimers();
+    });
+    expect(res.current.suggestions).toEqual(okSuggestions);
+
+    const cachedData = [{ place_id: "1119" }];
+    global.google = getMaps("success", cachedData);
+    res = renderHelper({ cache: 10 });
+    act(() => {
+      res.current.setValue("test");
+      jest.runAllTimers();
+    });
+    expect(res.current.suggestions).toEqual({
+      ...okSuggestions,
+      data: cachedData,
+    });
+
+    res = renderHelper({ cache: 10 });
+    act(() => {
+      res.current.setValue("test");
+      jest.runAllTimers();
+    });
+    expect(res.current.suggestions).toEqual({
+      ...okSuggestions,
+      data: cachedData,
+    });
+  });
+
+  it("should set/clear cached data correctly", () => {
+    let now = 0;
+    jest.setSystemTime(now);
+
+    const cache = 10;
+    const res = renderHelper({ cache });
+    act(() => {
+      res.current.setValue("prev");
+      jest.runAllTimers();
+    });
+    // @ts-expect-error
+    expect(JSON.parse(sessionStorage.getItem("upa"))).toEqual({
+      prev: { data, maxAge: now + cache * 1000 + 500 },
+    });
+
+    now = 100000;
+    jest.setSystemTime(now);
+    act(() => {
+      res.current.setValue("next");
+      jest.runAllTimers();
+    });
+    // @ts-expect-error
+    expect(JSON.parse(sessionStorage.getItem("upa"))).toEqual({
+      next: { data, maxAge: now + cache * 1000 + 500 },
+    });
+  });
+
   it("should clear suggestions", () => {
     const result = renderHelper();
     act(() => {
-      result.current.setValue(val);
+      result.current.setValue("test");
       jest.runAllTimers();
     });
     expect(result.current.suggestions).toEqual(okSuggestions);

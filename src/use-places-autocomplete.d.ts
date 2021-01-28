@@ -8,6 +8,7 @@ declare module "use-places-autocomplete" {
   interface HookArgs {
     requestOptions?: RequestOptions;
     debounce?: number;
+    cache?: number | false;
     googleMaps?: any;
     callbackName?: string;
     defaultValue?: string;
