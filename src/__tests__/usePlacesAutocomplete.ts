@@ -184,15 +184,15 @@ describe("usePlacesAutocomplete", () => {
   });
 
   it('should return "suggestions" with cache correctly', () => {
-    let res = renderHelper({ cache: 5000 });
+    let res = renderHelper({ cache: 10 });
     act(() => {
       res.current.setValue("test");
       jest.runAllTimers();
     });
     expect(res.current.suggestions).toEqual(okSuggestions);
 
-    const cachedData = [{ place_id: "1119" }];
-    global.google = getMaps("success", cachedData);
+    const newData = [{ place_id: "1119" }];
+    global.google = getMaps("success", newData);
     res = renderHelper({ cache: 0 });
     act(() => {
       res.current.setValue("test");
@@ -200,10 +200,10 @@ describe("usePlacesAutocomplete", () => {
     });
     expect(res.current.suggestions).toEqual({
       ...okSuggestions,
-      data: cachedData,
+      data: newData,
     });
 
-    res = renderHelper({ cache: 5000 });
+    res = renderHelper({ cache: 10 });
     act(() => {
       res.current.setValue("test");
       jest.runAllTimers();
