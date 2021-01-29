@@ -219,7 +219,7 @@ const PlacesAutocomplete = () => {
 
 [![Edit usePlacesAutocomplete x Reach UI](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/useplacesautocomplete-x-reach-ui-lik2c?fontsize=14&hidenavigation=1&theme=dark)
 
-### Cache data for you
+## Cache Data For You
 
 By default, this library caches the response data to help you saving the [cost of Google Maps Places API](https://developers.google.com/maps/billing/gmp-billing#ac-per-request) and optimize the search performance as well.
 
