@@ -55,7 +55,6 @@ describe("usePlacesAutocomplete", () => {
     global.google = getMaps();
     // @ts-expect-error
     _debounce.mockClear();
-    sessionStorage.clear();
   });
 
   it('should set "callbackName" correctly', () => {
@@ -186,16 +185,17 @@ describe("usePlacesAutocomplete", () => {
   it('should return "suggestions" with cache correctly', () => {
     let res = renderHelper({ cache: 0 });
     act(() => {
-      res.current.setValue("test");
+      res.current.setValue("prev");
       jest.runAllTimers();
     });
     expect(res.current.suggestions).toEqual(okSuggestions);
 
+    jest.setSystemTime(0);
     const cachedData = [{ place_id: "1119" }];
     global.google = getMaps("success", cachedData);
     res = renderHelper({ cache: 10 });
     act(() => {
-      res.current.setValue("test");
+      res.current.setValue("prev");
       jest.runAllTimers();
     });
     expect(res.current.suggestions).toEqual({
@@ -203,42 +203,27 @@ describe("usePlacesAutocomplete", () => {
       data: cachedData,
     });
 
+    global.google = getMaps();
     res = renderHelper({ cache: 10 });
-    act(() => {
-      res.current.setValue("test");
-      jest.runAllTimers();
-    });
-    expect(res.current.suggestions).toEqual({
-      ...okSuggestions,
-      data: cachedData,
-    });
-  });
-
-  it("should set/clear cached data correctly", () => {
-    let now = 0;
-    jest.setSystemTime(now);
-
-    const cache = 10;
-    const res = renderHelper({ cache });
     act(() => {
       res.current.setValue("prev");
       jest.runAllTimers();
     });
-    // @ts-expect-error
-    expect(JSON.parse(sessionStorage.getItem("upa"))).toEqual({
-      prev: { data, maxAge: now + cache * 1000 + 500 },
+    expect(res.current.suggestions).toEqual({
+      ...okSuggestions,
+      data: cachedData,
     });
 
-    now = 100000;
-    jest.setSystemTime(now);
+    jest.setSystemTime(100000);
     act(() => {
       res.current.setValue("next");
       jest.runAllTimers();
     });
-    // @ts-expect-error
-    expect(JSON.parse(sessionStorage.getItem("upa"))).toEqual({
-      next: { data, maxAge: now + cache * 1000 + 500 },
+    act(() => {
+      res.current.setValue("prev");
+      jest.runAllTimers();
     });
+    expect(res.current.suggestions).toEqual(okSuggestions);
   });
 
   it("should clear suggestions", () => {
