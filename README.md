@@ -230,7 +230,7 @@ const methods = usePlacesAutocomplete({
 });
 ```
 
-> The cached data is stored via the [Window.sessionStorage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
+> By the way, the cached data is stored via the [Window.sessionStorage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
 
 ## API
 
