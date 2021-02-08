@@ -105,7 +105,7 @@ const usePlacesAutocomplete = ({
       }
 
       // @ts-expect-error
-      asRef?.current.getPlacePredictions(
+      asRef.current?.getPlacePredictions(
         { ...requestOptionsRef.current, input: val },
         (data: Suggestion[] | null, status: string) => {
           setSuggestions({ loading: false, status, data: data || [] });
