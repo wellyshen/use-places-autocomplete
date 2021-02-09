@@ -77,7 +77,6 @@ const usePlacesAutocomplete = ({
         return;
       }
 
-      // To keep the previous suggestions
       setSuggestions((prevState) => ({ ...prevState, loading: true }));
 
       let cachedData = JSON.parse(
@@ -105,7 +104,7 @@ const usePlacesAutocomplete = ({
       }
 
       // @ts-expect-error
-      asRef.current?.getPlacePredictions(
+      asRef.current.getPlacePredictions(
         { ...requestOptionsRef.current, input: val },
         (data: Suggestion[] | null, status: string) => {
           setSuggestions({ loading: false, status, data: data || [] });
@@ -131,7 +130,7 @@ const usePlacesAutocomplete = ({
   const setValue: SetValue = useCallback(
     (val, shouldFetchData = true) => {
       setVal(val);
-      if (shouldFetchData) fetchPredictions(val);
+      if (asRef.current && shouldFetchData) fetchPredictions(val);
     },
     [fetchPredictions]
   );

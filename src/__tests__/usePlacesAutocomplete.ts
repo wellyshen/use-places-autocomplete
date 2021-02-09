@@ -53,6 +53,7 @@ describe("usePlacesAutocomplete", () => {
 
   beforeEach(() => {
     global.google = getMaps();
+    getPlacePredictions.mockClear();
     // @ts-expect-error
     _debounce.mockClear();
   });
@@ -236,5 +237,14 @@ describe("usePlacesAutocomplete", () => {
 
     act(() => result.current.clearSuggestions());
     expect(result.current.suggestions).toEqual(defaultSuggestions);
+  });
+
+  it("should not fetch data if places API not ready", () => {
+    console.error = jest.fn();
+    // @ts-ignore
+    delete global.google;
+    const result = renderHelper();
+    act(() => result.current.setValue("test"));
+    expect(getPlacePredictions).not.toHaveBeenCalled();
   });
 });
