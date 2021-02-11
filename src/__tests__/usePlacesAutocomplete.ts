@@ -87,14 +87,23 @@ describe("usePlacesAutocomplete", () => {
     // @ts-ignore
     delete global.google.maps.places;
     renderHelper();
+    expect(console.error).toHaveBeenCalledTimes(1);
+    expect(console.error).toHaveBeenCalledWith(loadApiErr);
+
     // @ts-ignore
     delete global.google.maps;
     renderHelper();
+    expect(console.error).toHaveBeenCalledTimes(2);
+
     // @ts-ignore
     delete global.google;
     renderHelper();
+    expect(console.error).toHaveBeenCalledTimes(3);
 
-    expect(console.error).toHaveBeenNthCalledWith(3, loadApiErr);
+    const result = renderHelper({ initOnMount: false });
+    expect(console.error).toHaveBeenCalledTimes(3);
+    result.current.init();
+    expect(console.error).toHaveBeenCalledTimes(4);
   });
 
   it("should set debounce correctly", () => {
@@ -241,10 +250,26 @@ describe("usePlacesAutocomplete", () => {
 
   it("should not fetch data if places API not ready", () => {
     console.error = jest.fn();
+
     // @ts-ignore
     delete global.google;
     const result = renderHelper();
     act(() => result.current.setValue("test"));
-    expect(getPlacePredictions).not.toHaveBeenCalled();
+    expect(result.current.suggestions).toEqual(defaultSuggestions);
+  });
+
+  it("should lazily init places API", () => {
+    console.error = jest.fn();
+
+    const result = renderHelper({ initOnMount: false });
+    act(() => result.current.setValue("test"));
+    expect(result.current.suggestions).toEqual(defaultSuggestions);
+
+    result.current.init();
+    act(() => {
+      result.current.setValue("test");
+      jest.runAllTimers();
+    });
+    expect(result.current.suggestions).toEqual(okSuggestions);
   });
 });
