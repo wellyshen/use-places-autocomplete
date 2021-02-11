@@ -1,6 +1,6 @@
 # <em><b>USE-PLACES-AUTOCOMPLETE</b></em>
 
-This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) for [Google Maps Places Autocomplete](https://developers.google.com/maps/documentation/javascript/places-autocomplete), which helps you build an UI component with the feature of place autocomplete easily! By leveraging the power of [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places), you can provide a great UX (user experience) for user interacts with your search bar or form etc. Hope you guys 👍🏻 it.
+This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) for [Google Maps Places Autocomplete](https://developers.google.com/maps/documentation/javascript/places-autocomplete), which helps you build a UI component with the feature of place autocomplete easily! By leveraging the power of [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places), you can provide a great UX (user experience) for user interacts with your search bar or form etc. Hope you guys 👍🏻 it.
 
 ❤️ it? ⭐️ it on [GitHub](https://github.com/wellyshen/use-places-autocomplete/stargazers) or [Tweet](https://twitter.com/intent/tweet?text=With%20@use-places-autocomplete,%20I%20can%20build%20a%20component%20with%20the%20feature%20of%20place%20autocomplete%20easily!%20Thanks,%20@Welly%20Shen%20🤩) about it.
 
@@ -80,9 +80,7 @@ We also support asynchronous script loading. By doing so you need to pass the `i
 
 <!-- prettier-ignore-start -->
 ```js
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"
-></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"></script>
 ```
 <!-- prettier-ignore-end -->
 
@@ -219,6 +217,24 @@ const PlacesAutocomplete = () => {
 };
 ```
 
+## Lazily Initializing The Hook
+
+When loading the Google Maps Places API via a 3rd-party library, you may need to wait for the script ready before using this hook. However, you can lazily initialize the hook to make it.
+
+```js
+const { init } = usePlacesAutocomplete({
+  initOnMount: false, // Disable initializing when the component mounts, default is true
+});
+
+const [loading, error] = useScript({
+  src:
+    "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places",
+  onLoad: () => {
+    init(); // Lazily initializing the hook when the script is ready
+  },
+});
+```
+
 ## Cache Data For You
 
 By default, this library caches the response data to help you saving the [cost of Google Maps Places API](https://developers.google.com/maps/billing/gmp-billing#ac-per-request) and optimize the search performance as well.
@@ -250,18 +266,20 @@ When use `usePlacesAutocomplete` you can configure the following options via the
 | `debounce`       | number          | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
 | `cache`          | number \| false | `86400` (24 hours)   | Number of seconds to [cache the response data of Google Maps Places API](#cache-data-for-you).                                                                                                                          |
 | `defaultValue`   | string          | `""`                 | Default value for the `input` element.                                                                                                                                                                                  |
+| `initOnMount`    | boolean         | `true`               | Initialize the hook with Google Maps Places API when the component mounts.                                                                                                                                              |
 
 ### Return object
 
 It's returned with the following properties.
 
-| Key                | Type     | Default                                    | Description                                  |
-| ------------------ | -------- | ------------------------------------------ | -------------------------------------------- |
-| `ready`            | boolean  | `false`                                    | The ready status of `usePlacesAutocomplete`. |
-| `value`            | string   | `""`                                       | `value` for the input element.               |
-| `suggestions`      | object   | `{ loading: false, status: "", data: [] }` | See [suggestions](#suggestions).             |
-| `setValue`         | function | `(value, shouldFetchData = true) => {}`    | See [setValue](#setvalue).                   |
-| `clearSuggestions` | function |                                            | See [clearSuggestions](#clearsuggestions).   |
+| Key                | Type     | Default                                    | Description                                                                |
+| ------------------ | -------- | ------------------------------------------ | -------------------------------------------------------------------------- |
+| `ready`            | boolean  | `false`                                    | The ready status of `usePlacesAutocomplete`.                               |
+| `value`            | string   | `""`                                       | `value` for the input element.                                             |
+| `suggestions`      | object   | `{ loading: false, status: "", data: [] }` | See [suggestions](#suggestions).                                           |
+| `setValue`         | function | `(value, shouldFetchData = true) => {}`    | See [setValue](#setvalue).                                                 |
+| `clearSuggestions` | function |                                            | See [clearSuggestions](#clearsuggestions).                                 |
+| `init`             | function |                                            | Useful when [lazily initializing the hook](#lazily-initializing-the-hook). |
 
 #### suggestions
 

@@ -12,6 +12,7 @@ declare module "use-places-autocomplete" {
     googleMaps?: any;
     callbackName?: string;
     defaultValue?: string;
+    initOnMount?: boolean;
   }
 
   export type Suggestion = google.maps.places.AutocompletePrediction;
@@ -28,6 +29,7 @@ declare module "use-places-autocomplete" {
     suggestions: Suggestions;
     setValue: (val: string, shouldFetchData?: boolean) => void;
     clearSuggestions: () => void;
+    init: () => void;
   }
 
   const usePlacesAutocomplete: (args?: HookArgs) => HookReturn;

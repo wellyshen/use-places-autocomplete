@@ -15,6 +15,7 @@ export interface HookArgs {
   googleMaps?: any;
   callbackName?: string;
   defaultValue?: string;
+  initOnMount?: boolean;
 }
 type Suggestion = google.maps.places.AutocompletePrediction;
 interface Suggestions {
@@ -31,6 +32,7 @@ interface HookReturn {
   suggestions: Suggestions;
   setValue: SetValue;
   clearSuggestions: () => void;
+  init: () => void;
 }
 
 const usePlacesAutocomplete = ({
@@ -40,6 +42,7 @@ const usePlacesAutocomplete = ({
   googleMaps,
   callbackName,
   defaultValue = "",
+  initOnMount = true,
 }: HookArgs = {}): HookReturn => {
   const [ready, setReady] = useState<boolean>(false);
   const [value, setVal] = useState<string>(defaultValue);
@@ -53,6 +56,8 @@ const usePlacesAutocomplete = ({
   const googleMapsRef = useLatest(googleMaps);
 
   const init = useCallback(() => {
+    if (asRef.current) return;
+
     const { google } = window;
     const { current: gMaps } = googleMapsRef;
     const placesLib = gMaps?.places || google?.maps?.places;
@@ -136,6 +141,8 @@ const usePlacesAutocomplete = ({
   );
 
   useEffect(() => {
+    if (!initOnMount) return () => null;
+
     const { google } = window;
 
     if (!googleMapsRef.current && !google?.maps && callbackName) {
@@ -150,7 +157,7 @@ const usePlacesAutocomplete = ({
     };
   }, [callbackName, init]);
 
-  return { ready, value, suggestions, setValue, clearSuggestions };
+  return { ready, value, suggestions, setValue, clearSuggestions, init };
 };
 
 export default usePlacesAutocomplete;
