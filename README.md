@@ -219,20 +219,48 @@ const PlacesAutocomplete = () => {
 
 ## Lazily Initializing The Hook
 
-When loading the Google Maps Places API via a 3rd-party library, you may need to wait for the script ready before using this hook. However, you can lazily initialize the hook to make it.
+When loading the Google Maps Places API via a 3rd-party library, you may need to wait for the script ready before using this hook. However, you can lazily initialize the hook by the following ways depends on your case.
+
+Option 1, manually initializing the hook:
 
 ```js
-const { init } = usePlacesAutocomplete({
-  initOnMount: false, // Disable initializing when the component mounts, default is true
-});
+import usePlacesAutocomplete from "use-places-autocomplete";
 
-const [loading, error] = useScript({
-  src:
-    "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places",
-  onLoad: () => {
-    init(); // Lazily initializing the hook when the script is ready
-  },
-});
+const App = () => {
+  const { init } = usePlacesAutocomplete({
+    initOnMount: false, // Disable initializing when the component mounts, default is true
+  });
+
+  const [loading] = useGoogleMapsApi({
+    library: "places",
+    onLoad: () => init(), // Lazily initializing the hook when the script is ready
+  });
+
+  return <div>{/* Some components... */}</div>;
+};
+```
+
+Option 2, wrap the hook into the conditional component:
+
+```js
+import usePlacesAutocomplete from "use-places-autocomplete";
+
+const PlacesAutocomplete = () => {
+  const { ready, value, suggestions, setValue } = usePlacesAutocomplete();
+
+  return <div>{/* Some components... */}</div>;
+};
+
+const App = () => {
+  const [loading] = useGoogleMapsApi({ library: "places" });
+
+  return (
+    <div>
+      {!loading ? <PlacesAutocomplete /> : null}
+      {/* Other components... */}
+    </div>
+  );
+};
 ```
 
 ## Cache Data For You
