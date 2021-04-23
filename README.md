@@ -564,6 +564,12 @@ const PlacesAutocomplete = () => {
 
 > ⚠️ warning, you are billed based on how much information you retrieve, So it is advised that you retrieve just what you.
 
+## Articles / Blog Posts
+
+> 💡 If you have written any blog post or article about `use-places-autocomplete`, please open a PR to add it here.
+
+- Featured on [React Status #175](https://react.statuscode.com/issues/175).
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
