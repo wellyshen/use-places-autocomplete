@@ -1,0 +1,28 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "21:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: husky
+    versions:
+    - 5.0.9
+    - 5.1.1
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.13.15
+  - dependency-name: stylelint-config-standard
+    versions:
+    - 21.0.0
+  - dependency-name: eslint-config-welly
+    versions:
+    - 1.8.15
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "21:00"
+  open-pull-requests-limit: 10
