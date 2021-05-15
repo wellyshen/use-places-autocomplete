@@ -63,6 +63,6 @@ describe("getDetails", () => {
     } catch (someErr) {
       err = someErr;
     }
-    expect(err).toBe(getDetailsErr);
+    expect(err).toBe(error);
   });
 });
