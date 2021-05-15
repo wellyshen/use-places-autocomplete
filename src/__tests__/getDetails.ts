@@ -40,21 +40,29 @@ describe("getDetails", () => {
     });
   });
 
-  it("should throw error when place_id is not provided", () => {
+  it("should throw error when place_id is not provided", async () => {
     console.error = jest.fn();
 
     setupMaps();
-    // @ts-expect-error
-    return getDetails({}).catch((err) => {
-      expect(console.error).toHaveBeenCalledWith(getDetailsErr);
-      expect(err).toBe(getDetailsErr);
-    });
+    let err;
+    try {
+      // @ts-expect-error
+      await getDetails({});
+    } catch (someErr) {
+      err = someErr;
+    }
+    expect(console.error).toHaveBeenCalledWith(getDetailsErr);
+    expect(err).toBe(getDetailsErr);
   });
 
-  it("should handle failure correctly", () => {
+  it("should handle failure correctly", async () => {
     setupMaps("failure");
-    return getDetails(request).catch((err) => {
-      expect(err).toBe(error);
-    });
+    let err;
+    try {
+      await getDetails(request);
+    } catch (someErr) {
+      err = someErr;
+    }
+    expect(err).toBe(getDetailsErr);
   });
 });

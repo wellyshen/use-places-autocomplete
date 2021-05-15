@@ -37,21 +37,29 @@ describe("getGeocode", () => {
     });
   });
 
-  it("should handle failure correctly", () => {
+  it("should handle failure correctly", async () => {
     setupMaps("failure");
-    return getGeocode({ address: "Taipei" }).catch((err) => {
-      expect(err).toBe(error);
-    });
+    let err;
+    try {
+      await getGeocode({ address: "Taipei" });
+    } catch (someErr) {
+      err = someErr;
+    }
+    expect(err).toBe(error);
   });
 
-  it("should restrict the result to Taiwan and fail", () => {
+  it("should restrict the result to Taiwan and fail", async () => {
     setupMaps("failure");
-    return getGeocode({
-      address: "Belgrade",
-      componentRestrictions: { country: "TW" },
-    }).catch((err) => {
-      expect(err).toBe(error);
-    });
+    let err;
+    try {
+      await getGeocode({
+        address: "Belgrade",
+        componentRestrictions: { country: "TW" },
+      });
+    } catch (someErr) {
+      err = someErr;
+    }
+    expect(err).toBe(error);
   });
 
   it("should restrict the result to Taiwan and pass", () => {

@@ -16,9 +16,14 @@ describe("getLatLng", () => {
     });
   });
 
-  it("should handle failure correctly", () =>
-    // @ts-expect-error
-    getLatLng({}).catch((error) => {
-      expect(error).toEqual(expect.any(Error));
-    }));
+  it("should handle failure correctly", async () => {
+    let err;
+    try {
+      // @ts-expect-error
+      await getLatLng({});
+    } catch (someErr) {
+      err = someErr;
+    }
+    expect(err).toEqual(expect.any(Error));
+  });
 });

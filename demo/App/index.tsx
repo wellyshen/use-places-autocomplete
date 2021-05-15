@@ -47,10 +47,12 @@ const App: FC = () => {
     cachedVal = e.target.value;
   };
 
-  const handleSelect = ({ description }: Suggestion) => () => {
-    setValue(description, false);
-    dismissSuggestions();
-  };
+  const handleSelect =
+    ({ description }: Suggestion) =>
+    () => {
+      setValue(description, false);
+      dismissSuggestions();
+    };
 
   const handleEnter = (idx: number) => () => {
     setCurrIndex(idx);

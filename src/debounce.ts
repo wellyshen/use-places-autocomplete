@@ -1,6 +1,6 @@
 export default <F extends (...args: any[]) => void>(
   fn: F,
-  wait: number
+  delay: number
 ): ((this: ThisParameterType<F>, ...args: Parameters<F>) => void) => {
   let timer: ReturnType<typeof setTimeout> | null;
 
@@ -11,6 +11,6 @@ export default <F extends (...args: any[]) => void>(
       timer = null;
     }
 
-    timer = setTimeout(() => fn.apply(this, args), wait);
+    timer = setTimeout(() => fn.apply(this, args), delay);
   };
 };

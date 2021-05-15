@@ -27,9 +27,14 @@ describe("getZipCode", () => {
       expect(result).toBeNull();
     }));
 
-  it("should handle failure correctly", () =>
-    // @ts-expect-error
-    getZipCode({}).catch((error) => {
-      expect(error).toEqual(expect.any(Error));
-    }));
+  it("should handle failure correctly", async () => {
+    let err;
+    try {
+      // @ts-expect-error
+      await getZipCode({});
+    } catch (someErr) {
+      err = someErr;
+    }
+    expect(err).toEqual(expect.any(Error));
+  });
 });
