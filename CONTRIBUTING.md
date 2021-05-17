@@ -12,15 +12,15 @@ Please note we have a [code of conduct](CODE_OF_CONDUCT.md), please follow it in
 2. Run `yarn` to install dependencies.
 3. If you’ve fixed a bug or added code that should be tested.
 4. Ensure the test suite passes by running `yarn test`.
-5. Update the [README.md](https://github.com/wellyshen/use-places-autocomplete/blob/master/README.md) with details of changes to the interface.
-6. Update the [demo app](https://github.com/wellyshen/use-places-autocomplete/tree/master/demo/App) if needed.
+5. Update the [README.md](README.md) with details of changes to the interface.
+6. Update the [demo app](demo/App) if needed.
 7. Make sure your code lints by running `yarn lint`.
 
 ## Development Workflow
 
 After cloning USE-PLACES-AUTOCOMPLETE, run `yarn` to fetch its dependencies. Then, you can run several commands:
 
-- `yarn dev` runs the [demo app](https://github.com/wellyshen/use-places-autocomplete/tree/master/demo/App) as your playground at `localhost:10001`. Support live reloading.
+- `yarn dev` runs the [demo app](demo/App) as your playground at `localhost:10001`. Support live reloading.
 - `yarn lint:code` lints all `.js` and `.tsx?` files.
 - `yarn lint:type` runs the [TypeScript](https://www.typescriptlang.org) type-checks.
 - `yarn lint:style` lints all `.css` and `.tsx?` (for [Emotion](https://emotion.sh)) files.
