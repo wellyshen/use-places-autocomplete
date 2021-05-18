@@ -7760,9 +7760,9 @@ randomfill@^1.0.3:
     safe-buffer "^5.1.0"
 
 react-cool-onclickoutside@latest:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/react-cool-onclickoutside/-/react-cool-onclickoutside-1.6.1.tgz#5a03815d09bb7f65585f11cf841d56004beb09a1"
-  integrity sha512-8vt8+aAO+MWUjWUM0oBPAllVWDR62nasjnOl6PQ3si4h4hjAxXvfOpctwunSqgCCxjwHJe0ooDmwt16ejtW+EQ==
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/react-cool-onclickoutside/-/react-cool-onclickoutside-1.6.2.tgz#e100e6fe577c325fba1a1cb23d6faa84f335ffc6"
+  integrity sha512-x999CH2gHLYnW7LvaLOFNt4/CEWaFiqMrGCkzjDZJC+7FuIsgZZ8CZ4urb9K9lSukmlv8WFGU94BzWPhQRJ4lQ==
 
 react-dom@^17.0.2:
   version "17.0.2"
