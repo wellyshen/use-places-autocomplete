@@ -21,7 +21,7 @@ type Suggestion = google.maps.places.AutocompletePrediction;
 interface Suggestions {
   readonly loading: boolean;
   readonly status: string;
-  readonly data: Suggestion[];
+  data: Suggestion[];
 }
 interface SetValue {
   (val: string, shouldFetchData?: boolean): void;
