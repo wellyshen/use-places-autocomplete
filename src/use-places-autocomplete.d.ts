@@ -20,7 +20,7 @@ declare module "use-places-autocomplete" {
   export interface Suggestions {
     readonly loading: boolean;
     readonly status: string;
-    readonly data: Suggestion[];
+    data: Suggestion[];
   }
 
   export interface SetValue {
