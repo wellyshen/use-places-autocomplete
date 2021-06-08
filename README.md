@@ -424,7 +424,7 @@ const PlacesAutocomplete = () => {
 
 ## Utility Functions
 
-We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng), [getZipCode](#getzipcode) and [getDetails](#getDetails) utils for you to do geocoding and get geographic coordinates when needed.
+We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng), [getZipCode](#getzipcode) and [getDetails](#getdetails) utils for you to do geocoding and get geographic coordinates when needed.
 
 ### getGeocode
 
