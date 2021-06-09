@@ -589,6 +589,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://www.lucasoconnell.net/"><img src="https://avatars1.githubusercontent.com/u/63400356?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lucas O'Connell</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=Isoaxe" title="Documentation">📖</a></td>
     <td align="center"><a href="http://www.keven.com.br"><img src="https://avatars.githubusercontent.com/u/5994795?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Keven Jesus</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/issues?q=author%3Akevenjesus" title="Bug reports">🐛</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/viniciusueharaweb"><img src="https://avatars.githubusercontent.com/u/77734864?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vinicius Uehara</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=viniciusueharaweb" title="Documentation">📖</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->
