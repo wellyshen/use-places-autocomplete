@@ -44,8 +44,8 @@ const usePlacesAutocomplete = ({
   defaultValue = "",
   initOnMount = true,
 }: HookArgs = {}): HookReturn => {
-  const [ready, setReady] = useState<boolean>(false);
-  const [value, setVal] = useState<string>(defaultValue);
+  const [ready, setReady] = useState(false);
+  const [value, setVal] = useState(defaultValue);
   const [suggestions, setSuggestions] = useState<Suggestions>({
     loading: false,
     status: "",
