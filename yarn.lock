@@ -1530,16 +1530,15 @@
     lz-string "^1.4.4"
     pretty-format "^26.6.2"
 
-"@testing-library/react-hooks@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/react-hooks/-/react-hooks-6.0.0.tgz#2bd4e1549a7b8b8a9db71880e655c23d1f97fe83"
-  integrity sha512-Y8ayCUFPiNttX9zmwP2bDv4uYzgsgOMHxAsOrD7th7Xuj1j1rHkxf+VzRqdr7zJlSeYPzl67754qAnZ9O1ahYg==
+"@testing-library/react-hooks@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/react-hooks/-/react-hooks-7.0.1.tgz#8429d8bf55bfe82e486bd582dd06457c2464900a"
+  integrity sha512-bpEQ2SHSBSzBmfJ437NmnP+oArQ7aVmmULiAp6Ag2rtyLBLPNFSMmgltUbFGmQOJdPWo4Ub31kpUC5T46zXNwQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@types/react" ">=16.9.0"
     "@types/react-dom" ">=16.9.0"
     "@types/react-test-renderer" ">=16.9.0"
-    filter-console "^0.1.1"
     react-error-boundary "^3.1.0"
 
 "@testing-library/react@^11.2.7":
@@ -1721,14 +1720,7 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
 
-"@types/react-dom@>=16.9.0":
-  version "17.0.3"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.3.tgz#7fdf37b8af9d6d40127137865bb3fff8871d7ee1"
-  integrity sha512-4NnJbCeWE+8YBzupn/YrJxZ8VnjcJq5iR1laqQ1vkpQgBiA7bwk0Rp24fxsdNinzJY2U+HHS4dJJDPdoMjdJ7w==
-  dependencies:
-    "@types/react" "*"
-
-"@types/react-dom@^17.0.5":
+"@types/react-dom@>=16.9.0", "@types/react-dom@^17.0.5":
   version "17.0.5"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.5.tgz#df44eed5b8d9e0b13bb0cd38e0ea6572a1231227"
   integrity sha512-ikqukEhH4H9gr4iJCmQVNzTB307kROe3XFfHAOTxOXPOw7lAoEXnM5KWTkzeANGL5Ce6ABfiMl/zJBYNi7ObmQ==
@@ -1742,16 +1734,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@>=16.9.0":
-  version "17.0.4"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.4.tgz#a67c6f7a460d2660e950d9ccc1c2f18525c28220"
-  integrity sha512-onz2BqScSFMoTRdJUZUDD/7xrusM8hBA2Fktk2qgaTYPCgPvWnDEgkrOs8hhPUf2jfcIXkJ5yK6VfYormJS3Jw==
-  dependencies:
-    "@types/prop-types" "*"
-    "@types/scheduler" "*"
-    csstype "^3.0.2"
-
-"@types/react@^17.0.6":
+"@types/react@*", "@types/react@>=16.9.0", "@types/react@^17.0.6":
   version "17.0.6"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.6.tgz#0ec564566302c562bf497d73219797a5e0297013"
   integrity sha512-u/TtPoF/hrvb63LdukET6ncaplYsvCvmkceasx8oG84/ZCsoLxz9Z/raPBP4lTAiWW1Jb889Y9svHmv8R26dWw==
@@ -4353,11 +4336,6 @@ fill-range@^7.0.1:
   integrity sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==
   dependencies:
     to-regex-range "^5.0.1"
-
-filter-console@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/filter-console/-/filter-console-0.1.1.tgz#6242be28982bba7415bcc6db74a79f4a294fa67c"
-  integrity sha512-zrXoV1Uaz52DqPs+qEwNJWJFAWZpYJ47UNmpN9q4j+/EYsz85uV0DC9k8tRND5kYmoVzL0W+Y75q4Rg8sRJCdg==
 
 find-cache-dir@^2.1.0:
   version "2.1.0"
