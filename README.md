@@ -570,7 +570,7 @@ const PlacesAutocomplete = () => {
 > 💡 If you have written any blog post or article about `use-places-autocomplete`, please open a PR to add it here.
 
 - Featured on [React Status #175](https://react.statuscode.com/issues/175).
-- - Featured on [React Status #199](https://react.statuscode.com/issues/199).
+- Featured on [React Newsletter #199](https://reactnewsletter.com/issues/199).
 
 ## Contributors ✨
 
