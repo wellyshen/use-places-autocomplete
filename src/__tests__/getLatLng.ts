@@ -11,9 +11,7 @@ describe("getLatLng", () => {
           lng: (): number => latLng.lng,
         },
       },
-    }).then((result: LatLon) => {
-      expect(result).toEqual(latLng);
-    });
+    }).then((result: LatLon) => expect(result).toEqual(latLng));
   });
 
   it("should handle failure correctly", async () => {

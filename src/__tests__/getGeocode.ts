@@ -32,9 +32,9 @@ describe("getGeocode", () => {
 
   it("should handle success correctly", () => {
     setupMaps();
-    return getGeocode({ address: "Taipei" }).then((results) => {
-      expect(results).toBe(data);
-    });
+    return getGeocode({ address: "Taipei" }).then((results) =>
+      expect(results).toBe(data)
+    );
   });
 
   it("should handle failure correctly", async () => {
@@ -67,9 +67,7 @@ describe("getGeocode", () => {
     return getGeocode({
       address: "Taipei",
       componentRestrictions: { country: "TW" },
-    }).then((results) => {
-      expect(results).toBe(data);
-    });
+    }).then((results) => expect(results).toBe(data));
   });
 
   it("should throw error when providing componentRestrictions without address", () => {
@@ -81,6 +79,7 @@ describe("getGeocode", () => {
     }).then((results) => {
       expect(console.error).toHaveBeenCalledWith(geocodeErr);
       expect(results).toBe(data);
+      return null;
     });
   });
 });

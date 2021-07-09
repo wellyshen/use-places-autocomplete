@@ -9,23 +9,21 @@ describe("getZipCode", () => {
 
   it("should handle success with long name correctly", () =>
     // @ts-expect-error
-    getZipCode({ address_components: [zipCode] }).then((result: ZipCode) => {
-      expect(result).toEqual(zipCode.long_name);
-    }));
+    getZipCode({ address_components: [zipCode] }).then((result: ZipCode) =>
+      expect(result).toEqual(zipCode.long_name)
+    ));
 
   it("should handle success with short name correctly", () =>
     // @ts-expect-error
     getZipCode({ address_components: [zipCode] }, true).then(
-      (result: ZipCode) => {
-        expect(result).toEqual(zipCode.short_name);
-      }
+      (result: ZipCode) => expect(result).toEqual(zipCode.short_name)
     ));
 
   it("should handle success without result correctly", () =>
     // @ts-expect-error
-    getZipCode({ address_components: [] }).then((result: ZipCode) => {
-      expect(result).toBeNull();
-    }));
+    getZipCode({ address_components: [] }).then((result: ZipCode) =>
+      expect(result).toBeNull()
+    ));
 
   it("should handle failure correctly", async () => {
     let err;

@@ -35,9 +35,7 @@ describe("getDetails", () => {
 
   it("should handle success correctly", () => {
     setupMaps();
-    return getDetails(request).then((results) => {
-      expect(results).toBe(data);
-    });
+    return getDetails(request).then((results) => expect(results).toBe(data));
   });
 
   it("should throw error when place_id is not provided", async () => {
