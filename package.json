@@ -89,7 +89,7 @@
     "@types/react-dom": "^17.0.9",
     "eslint": "^7.2.0",
     "eslint-config-welly": "^1.11.3",
-    "husky": "^7.0.0",
+    "husky": "^7.0.1",
     "jest": "^27.0.6",
     "lint-staged": "^11.0.0",
     "normalize.css": "^8.0.1",
