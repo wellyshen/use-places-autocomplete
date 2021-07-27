@@ -84,9 +84,14 @@ const usePlacesAutocomplete = ({
 
       setSuggestions((prevState) => ({ ...prevState, loading: true }));
 
-      let cachedData = JSON.parse(
-        sessionStorage.getItem("upa") || "{}"
-      ) as Record<string, { data: Suggestion[]; maxAge: number }>;
+      let cachedData: Record<string, { data: Suggestion[]; maxAge: number }> =
+        {};
+
+      try {
+        cachedData = JSON.parse(sessionStorage.getItem("upa") || "{}");
+      } catch (error) {
+        // Skip exception
+      }
 
       if (cache) {
         cachedData = Object.keys(cachedData).reduce(
@@ -123,7 +128,7 @@ const usePlacesAutocomplete = ({
             try {
               sessionStorage.setItem("upa", JSON.stringify(cachedData));
             } catch (error) {
-              // skip exception
+              // Skip exception
             }
           }
         }
