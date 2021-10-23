@@ -5,9 +5,6 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import useLatest from "./useLatest";
 import _debounce from "./debounce";
 
-export const loadApiErr =
-  "💡 use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library";
-
 export interface HookArgs {
   requestOptions?: Omit<google.maps.places.AutocompletionRequest, "input">;
   debounce?: number;
@@ -36,8 +33,13 @@ interface HookReturn {
   suggestions: Suggestions;
   setValue: SetValue;
   clearSuggestions: () => void;
+  clearCache: () => void;
   init: () => void;
 }
+
+export const loadApiErr =
+  "💡 use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library";
+const cacheKey = "upa";
 
 const usePlacesAutocomplete = ({
   requestOptions,
@@ -79,6 +81,14 @@ const usePlacesAutocomplete = ({
     setSuggestions({ loading: false, status: "", data: [] });
   }, []);
 
+  const clearCache = useCallback(() => {
+    try {
+      sessionStorage.removeItem(cacheKey);
+    } catch (error) {
+      // Skip exception
+    }
+  }, []);
+
   const fetchPredictions = useCallback(
     _debounce((val: string) => {
       if (!val) {
@@ -92,7 +102,7 @@ const usePlacesAutocomplete = ({
         {};
 
       try {
-        cachedData = JSON.parse(sessionStorage.getItem("upa") || "{}");
+        cachedData = JSON.parse(sessionStorage.getItem(cacheKey) || "{}");
       } catch (error) {
         // Skip exception
       }
@@ -130,7 +140,7 @@ const usePlacesAutocomplete = ({
             };
 
             try {
-              sessionStorage.setItem("upa", JSON.stringify(cachedData));
+              sessionStorage.setItem(cacheKey, JSON.stringify(cachedData));
             } catch (error) {
               // Skip exception
             }
@@ -166,7 +176,15 @@ const usePlacesAutocomplete = ({
     };
   }, [callbackName, init]);
 
-  return { ready, value, suggestions, setValue, clearSuggestions, init };
+  return {
+    ready,
+    value,
+    suggestions,
+    setValue,
+    clearSuggestions,
+    clearCache,
+    init,
+  };
 };
 
 export default usePlacesAutocomplete;

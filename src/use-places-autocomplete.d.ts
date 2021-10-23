@@ -31,6 +31,10 @@ declare module "use-places-autocomplete" {
     (): void;
   }
 
+  export interface ClearCache {
+    (): void;
+  }
+
   export interface Init {
     (): void;
   }
@@ -41,6 +45,7 @@ declare module "use-places-autocomplete" {
     suggestions: Suggestions;
     setValue: SetValue;
     clearSuggestions: ClearSuggestions;
+    clearCache: ClearCache;
     init: Init;
   }
 

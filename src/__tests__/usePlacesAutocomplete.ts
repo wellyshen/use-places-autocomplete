@@ -52,6 +52,7 @@ const getMaps = (type = "success", d = data): any => ({
 
 describe("usePlacesAutocomplete", () => {
   beforeEach(() => {
+    jest.clearAllTimers();
     global.google = getMaps();
     getPlacePredictions.mockClear();
     // @ts-expect-error
@@ -229,6 +230,29 @@ describe("usePlacesAutocomplete", () => {
       res.current.setValue("next");
       jest.runAllTimers();
     });
+    act(() => {
+      res.current.setValue("prev");
+      jest.runAllTimers();
+    });
+    expect(res.current.suggestions).toEqual(okSuggestions);
+  });
+
+  it("should clear cache", () => {
+    const cachedData = [{ place_id: "1119" }];
+    global.google = getMaps("success", cachedData);
+    let res = renderHelper({ cache: 10 });
+    act(() => {
+      res.current.setValue("prev");
+      jest.runAllTimers();
+    });
+    expect(res.current.suggestions).toEqual({
+      ...okSuggestions,
+      data: cachedData,
+    });
+
+    global.google = getMaps();
+    res = renderHelper({ cache: 10 });
+    res.current.clearCache();
     act(() => {
       res.current.setValue("prev");
       jest.runAllTimers();
