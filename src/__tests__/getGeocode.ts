@@ -1,28 +1,28 @@
 import { getGeocode, geocodeErr } from "../utils";
 
-describe("getGeocode", () => {
-  const data = [{ place_id: "0109" }];
-  const error = "ERROR";
-  const geocode = jest.fn();
-  const setupMaps = (type = "success") => {
-    global.google = {
-      maps: {
-        // @ts-expect-error
-        Geocoder: class {
-          geocode =
-            type === "opts"
-              ? geocode
-              : (_: any, cb: (dataArg: any, status: string) => void) => {
-                  cb(
-                    type === "success" ? data : null,
-                    type === "success" ? "OK" : error
-                  );
-                };
-        },
+const data = [{ place_id: "0109" }];
+const error = "ERROR";
+const geocode = jest.fn();
+const setupMaps = (type = "success") => {
+  global.google = {
+    maps: {
+      // @ts-expect-error
+      Geocoder: class {
+        geocode =
+          type === "opts"
+            ? geocode
+            : (_: any, cb: (dataArg: any, status: string) => void) => {
+                cb(
+                  type === "success" ? data : null,
+                  type === "success" ? "OK" : error
+                );
+              };
       },
-    };
+    },
   };
+};
 
+describe("getGeocode", () => {
   it("should set options correctly", () => {
     setupMaps("opts");
     const opts = { address: "Taipei", placeId: "0109" };

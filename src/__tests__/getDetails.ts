@@ -1,32 +1,32 @@
 import { getDetailsErr, getDetails } from "../utils";
 
-describe("getDetails", () => {
-  const data = { formatted_address: "123", name: "abc" };
-  const error = "ERROR";
-  const request = { placeId: "0109", fields: ["name", "rating"] };
-  const getDetailsFn = jest.fn();
+const data = { formatted_address: "123", name: "abc" };
+const error = "ERROR";
+const request = { placeId: "0109", fields: ["name", "rating"] };
+const getDetailsFn = jest.fn();
 
-  const setupMaps = (type = "success") => {
-    global.google = {
-      maps: {
-        places: {
-          // @ts-expect-error
-          PlacesService: class {
-            getDetails =
-              type === "request"
-                ? getDetailsFn
-                : (_: any, cb: (dataArg: any, status: string) => void) => {
-                    cb(
-                      type === "success" ? data : null,
-                      type === "success" ? "OK" : error
-                    );
-                  };
-          },
+const setupMaps = (type = "success") => {
+  global.google = {
+    maps: {
+      places: {
+        // @ts-expect-error
+        PlacesService: class {
+          getDetails =
+            type === "request"
+              ? getDetailsFn
+              : (_: any, cb: (dataArg: any, status: string) => void) => {
+                  cb(
+                    type === "success" ? data : null,
+                    type === "success" ? "OK" : error
+                  );
+                };
         },
       },
-    };
+    },
   };
+};
 
+describe("getDetails", () => {
   it("should make call with request passed in", () => {
     setupMaps("request");
     getDetails(request);

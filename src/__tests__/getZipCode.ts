@@ -1,12 +1,12 @@
 import { getZipCode, ZipCode } from "../utils";
 
-describe("getZipCode", () => {
-  const zipCode = {
-    long_name: "12345",
-    short_name: "123",
-    types: ["postal_code"],
-  };
+const zipCode = {
+  long_name: "12345",
+  short_name: "123",
+  types: ["postal_code"],
+};
 
+describe("getZipCode", () => {
   it("should handle success with long name correctly", () =>
     // @ts-expect-error
     getZipCode({ address_components: [zipCode] }).then((result: ZipCode) =>

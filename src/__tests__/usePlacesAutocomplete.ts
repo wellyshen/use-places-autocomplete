@@ -6,51 +6,51 @@ import usePlacesAutocomplete, {
 } from "../usePlacesAutocomplete";
 import _debounce from "../debounce";
 
+jest.useFakeTimers("modern");
 jest.mock("../debounce");
+
 // @ts-expect-error
 _debounce.mockImplementation((fn) => fn);
 
-describe("usePlacesAutocomplete", () => {
-  jest.useFakeTimers("modern");
+const callbackName = "initMap";
+const renderHelper = (args: HookArgs = {}) =>
+  renderHook(() => usePlacesAutocomplete({ cache: false, ...args })).result;
 
-  const callbackName = "initMap";
-  const renderHelper = (args: HookArgs = {}) =>
-    renderHook(() => usePlacesAutocomplete({ cache: false, ...args })).result;
-
-  const ok = "OK";
-  const error = "ERROR";
-  const data = [{ place_id: "0109" }];
-  const okSuggestions = {
-    loading: false,
-    status: ok,
-    data,
-  };
-  const defaultSuggestions = {
-    loading: false,
-    status: "",
-    data: [],
-  };
-  const getPlacePredictions = jest.fn();
-  const getMaps = (type = "success", d = data): any => ({
-    maps: {
-      places: {
-        AutocompleteService: class {
-          getPlacePredictions =
-            type === "opts"
-              ? getPlacePredictions
-              : (_: any, cb: (dataArg: any, status: string) => void) => {
-                  setTimeout(() => {
-                    cb(
-                      type === "success" ? d : null,
-                      type === "success" ? ok : error
-                    );
-                  }, 500);
-                };
-        },
+const ok = "OK";
+const error = "ERROR";
+const data = [{ place_id: "0109" }];
+const okSuggestions = {
+  loading: false,
+  status: ok,
+  data,
+};
+const defaultSuggestions = {
+  loading: false,
+  status: "",
+  data: [],
+};
+const getPlacePredictions = jest.fn();
+const getMaps = (type = "success", d = data): any => ({
+  maps: {
+    places: {
+      AutocompleteService: class {
+        getPlacePredictions =
+          type === "opts"
+            ? getPlacePredictions
+            : (_: any, cb: (dataArg: any, status: string) => void) => {
+                setTimeout(() => {
+                  cb(
+                    type === "success" ? d : null,
+                    type === "success" ? ok : error
+                  );
+                }, 500);
+              };
       },
     },
-  });
+  },
+});
 
+describe("usePlacesAutocomplete", () => {
   beforeEach(() => {
     global.google = getMaps();
     getPlacePredictions.mockClear();
@@ -244,7 +244,7 @@ describe("usePlacesAutocomplete", () => {
     });
     expect(result.current.suggestions).toEqual(okSuggestions);
 
-    act(() => result.current.clearSuggestions());
+    act(result.current.clearSuggestions);
     expect(result.current.suggestions).toEqual(defaultSuggestions);
   });
 
