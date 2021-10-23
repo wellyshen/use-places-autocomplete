@@ -306,6 +306,7 @@ It's returned with the following properties.
 | `suggestions`      | object   | `{ loading: false, status: "", data: [] }` | See [suggestions](#suggestions).                                           |
 | `setValue`         | function | `(value, shouldFetchData = true) => {}`    | See [setValue](#setvalue).                                                 |
 | `clearSuggestions` | function |                                            | See [clearSuggestions](#clearsuggestions).                                 |
+| `clearCache`       | function |                                            | Clears the [cached data](#cache-data-for-you).                             |
 | `init`             | function |                                            | Useful when [lazily initializing the hook](#lazily-initializing-the-hook). |
 
 #### suggestions
