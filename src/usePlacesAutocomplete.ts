@@ -17,15 +17,19 @@ export interface HookArgs {
   defaultValue?: string;
   initOnMount?: boolean;
 }
+
 type Suggestion = google.maps.places.AutocompletePrediction;
+
 interface Suggestions {
   readonly loading: boolean;
   readonly status: string;
   data: Suggestion[];
 }
+
 interface SetValue {
   (val: string, shouldFetchData?: boolean): void;
 }
+
 interface HookReturn {
   ready: boolean;
   value: string;
