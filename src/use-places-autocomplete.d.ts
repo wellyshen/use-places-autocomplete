@@ -17,9 +17,11 @@ declare module "use-places-autocomplete" {
 
   export type Suggestion = google.maps.places.AutocompletePrediction;
 
+  export type Status = `${google.maps.places.PlacesServiceStatus}` | "";
+
   export interface Suggestions {
     readonly loading: boolean;
-    readonly status: string;
+    readonly status: Status;
     data: Suggestion[];
   }
 

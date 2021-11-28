@@ -17,9 +17,11 @@ export interface HookArgs {
 
 type Suggestion = google.maps.places.AutocompletePrediction;
 
+type Status = `${google.maps.places.PlacesServiceStatus}` | "";
+
 interface Suggestions {
   readonly loading: boolean;
-  readonly status: string;
+  readonly status: Status;
   data: Suggestion[];
 }
 
@@ -130,7 +132,7 @@ const usePlacesAutocomplete = ({
       // @ts-expect-error
       asRef.current.getPlacePredictions(
         { ...requestOptionsRef.current, input: val },
-        (data: Suggestion[] | null, status: string) => {
+        (data: Suggestion[] | null, status: Status) => {
           setSuggestions({ loading: false, status, data: data || [] });
 
           if (cache && status === "OK") {
