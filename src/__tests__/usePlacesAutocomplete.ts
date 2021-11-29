@@ -237,6 +237,49 @@ describe("usePlacesAutocomplete", () => {
     expect(res.current.suggestions).toEqual(okSuggestions);
   });
 
+  it("should allow custom cache names", () => {
+    const CACHE_KEY_1 = "cache1";
+    const CACHE_KEY_2 = "cache2";
+    jest.setSystemTime(0);
+    // Queue up some cached data
+    const cachedData = [{ place_id: "1119" }];
+    global.google = getMaps("success", cachedData);
+    const res1 = renderHelper({ cache: 10, cacheKey: CACHE_KEY_1 });
+    act(() => {
+      res1.current.setValue("foo");
+      jest.runAllTimers();
+    });
+    // Ensure we're actually getting cached data by resetting getMaps mock
+    global.google = getMaps();
+    act(() => {
+      res1.current.setValue("foo");
+      jest.runAllTimers();
+    });
+    expect(res1.current.suggestions).toEqual({
+      ...okSuggestions,
+      data: cachedData,
+    });
+
+    // Set up a 2nd helper with a different cache key
+    const res2 = renderHelper({ cache: 10, cacheKey: CACHE_KEY_2 });
+    act(() => {
+      res2.current.setValue("foo");
+      jest.runAllTimers();
+    });
+    expect(res2.current.suggestions).toEqual(okSuggestions);
+
+    // Finally, make sure the original cache key still works
+    const res3 = renderHelper({ cache: 10, cacheKey: CACHE_KEY_1 });
+    act(() => {
+      res3.current.setValue("foo");
+      jest.runAllTimers();
+    });
+    expect(res3.current.suggestions).toEqual({
+      ...okSuggestions,
+      data: cachedData,
+    });
+  });
+
   it("should clear cache", () => {
     const cachedData = [{ place_id: "1119" }];
     global.google = getMaps("success", cachedData);

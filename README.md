@@ -275,6 +275,19 @@ const methods = usePlacesAutocomplete({
 
 > By the way, the cached data is stored via the [Window.sessionStorage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
 
+### Custom cache key
+
+You may need to have multiple caches, for example if you use different [place type restrictions](https://developers.google.com/maps/documentation/places/web-service/supported_types#table3_) for different pickers in your app.
+
+```js
+const methods = usePlacesAutocomplete({
+  // Provide a custom cache key
+  cacheKey: "region-restricted",
+});
+```
+
+> Note that usePlacesAutocomplete will prefix this with `upa-`, so the above would become `upa-region-restricted` in sessionStorage.
+
 ## API
 
 ```js
@@ -292,6 +305,7 @@ When use `usePlacesAutocomplete` you can configure the following options via the
 | `callbackName`   | string          |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
 | `debounce`       | number          | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
 | `cache`          | number \| false | `86400` (24 hours)   | Number of seconds to [cache the response data of Google Maps Places API](#cache-data-for-you).                                                                                                                          |
+| `cacheKey`       | string          |                      | Optional cache key so one can use multiple caches if needed.                                                                                                                                                            |
 | `defaultValue`   | string          | `""`                 | Default value for the `input` element.                                                                                                                                                                                  |
 | `initOnMount`    | boolean         | `true`               | Initialize the hook with Google Maps Places API when the component mounts.                                                                                                                                              |
 
