@@ -9,6 +9,7 @@ declare module "use-places-autocomplete" {
     requestOptions?: RequestOptions;
     debounce?: number;
     cache?: number | false;
+    cacheKey?: string;
     googleMaps?: any;
     callbackName?: string;
     defaultValue?: string;

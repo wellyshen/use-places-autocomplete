@@ -9,6 +9,7 @@ export interface HookArgs {
   requestOptions?: Omit<google.maps.places.AutocompletionRequest, "input">;
   debounce?: number;
   cache?: number | false;
+  cacheKey?: string;
   googleMaps?: any;
   callbackName?: string;
   defaultValue?: string;
@@ -41,12 +42,12 @@ interface HookReturn {
 
 export const loadApiErr =
   "💡 use-places-autocomplete: Google Maps Places API library must be loaded. See: https://github.com/wellyshen/use-places-autocomplete#load-the-library";
-const cacheKey = "upa";
 
 const usePlacesAutocomplete = ({
   requestOptions,
   debounce = 200,
   cache = 24 * 60 * 60,
+  cacheKey,
   googleMaps,
   callbackName,
   defaultValue = "",
@@ -62,6 +63,7 @@ const usePlacesAutocomplete = ({
   const asRef = useRef(null);
   const requestOptionsRef = useLatest(requestOptions);
   const googleMapsRef = useLatest(googleMaps);
+  const upaCacheKey = cacheKey ? `upa-${cacheKey}` : "upa";
 
   const init = useCallback(() => {
     if (asRef.current) return;
@@ -85,7 +87,7 @@ const usePlacesAutocomplete = ({
 
   const clearCache = useCallback(() => {
     try {
-      sessionStorage.removeItem(cacheKey);
+      sessionStorage.removeItem(upaCacheKey);
     } catch (error) {
       // Skip exception
     }
@@ -104,7 +106,7 @@ const usePlacesAutocomplete = ({
         {};
 
       try {
-        cachedData = JSON.parse(sessionStorage.getItem(cacheKey) || "{}");
+        cachedData = JSON.parse(sessionStorage.getItem(upaCacheKey) || "{}");
       } catch (error) {
         // Skip exception
       }
@@ -142,7 +144,7 @@ const usePlacesAutocomplete = ({
             };
 
             try {
-              sessionStorage.setItem(cacheKey, JSON.stringify(cachedData));
+              sessionStorage.setItem(upaCacheKey, JSON.stringify(cachedData));
             } catch (error) {
               // Skip exception
             }
