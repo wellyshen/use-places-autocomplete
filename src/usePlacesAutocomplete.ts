@@ -63,7 +63,8 @@ const usePlacesAutocomplete = ({
   const asRef = useRef(null);
   const requestOptionsRef = useLatest(requestOptions);
   const googleMapsRef = useLatest(googleMaps);
-  const upaCacheKey = cacheKey ? `upa-${cacheKey}` : "upa";
+  const cacheRef = useLatest(cache);
+  const upaCacheKeyRef = useLatest(cacheKey ? `upa-${cacheKey}` : "upa");
 
   const init = useCallback(() => {
     if (asRef.current) return;
@@ -86,10 +87,12 @@ const usePlacesAutocomplete = ({
   }, []);
 
   const clearCache = useCallback(() => {
-    try {
-      sessionStorage.removeItem(upaCacheKey);
-    } catch (error) {
-      // Skip exception
+    if (upaCacheKeyRef.current) {
+      try {
+        sessionStorage.removeItem(upaCacheKeyRef.current);
+      } catch (error) {
+        // Skip exception
+      }
     }
   }, []);
 
@@ -105,13 +108,17 @@ const usePlacesAutocomplete = ({
       let cachedData: Record<string, { data: Suggestion[]; maxAge: number }> =
         {};
 
-      try {
-        cachedData = JSON.parse(sessionStorage.getItem(upaCacheKey) || "{}");
-      } catch (error) {
-        // Skip exception
+      if (upaCacheKeyRef.current) {
+        try {
+          cachedData = JSON.parse(
+            sessionStorage.getItem(upaCacheKeyRef.current) || "{}"
+          );
+        } catch (error) {
+          // Skip exception
+        }
       }
 
-      if (cache) {
+      if (cacheRef.current) {
         cachedData = Object.keys(cachedData).reduce(
           (acc: typeof cachedData, key) => {
             if (cachedData[key].maxAge - Date.now() >= 0)
@@ -137,16 +144,21 @@ const usePlacesAutocomplete = ({
         (data: Suggestion[] | null, status: Status) => {
           setSuggestions({ loading: false, status, data: data || [] });
 
-          if (cache && status === "OK") {
+          if (cacheRef.current && status === "OK") {
             cachedData[val] = {
               data: data as Suggestion[],
-              maxAge: Date.now() + cache * 1000,
+              maxAge: Date.now() + cacheRef.current * 1000,
             };
 
-            try {
-              sessionStorage.setItem(upaCacheKey, JSON.stringify(cachedData));
-            } catch (error) {
-              // Skip exception
+            if (upaCacheKeyRef.current) {
+              try {
+                sessionStorage.setItem(
+                  upaCacheKeyRef.current,
+                  JSON.stringify(cachedData)
+                );
+              } catch (error) {
+                // Skip exception
+              }
             }
           }
         }
