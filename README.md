@@ -305,7 +305,7 @@ When use `usePlacesAutocomplete` you can configure the following options via the
 | `callbackName`   | string          |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
 | `debounce`       | number          | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
 | `cache`          | number \| false | `86400` (24 hours)   | Number of seconds to [cache the response data of Google Maps Places API](#cache-data-for-you).                                                                                                                          |
-| `cacheKey`       | string          |                      | Optional cache key so one can use multiple caches if needed.                                                                                                                                                            |
+| `cacheKey`       | string          | `"upa"`              | Optional cache key so one can use multiple caches if needed.                                                                                                                                                            |
 | `defaultValue`   | string          | `""`                 | Default value for the `input` element.                                                                                                                                                                                  |
 | `initOnMount`    | boolean         | `true`               | Initialize the hook with Google Maps Places API when the component mounts.                                                                                                                                              |
 
@@ -320,7 +320,7 @@ It's returned with the following properties.
 | `suggestions`      | object   | `{ loading: false, status: "", data: [] }` | See [suggestions](#suggestions).                                           |
 | `setValue`         | function | `(value, shouldFetchData = true) => {}`    | See [setValue](#setvalue).                                                 |
 | `clearSuggestions` | function |                                            | See [clearSuggestions](#clearsuggestions).                                 |
-| `clearCache`       | function |                                            | Clears the [cached data](#cache-data-for-you).                             |
+| `clearCache`       | function | `(key = cacheKey) => {}`                   | Clears the [cached data](#cache-data-for-you).                             |
 | `init`             | function |                                            | Useful when [lazily initializing the hook](#lazily-initializing-the-hook). |
 
 #### suggestions

@@ -35,7 +35,7 @@ declare module "use-places-autocomplete" {
   }
 
   export interface ClearCache {
-    (): void;
+    (key?: string): void;
   }
 
   export interface Init {

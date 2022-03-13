@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 import { useState, useRef, useCallback, useEffect } from "react";
 
 import useLatest from "./useLatest";
@@ -36,7 +34,7 @@ interface HookReturn {
   suggestions: Suggestions;
   setValue: SetValue;
   clearSuggestions: () => void;
-  clearCache: () => void;
+  clearCache: (key?: string) => void;
   init: () => void;
 }
 
@@ -47,7 +45,7 @@ const usePlacesAutocomplete = ({
   requestOptions,
   debounce = 200,
   cache = 24 * 60 * 60,
-  cacheKey,
+  cacheKey = "upa",
   googleMaps,
   callbackName,
   defaultValue = "",
@@ -63,7 +61,6 @@ const usePlacesAutocomplete = ({
   const asRef = useRef(null);
   const requestOptionsRef = useLatest(requestOptions);
   const googleMapsRef = useLatest(googleMaps);
-  const upaCacheKey = cacheKey ? `upa-${cacheKey}` : "upa";
 
   const init = useCallback(() => {
     if (asRef.current) return;
@@ -79,20 +76,25 @@ const usePlacesAutocomplete = ({
 
     asRef.current = new placesLib.AutocompleteService();
     setReady(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const clearSuggestions = useCallback(() => {
     setSuggestions({ loading: false, status: "", data: [] });
   }, []);
 
-  const clearCache = useCallback(() => {
-    try {
-      sessionStorage.removeItem(upaCacheKey);
-    } catch (error) {
-      // Skip exception
-    }
-  }, []);
+  const clearCache = useCallback(
+    (key = cacheKey) => {
+      try {
+        sessionStorage.removeItem(key);
+      } catch (error) {
+        // Skip exception
+      }
+    },
+    [cacheKey]
+  );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchPredictions = useCallback(
     _debounce((val: string) => {
       if (!val) {
@@ -106,7 +108,7 @@ const usePlacesAutocomplete = ({
         {};
 
       try {
-        cachedData = JSON.parse(sessionStorage.getItem(upaCacheKey) || "{}");
+        cachedData = JSON.parse(sessionStorage.getItem(cacheKey) || "{}");
       } catch (error) {
         // Skip exception
       }
@@ -144,7 +146,7 @@ const usePlacesAutocomplete = ({
             };
 
             try {
-              sessionStorage.setItem(upaCacheKey, JSON.stringify(cachedData));
+              sessionStorage.setItem(cacheKey, JSON.stringify(cachedData));
             } catch (error) {
               // Skip exception
             }
@@ -152,7 +154,7 @@ const usePlacesAutocomplete = ({
         }
       );
     }, debounce),
-    [debounce, clearSuggestions]
+    [debounce, clearSuggestions, cacheKey]
   );
 
   const setValue: SetValue = useCallback(
@@ -178,6 +180,7 @@ const usePlacesAutocomplete = ({
       // @ts-expect-error
       if ((window as any)[callbackName]) delete (window as any)[callbackName];
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callbackName, init]);
 
   return {
