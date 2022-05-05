@@ -479,19 +479,17 @@ const parameter = {
   address: "Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan",
 };
 
-getGeocode(parameter)
-  .then((results) => getLatLng(results[0]))
-  .then((latLng) => {
-    const { lat, lng } = latLng;
-
+getGeocode(parameter).then((results) => {
+  try {
+    const { lat, lng } = getLatLng(results[0]);
     console.log("Coordinates: ", { lat, lng });
-  })
-  .catch((error) => {
+  } catch (error) {
     console.log("Error: ", error);
-  });
+  }
+});
 ```
 
-`getLatLng` is an asynchronous function with the following API:
+`getLatLng` is a function with the following API:
 
 - `parameter: object` - the result object of `getGeocode`.
 - `latLng: object` - contains the latitude and longitude properties.
@@ -511,16 +509,18 @@ const parameter = {
 getGeocode(parameter)
   // By default we use the "long_name" value from API response, you can tell the utility to use "short_name"
   // by setting the second parameter to "true"
-  .then((results) => getZipCode(results[0], false))
-  .then((zipCode) => {
-    console.log("ZIP Code: ", zipCode);
-  })
-  .catch((error) => {
-    console.log("Error: ", error);
+  .then((results) => {
+    let zipCode;
+    try {
+      zipCode = getZipCode(results[0], false);
+      console.log("ZIP Code: ", zipCode);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   });
 ```
 
-`getZipCode` is an asynchronous function with the following API:
+`getZipCode` is a function with the following API:
 
 - `parameters` - there're two parameters:
   - `1st: object` - the result object of `getGeocode`.
