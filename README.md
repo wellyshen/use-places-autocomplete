@@ -164,7 +164,7 @@ const PlacesAutocomplete = () => {
 
 > 💡 [react-cool-onclickoutside](https://github.com/wellyshen/react-cool-onclickoutside) is my other hook library, which can help you handle the interaction of user clicks outside of the component(s).
 
-Easy right? This is the magic of the `usePlacesAutocomplete` ✨. I just show you how does it work via the minimal example. However you can build an UX rich autocomplete component, like [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword interaction as my [demo](#live-demo) by checking the [code](app/src/App/index.tsx) or integrate this hook with the [combobox](https://reacttraining.com/reach-ui/combobox) of [Reach UI](https://reacttraining.com/reach-ui) to achieve that.
+Easy right? This is the magic of the `usePlacesAutocomplete` ✨. I just show you how does it work via the minimal example. However you can build a UX rich autocomplete component, like [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword interaction as my [demo](#live-demo) by checking the [code](app/src/App/index.tsx) or integrate this hook with the [combobox](https://reacttraining.com/reach-ui/combobox) of [Reach UI](https://reacttraining.com/reach-ui) to achieve that.
 
 [![Edit usePlacesAutocomplete x Reach UI](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/useplacesautocomplete-x-reach-ui-lik2c?fontsize=14&hidenavigation=1&theme=dark)
 
