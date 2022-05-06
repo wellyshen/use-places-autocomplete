@@ -605,6 +605,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/viniciusueharaweb"><img src="https://avatars.githubusercontent.com/u/77734864?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vinicius Uehara</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=viniciusueharaweb" title="Documentation">📖</a></td>
     <td align="center"><a href="http://orbiteleven.net"><img src="https://avatars.githubusercontent.com/u/331393?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Damon</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=orbiteleven" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/RavenHursT"><img src="https://avatars.githubusercontent.com/u/496983?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matthew Marcus</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=RavenHursT" title="Code">💻</a></td>
   </tr>
 </table>
 
