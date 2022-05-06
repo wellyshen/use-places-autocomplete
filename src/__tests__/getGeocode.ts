@@ -6,7 +6,7 @@ const geocode = jest.fn();
 const setupMaps = (type = "success") => {
   global.google = {
     maps: {
-      // @ts-expect-error
+      // @ts-ignore
       Geocoder: class {
         geocode =
           type === "opts"

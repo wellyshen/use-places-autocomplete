@@ -9,7 +9,7 @@ const setupMaps = (type = "success") => {
   global.google = {
     maps: {
       places: {
-        // @ts-expect-error
+        // @ts-ignore
         PlacesService: class {
           getDetails =
             type === "request"
@@ -44,7 +44,7 @@ describe("getDetails", () => {
     setupMaps();
     let err;
     try {
-      // @ts-expect-error
+      // @ts-ignore
       await getDetails({});
     } catch (someErr) {
       err = someErr;

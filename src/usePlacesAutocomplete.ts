@@ -58,7 +58,7 @@ const usePlacesAutocomplete = ({
     status: "",
     data: [],
   });
-  const asRef = useRef(null);
+  const asRef = useRef<google.maps.places.AutocompleteService>();
   const requestOptionsRef = useLatest(requestOptions);
   const googleMapsRef = useLatest(googleMaps);
 
@@ -76,8 +76,7 @@ const usePlacesAutocomplete = ({
 
     asRef.current = new placesLib.AutocompleteService();
     setReady(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [googleMapsRef]);
 
   const clearSuggestions = useCallback(() => {
     setSuggestions({ loading: false, status: "", data: [] });
@@ -133,8 +132,7 @@ const usePlacesAutocomplete = ({
         }
       }
 
-      // @ts-expect-error
-      asRef.current.getPlacePredictions(
+      asRef.current?.getPlacePredictions(
         { ...requestOptionsRef.current, input: val },
         (data: Suggestion[] | null, status: Status) => {
           setSuggestions({ loading: false, status, data: data || [] });
@@ -154,7 +152,7 @@ const usePlacesAutocomplete = ({
         }
       );
     }, debounce),
-    [debounce, clearSuggestions, cacheKey]
+    [cache, cacheKey, clearSuggestions, requestOptionsRef]
   );
 
   const setValue: SetValue = useCallback(
@@ -177,11 +175,10 @@ const usePlacesAutocomplete = ({
     }
 
     return () => {
-      // @ts-expect-error
+      // @ts-ignore
       if ((window as any)[callbackName]) delete (window as any)[callbackName];
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [callbackName, init]);
+  }, [callbackName, googleMapsRef, init, initOnMount]);
 
   return {
     ready,
