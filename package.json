@@ -80,7 +80,7 @@
     "@types/googlemaps": "^3.43.3",
     "@types/jest": "^27.4.0",
     "@types/lodash.debounce": "^4.0.6",
-    "@types/react": "^17.0.38",
+    "@types/react": "^18.0.8",
     "@types/react-dom": "^17.0.11",
     "eslint": "^8.2.0",
     "eslint-config-welly": "^1.13.0",
