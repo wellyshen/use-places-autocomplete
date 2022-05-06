@@ -67,16 +67,14 @@ declare module "use-places-autocomplete" {
 
   export type LatLon = { lat: number; lng: number };
 
-  export type LatLngReturn = Promise<LatLon>;
+  export const getLatLng: (result: GeocodeResult) => LatLon;
 
-  export const getLatLng: (result: GeocodeResult) => LatLngReturn;
-
-  export type ZipCodeReturn = Promise<string | null>;
+  export type ZipCode = string | null;
 
   export const getZipCode: (
     result: GeocodeResult,
     useShortName: boolean
-  ) => ZipCodeReturn;
+  ) => ZipCode;
 
   export type GetDetailsArgs = google.maps.places.PlaceDetailsRequest;
 
