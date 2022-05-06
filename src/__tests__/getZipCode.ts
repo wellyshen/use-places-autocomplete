@@ -23,6 +23,6 @@ describe("getZipCode", () => {
 
   it("should handle success without result correctly", () => {
     // @ts-ignore
-    expect(getZipCode({ address_components: [] })).toBeNull();
+    expect(getZipCode({ address_components: [] })).toBeUndefined();
   });
 });

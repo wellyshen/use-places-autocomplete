@@ -24,14 +24,14 @@ export const getGeocode = (args: GeoArgs): GeoReturn => {
   });
 };
 
-export type LatLon = { lat: number; lng: number };
+type LatLng = { lat: number; lng: number };
 
-export const getLatLng = (result: GeocodeResult): LatLon => {
+export const getLatLng = (result: GeocodeResult): LatLng => {
   const { lat, lng } = result.geometry.location;
   return { lat: lat(), lng: lng() };
 };
 
-export type ZipCode = string | null;
+type ZipCode = string | undefined;
 
 export const getZipCode = (
   result: GeocodeResult,
@@ -41,7 +41,7 @@ export const getZipCode = (
     types.includes("postal_code")
   );
 
-  if (!foundZip) return null;
+  if (!foundZip) return undefined;
 
   return useShortName ? foundZip.short_name : foundZip.long_name;
 };

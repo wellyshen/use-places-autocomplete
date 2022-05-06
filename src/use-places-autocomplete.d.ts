@@ -65,11 +65,11 @@ declare module "use-places-autocomplete" {
 
   export const getGeocode: (args: GeoArgs) => GeoReturn;
 
-  export type LatLon = { lat: number; lng: number };
+  export type LatLng = { lat: number; lng: number };
 
-  export const getLatLng: (result: GeocodeResult) => LatLon;
+  export const getLatLng: (result: GeocodeResult) => LatLng;
 
-  export type ZipCode = string | null;
+  export type ZipCode = string | undefined;
 
   export const getZipCode: (
     result: GeocodeResult,
