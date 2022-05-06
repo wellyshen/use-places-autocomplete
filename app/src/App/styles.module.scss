@@ -1,0 +1,104 @@
+@import "../mixins/mq.scss";
+
+body {
+  font-family: Roboto, sans-serif;
+
+  h1 {
+    font-family: "Bungee Shade", cursive;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3.5rem 5%;
+  text-align: center;
+
+  @include sm {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  @include md {
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+  }
+
+  @include lg {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+
+  .title {
+    margin: 0 0 1rem;
+    font-size: 8vw;
+
+    @include md {
+      font-size: 4vw;
+    }
+  }
+
+  .subtitle {
+    margin: 0 0 3.5rem;
+    font-size: 3vw;
+
+    @include md {
+      font-size: 1.5vw;
+    }
+  }
+
+  .autocomplete {
+    display: inline-block;
+  }
+
+  .input {
+    padding: 1rem 1.2rem;
+    width: 15rem;
+    border: 5px solid;
+    outline: none;
+    font-weight: bold;
+    line-height: 1.5;
+
+    @include sm {
+      width: 20rem;
+    }
+  }
+
+  .list-box {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    max-height: 60%;
+    border: 5px solid;
+    border-top: none;
+    list-style-type: none;
+    text-align: left;
+    overflow-y: auto;
+  }
+
+  .list-item {
+    padding: 1rem 1.2rem;
+    width: 15rem;
+    cursor: pointer;
+
+    @include sm {
+      width: 20rem;
+    }
+  }
+
+  .list-item-darken {
+    color: #fff;
+    background: #000;
+  }
+
+  .sub-text {
+    margin-left: 0.5rem;
+    color: #8c8c8c;
+  }
+
+  .logo {
+    padding: 1rem 1.2rem;
+    text-align: right;
+  }
+}

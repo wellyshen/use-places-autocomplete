@@ -1,23 +1,9 @@
 import { FC, ChangeEvent, KeyboardEvent, useState } from "react";
+import usePlacesAutocomplete from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { Global, css } from "@emotion/react";
-import normalize from "normalize.css";
 
 import GitHubCorner from "../GitHubCorner";
-import usePlacesAutocomplete from "../../src";
-import {
-  root,
-  container,
-  title,
-  subtitle,
-  autocomplete,
-  input,
-  listBox,
-  listItem,
-  listItemDarken,
-  subText,
-  logo,
-} from "./styles";
+import styles from "./styles.module.scss";
 
 let cachedVal = "";
 const acceptedKeys = ["ArrowUp", "ArrowDown", "Escape", "Enter"];
@@ -75,14 +61,14 @@ const App: FC = () => {
     if (e.key === "ArrowUp") {
       e.preventDefault();
       nextIndex = currIndex ?? data.length;
-      nextIndex = nextIndex > 0 ? nextIndex - 1 : null;
+      nextIndex = nextIndex && nextIndex > 0 ? nextIndex - 1 : null;
     } else {
       nextIndex = currIndex ?? -1;
       nextIndex = nextIndex < data.length - 1 ? nextIndex + 1 : null;
     }
 
     setCurrIndex(nextIndex);
-    // @ts-expect-error
+    // @ts-ignore
     setValue(data[nextIndex] ? data[nextIndex].description : cachedVal, false);
   };
 
@@ -98,14 +84,16 @@ const App: FC = () => {
         <li
           key={place_id}
           id={`ex-list-item-${idx}`}
-          css={idx === currIndex ? [listItem, listItemDarken] : listItem}
+          className={`${styles["list-item"]} ${
+            idx === currIndex ? `${styles["list-item-darken"]}` : ""
+          }`}
           onClick={handleSelect(suggestion)}
           onMouseEnter={handleEnter(idx)}
           role="option"
           aria-selected={idx === currIndex}
         >
           <strong>{main_text}</strong>
-          <small css={subText}>{secondary_text}</small>
+          <small className={styles["sub-text"]}>{secondary_text}</small>
         </li>
       );
     });
@@ -113,7 +101,7 @@ const App: FC = () => {
     return (
       <>
         {suggestions}
-        <li css={logo}>
+        <li className={styles.logo}>
           <img
             src="https://developers.google.com/maps/documentation/images/powered_by_google_on_white.png"
             alt="Powered by Google"
@@ -124,53 +112,47 @@ const App: FC = () => {
   };
 
   return (
-    <>
-      <Global
-        styles={css`
-          ${normalize}
-          ${root}
-        `}
-      />
-      <div css={container}>
-        <GitHubCorner url="https://github.com/wellyshen/use-places-autocomplete" />
-        <h1 css={title}>USE-PLACES-AUTOCOMPLETE</h1>
-        <p css={subtitle}>React hook for Google Maps Places Autocomplete.</p>
-        <div
-          css={autocomplete}
-          ref={ref}
-          // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
-          role="combobox"
-          aria-owns="ex-list-box"
-          aria-haspopup="listbox"
-          aria-expanded={hasSuggestions}
-        >
-          <input
-            css={input}
-            value={value}
-            onChange={handleInput}
-            onKeyDown={handleKeyDown}
-            disabled={!ready}
-            placeholder="WHERE ARE YOU GOING?"
-            type="text"
-            aria-autocomplete="list"
-            aria-controls="ex-list-box"
-            aria-activedescendant={
-              currIndex !== null ? `ex-list-item-${currIndex}` : undefined
-            }
-          />
-          {hasSuggestions && (
-            <ul
-              id="ex-list-box"
-              css={listBox}
-              onMouseLeave={handleLeave}
-              role="listbox"
-            >
-              {renderSuggestions()}
-            </ul>
-          )}
-        </div>
+    <div className={styles.container}>
+      <GitHubCorner url="https://github.com/wellyshen/use-places-autocomplete" />
+      <h1 className={styles.title}>USE-PLACES-AUTOCOMPLETE</h1>
+      <p className={styles.subtitle}>
+        React hook for Google Maps Places Autocomplete.
+      </p>
+      <div
+        className={styles.autocomplete}
+        ref={ref}
+        // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
+        role="combobox"
+        aria-owns="ex-list-box"
+        aria-haspopup="listbox"
+        aria-expanded={hasSuggestions}
+      >
+        <input
+          className={styles.input}
+          value={value}
+          onChange={handleInput}
+          onKeyDown={handleKeyDown}
+          disabled={!ready}
+          placeholder="WHERE ARE YOU GOING?"
+          type="text"
+          aria-autocomplete="list"
+          aria-controls="ex-list-box"
+          aria-activedescendant={
+            currIndex !== null ? `ex-list-item-${currIndex}` : undefined
+          }
+        />
+        {hasSuggestions && (
+          <ul
+            id="ex-list-box"
+            className={styles["list-box"]}
+            onMouseLeave={handleLeave}
+            role="listbox"
+          >
+            {renderSuggestions()}
+          </ul>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
