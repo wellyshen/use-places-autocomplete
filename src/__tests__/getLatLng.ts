@@ -5,7 +5,7 @@ describe("getLatLng", () => {
     const latLng = { lat: 123, lng: 456 };
     const result = getLatLng({
       geometry: {
-        // @ts-expect-error
+        // @ts-ignore
         location: {
           lat: (): number => latLng.lat,
           lng: (): number => latLng.lng,
@@ -13,16 +13,5 @@ describe("getLatLng", () => {
       },
     });
     expect(result).toEqual(latLng);
-  });
-
-  it("should handle failure correctly", async () => {
-    let err;
-    try {
-      // @ts-expect-error
-      await getLatLng({});
-    } catch (someErr) {
-      err = someErr;
-    }
-    expect(err).toEqual(expect.any(Error));
   });
 });

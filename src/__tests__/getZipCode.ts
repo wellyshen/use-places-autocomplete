@@ -7,30 +7,22 @@ const zipCode = {
 };
 
 describe("getZipCode", () => {
-  it("should handle success with long name correctly", () =>
-    // @ts-expect-error
+  it("should handle success with long name correctly", () => {
+    // @ts-ignore
     expect(getZipCode({ address_components: [zipCode] })).toEqual(
       zipCode.long_name
-    ));
+    );
+  });
 
-  it("should handle success with short name correctly", () =>
-    // @ts-expect-error
+  it("should handle success with short name correctly", () => {
+    // @ts-ignore
     expect(getZipCode({ address_components: [zipCode] }, true)).toEqual(
       zipCode.short_name
-    ));
+    );
+  });
 
-  it("should handle success without result correctly", () =>
-    // @ts-expect-error
-    expect(getZipCode({ address_components: [] })).toBeNull());
-
-  it("should handle failure correctly", () => {
-    let err;
-    try {
-      // @ts-expect-error
-      getZipCode({});
-    } catch (someErr) {
-      err = someErr;
-    }
-    expect(err).toEqual(expect.any(Error));
+  it("should handle success without result correctly", () => {
+    // @ts-ignore
+    expect(getZipCode({ address_components: [] })).toBeNull();
   });
 });

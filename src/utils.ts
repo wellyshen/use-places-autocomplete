@@ -1,7 +1,5 @@
 /* eslint-disable compat/compat */
 
-import GeocoderAddressComponent = google.maps.GeocoderAddressComponent;
-
 type GeoArgs = google.maps.GeocoderRequest;
 
 type GeocodeResult = google.maps.GeocoderResult;
@@ -41,11 +39,11 @@ export const getZipCode = (
 ): ZipCode => {
   const foundZip = result.address_components.find(({ types }) =>
     types.includes("postal_code")
-  ) as GeocoderAddressComponent;
+  );
 
-  const foundReturn = useShortName ? foundZip?.short_name : foundZip?.long_name;
+  if (!foundZip) return null;
 
-  return foundZip ? foundReturn : null;
+  return useShortName ? foundZip.short_name : foundZip.long_name;
 };
 
 type GetDetailsArgs = google.maps.places.PlaceDetailsRequest;
