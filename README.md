@@ -128,12 +128,8 @@ const PlacesAutocomplete = () => {
 
       // Get latitude and longitude via utility functions
       getGeocode({ address: description }).then((results) => {
-        try {
-          const { lat, lng } = getLatLng(results[0]);
-          console.log("📍 Coordinates: ", { lat, lng });
-        } catch (error) {
-          console.log("😱 Error: ", error);
-        }
+        const { lat, lng } = getLatLng(results[0]);
+        console.log("📍 Coordinates: ", { lat, lng });
       });
     };
 
@@ -480,12 +476,8 @@ const parameter = {
 };
 
 getGeocode(parameter).then((results) => {
-  try {
-    const { lat, lng } = getLatLng(results[0]);
-    console.log("Coordinates: ", { lat, lng });
-  } catch (error) {
-    console.log("Error: ", error);
-  }
+  const { lat, lng } = getLatLng(results[0]);
+  console.log("Coordinates: ", { lat, lng });
 });
 ```
 
@@ -510,12 +502,8 @@ getGeocode(parameter)
   // By default we use the "long_name" value from API response, you can tell the utility to use "short_name"
   // by setting the second parameter to "true"
   .then((results) => {
-    try {
-      const zipCode = getZipCode(results[0], false);
-      console.log("ZIP Code: ", zipCode);
-    } catch (error) {
-      console.log("Error: ", error);
-    }
+    const zipCode = getZipCode(results[0], false);
+    console.log("ZIP Code: ", zipCode);
   });
 ```
 
