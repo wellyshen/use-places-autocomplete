@@ -3,8 +3,7 @@
   "private": true,
   "scripts": {
     "link-pkg": "yarn link 'use-places-autocomplete'",
-    "start:dev": "REACT_APP_ENV=dev react-scripts start",
-    "start:prod": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "run-s lint:*",
     "lint:code": "eslint --fix . --ext .js,.ts,.tsx",
