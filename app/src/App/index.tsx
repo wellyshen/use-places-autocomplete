@@ -1,4 +1,5 @@
-import { FC, ChangeEvent, KeyboardEvent, useState } from "react";
+import type { FC, ChangeEvent } from "react";
+import { KeyboardEvent, useState } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 
