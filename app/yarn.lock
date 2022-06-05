@@ -1800,10 +1800,10 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/googlemaps@^3.43.3":
-  version "3.43.3"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.43.3.tgz#70cf962154a160fe78bcd69d6ccc296dd9175b1f"
-  integrity sha512-ZWNoz/O8MPEpiajvj7QiqCY8tTLFNqNZ/a+s+zTV58wFVNAvvqV4bdGfnsjTb5Cs4V6wEsLrX8XRhmnyYJ2Tdg==
+"@types/google.maps@^3.49.2":
+  version "3.49.2"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.49.2.tgz#9640491ec3aa96c9de1466894117ce81c02588df"
+  integrity sha512-ZO1qWciukqED9qcUNW7OaPXWnTlT+tO3WcYkmudZyQW2BqD7TlMFRrdqSCoqfwKhERCwBA5A/YZt/g5A3BqgLQ==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
@@ -7428,7 +7428,7 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
-react-cool-onclickoutside@^1.7.0:
+react-cool-onclickoutside@latest:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/react-cool-onclickoutside/-/react-cool-onclickoutside-1.7.0.tgz#abc844e14852220fe15f81d7ef44976d15cd9980"
   integrity sha512-HVZK2155Unee+enpoHKyYP2UdQK69thw90XAOUCjvJBcgRSgfRPgWWt/W1dYzoGp3+nleAa8SJxF1d4FMA4Qmw==
@@ -8877,10 +8877,10 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-use-places-autocomplete@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/use-places-autocomplete/-/use-places-autocomplete-2.0.0.tgz#868454252f52f281b64d637f44283fde0cc06c84"
-  integrity sha512-MO1MBaaOW+tK8iatf9CPBbjwvtoa7lCNVamAkne9pTP6YcKmbQa/uLZa5nLqR5E8WulvLcC/R4Skuw1joVz45Q==
+use-places-autocomplete@latest:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/use-places-autocomplete/-/use-places-autocomplete-3.0.0.tgz#1ef709e27212b4cc0d3db17b13039dc9a9cefd48"
+  integrity sha512-goow+G/crCRQ1WMVw6RMiBfH/7VQF38dF6ccS4YBzr49qEuYNN9PzaBEdUGvi5S4CMnXIqfT+zDLsy/u9kqy4Q==
 
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"

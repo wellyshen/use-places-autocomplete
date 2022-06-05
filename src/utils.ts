@@ -4,7 +4,7 @@ type GeoArgs = google.maps.GeocoderRequest;
 
 type GeocodeResult = google.maps.GeocoderResult;
 
-type GeoReturn = Promise<GeocodeResult[]>;
+type GeoReturn = Promise<GeocodeResult[] | null>;
 
 export const geocodeErr =
   "💡 use-places-autocomplete: Please provide an address when using getGeocode() with the componentRestrictions.";
@@ -48,7 +48,7 @@ export const getZipCode = (
 
 type GetDetailsArgs = google.maps.places.PlaceDetailsRequest;
 
-type DetailsResult = Promise<google.maps.places.PlaceResult | string>;
+type DetailsResult = Promise<google.maps.places.PlaceResult | null>;
 
 export const getDetailsErr =
   "💡 use-places-autocomplete: Please provide a place Id when using getDetails() either as a string or as part of an Autocomplete Prediction.";
