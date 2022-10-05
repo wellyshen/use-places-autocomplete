@@ -23,7 +23,7 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 ## Features
 
 - 🧠 Provides intelligent places suggestions powered by [Google Maps Places API](https://developers.google.com/maps/documentation/javascript/places).
-- 🎣 Builds your own customized autocomplete UI by React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook).
+- 🎣 Builds your own customized autocomplete UI by [React hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook).
 - 🔧 [Utility functions](#utility-functions) to do geocoding and get geographic coordinates using [Google Maps Geocoding API](https://developers.google.com/maps/documentation/javascript/geocoding).
 - 🤑 Built-in [cache mechanism](#cache-data-for-you) for you to save the cost of Google APIs.
 - 💰 Built-in debounce mechanism for you to lower the cost of Google APIs.
@@ -81,7 +81,7 @@ We also support asynchronous script loading. By doing so you need to pass the `i
 ```
 <!-- prettier-ignore-end -->
 
-> ⚠️ If you got a global function not found error. Make sure `usePlaceAutocomplete` is declared before the script was loaded.
+> ⚠️ If you got a global function not found error, make sure `usePlaceAutocomplete` is declared before the script was loaded.
 
 ### Create the component
 
@@ -164,7 +164,7 @@ const PlacesAutocomplete = () => {
 
 > 💡 [react-cool-onclickoutside](https://github.com/wellyshen/react-cool-onclickoutside) is my other hook library, which can help you handle the interaction of user clicks outside of the component(s).
 
-Easy right? This is the magic of the `usePlacesAutocomplete` ✨. I just show you how does it work via the minimal example. However you can build a UX rich autocomplete component, like [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword interaction as my [demo](#live-demo) by checking the [code](app/src/App/index.tsx) or integrate this hook with the [combobox](https://reacttraining.com/reach-ui/combobox) of [Reach UI](https://reacttraining.com/reach-ui) to achieve that.
+Easy right? This is the magic of `usePlacesAutocomplete` ✨. I just showed you how it works via a minimal example. However, you can build a UX rich autocomplete component, like [WAI-ARIA compliant](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete) and keyword interaction like my [demo](#live-demo), by checking the [code](app/src/App/index.tsx) or integrating this hook with the [combobox](https://reacttraining.com/reach-ui/combobox) of [Reach UI](https://reacttraining.com/reach-ui) to achieve that.
 
 [![Edit usePlacesAutocomplete x Reach UI](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/useplacesautocomplete-x-reach-ui-lik2c?fontsize=14&hidenavigation=1&theme=dark)
 
@@ -214,9 +214,9 @@ const PlacesAutocomplete = () => {
 
 ## Lazily Initializing The Hook
 
-When loading the Google Maps Places API via a 3rd-party library, you may need to wait for the script ready before using this hook. However, you can lazily initialize the hook by the following ways depends on your case.
+When loading the Google Maps Places API via a 3rd-party library, you may need to wait for the script to be ready before using this hook. However, you can lazily initialize the hook through the following ways, depending on your usecase.
 
-Option 1, manually initializing the hook:
+### Option 1, manually initialize the hook:
 
 ```js
 import usePlacesAutocomplete from "use-places-autocomplete";
@@ -235,7 +235,7 @@ const App = () => {
 };
 ```
 
-Option 2, wrap the hook into the conditional component:
+### Option 2, wrap the hook into a conditional component:
 
 ```js
 import usePlacesAutocomplete from "use-places-autocomplete";
@@ -260,7 +260,7 @@ const App = () => {
 
 ## Cache Data For You
 
-By default, this library caches the response data to help you saving the [cost of Google Maps Places API](https://developers.google.com/maps/billing/gmp-billing#ac-per-request) and optimize the search performance as well.
+By default, this library caches the response data to help you save the [cost of Google Maps Places API](https://developers.google.com/maps/billing/gmp-billing#ac-per-request) and optimize search performance.
 
 ```js
 const methods = usePlacesAutocomplete({
@@ -273,7 +273,7 @@ const methods = usePlacesAutocomplete({
 
 ### Custom cache key
 
-You may need to have multiple caches, for example if you use different [place type restrictions](https://developers.google.com/maps/documentation/places/web-service/supported_types#table3_) for different pickers in your app.
+You may need to have multiple caches. For example, if you use different [place type restrictions](https://developers.google.com/maps/documentation/places/web-service/supported_types#table3_) for different pickers in your app.
 
 ```js
 const methods = usePlacesAutocomplete({
@@ -292,7 +292,7 @@ const returnObj = usePlacesAutocomplete(parameterObj);
 
 ### Parameter object (optional)
 
-When use `usePlacesAutocomplete` you can configure the following options via the parameter.
+When using `usePlacesAutocomplete`, you can configure the following options via the parameter.
 
 | Key              | Type            | Default              | Description                                                                                                                                                                                                             |
 | ---------------- | --------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -329,7 +329,7 @@ The search result of Google Maps Places API, which contains the following proper
 
 #### setValue
 
-Set the `value` of the input element. Use case as below.
+Set the `value` of the input element. Use case below.
 
 ```js
 import usePlacesAutocomplete from "use-places-autocomplete";
@@ -436,9 +436,9 @@ We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng), [getZipCode](#get
 
 ### getGeocode
 
-It helps you convert address (e.g. "Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan") into geographic coordinates (e.g. latitude 25.033976 and longitude 121.5645389) or restrict the results to a specific area by [Google Maps Geocoding API](https://developers.google.com/maps/documentation/javascript/geocoding).
+It helps you convert address (e.g. "Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan") into geographic coordinates (e.g. latitude 25.033976 and longitude 121.5645389), or restrict the results to a specific area by [Google Maps Geocoding API](https://developers.google.com/maps/documentation/javascript/geocoding).
 
-In case you want to restrict the results to a specific area you will have to pass the `address` and the `componentRestrictions` matching the [GeocoderComponentRestrictions interface](https://developers.google.com/maps/documentation/javascript/reference/geocoder#GeocoderComponentRestrictions).
+In case you want to restrict the results to a specific area, you will have to pass the `address` and the `componentRestrictions` matching the [GeocoderComponentRestrictions interface](https://developers.google.com/maps/documentation/javascript/reference/geocoder#GeocoderComponentRestrictions).
 
 ```js
 import { getGeocode } from "use-places-autocomplete";
@@ -563,7 +563,7 @@ const PlacesAutocomplete = () => {
 - `placeResult: object | null` - [the details](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult) about the specific place your queried.
 - `error: any` - an exception.
 
-> ⚠️ warning, you are billed based on how much information you retrieve, So it is advised that you retrieve just what you.
+> ⚠️ warning, you are billed based on how much information you retrieve, So it is advised that you retrieve just what you need.
 
 ## Articles / Blog Posts
 
@@ -593,6 +593,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/viniciusueharaweb"><img src="https://avatars.githubusercontent.com/u/77734864?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vinicius Uehara</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=viniciusueharaweb" title="Documentation">📖</a></td>
     <td align="center"><a href="http://orbiteleven.net"><img src="https://avatars.githubusercontent.com/u/331393?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Damon</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=orbiteleven" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/RavenHursT"><img src="https://avatars.githubusercontent.com/u/496983?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matthew Marcus</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=RavenHursT" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/tyeetale"><img src="https://avatars.githubusercontent.com/u/17817587?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matthew Marcus</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=tyeetale" title="Code">💻</a></td>
   </tr>
 </table>
 
