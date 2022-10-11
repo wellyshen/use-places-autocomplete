@@ -563,7 +563,7 @@ const PlacesAutocomplete = () => {
 - `placeResult: object | null` - [the details](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult) about the specific place your queried.
 - `error: any` - an exception.
 
-> ⚠️ warning, you are billed based on how much information you retrieve, So it is advised that you retrieve just what you.
+> ⚠️ warning, you are billed based on how much information you retrieve, So it is advised that you retrieve only what you need.
 
 ## Articles / Blog Posts
 
