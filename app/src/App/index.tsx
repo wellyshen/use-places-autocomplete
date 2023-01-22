@@ -19,7 +19,7 @@ const App: FC = () => {
     suggestions: { status, data },
     setValue,
     clearSuggestions,
-  } = usePlacesAutocomplete();
+  } = usePlacesAutocomplete({ callbackName: "initMap" });
   const hasSuggestions = status === "OK";
 
   const dismissSuggestions = () => {
