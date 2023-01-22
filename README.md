@@ -67,21 +67,16 @@ To use this hook, there're two things we need to do:
 
 ### Load the library
 
-Use the `script` tag to load the library in your project.
+Use the `script` tag to load the library in your project and pass the value of the `callback` parameter to the [callbackName](#parameter-optional) option.
 
 ```js
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+<script
+  defer
+  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=YOUR_CALLBACK_NAME"
+></script>
 ```
 
-We also support asynchronous script loading. By doing so you need to pass the `initMap` to the [callbackName](#parameter-optional) option.
-
-<!-- prettier-ignore-start -->
-```js
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"></script>
-```
-<!-- prettier-ignore-end -->
-
-> ⚠️ If you got a global function not found error. Make sure `usePlaceAutocomplete` is declared before the script was loaded.
+> ⚠️ If you got a global function not found error. Make sure `usePlaceAutocomplete` is declared before the script was loaded. You can use the [async or defer](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#attributes) attribute of the `<script>` element to achieve that.
 
 ### Create the component
 
@@ -102,6 +97,7 @@ const PlacesAutocomplete = () => {
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete({
+    callbackName: "YOUR_CALLBACK_NAME",
     requestOptions: {
       /* Define search scope here */
     },
@@ -186,7 +182,7 @@ const PlacesAutocomplete = () => {
     value,
     suggestions: { status, data },
     setValue,
-  } = usePlacesAutocomplete();
+  } = usePlacesAutocomplete({ callbackName: "YOUR_CALLBACK_NAME" });
 
   const handleInput = (e) => {
     setValue(e.target.value);
@@ -298,7 +294,7 @@ When use `usePlacesAutocomplete` you can configure the following options via the
 | ---------------- | --------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `requestOptions` | object          |                      | The [request options](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest) of Google Maps Places API except for `input` (e.g. bounds, radius etc.). |
 | `googleMaps`     | object          | `window.google.maps` | In case you want to provide your own Google Maps object, pass the `google.maps` to it.                                                                                                                                  |
-| `callbackName`   | string          |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
+| `callbackName`   | string          |                      | The value of the `callback` parameter when [loading the Google Maps JavaScript library](#load-the-library).                                                                                                             |
 | `debounce`       | number          | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
 | `cache`          | number \| false | `86400` (24 hours)   | Number of seconds to [cache the response data of Google Maps Places API](#cache-data-for-you).                                                                                                                          |
 | `cacheKey`       | string          | `"upa"`              | Optional cache key so one can use multiple caches if needed.                                                                                                                                                            |
@@ -360,30 +356,28 @@ const PlacesAutocomplete = () => {
   const {
     value,
     suggestions: { status, data },
-    setValue
+    setValue,
   } = usePlacesAutocomplete();
 
-  const handleSelect = ({ description }) => () => {
-    // When user select a place, we can replace the keyword without request data from API
-    // by setting the second parameter to "false"
-    setValue(description, false);
-  };
+  const handleSelect =
+    ({ description }) =>
+    () => {
+      // When user select a place, we can replace the keyword without request data from API
+      // by setting the second parameter to "false"
+      setValue(description, false);
+    };
 
   const renderSuggestions = () =>
-    data.map(suggestion => (
-        <li
-          key={suggestion.place_id}
-          onClick={handleSelect(suggestion)}
-        >
-          {/* Render suggestion text */}
-        </li>
-      )
-    });
+    data.map((suggestion) => (
+      <li key={suggestion.place_id} onClick={handleSelect(suggestion)}>
+        {/* Render suggestion text */}
+      </li>
+    ));
 
   return (
     <div>
       <input value={value} onChange={handleInput} />
-      {status === 'OK' && <ul>{renderSuggestions()}</ul>}
+      {status === "OK" && <ul>{renderSuggestions()}</ul>}
     </div>
   );
 };
@@ -402,29 +396,25 @@ const PlacesAutocomplete = () => {
     value,
     suggestions: { status, data },
     setValue,
-    clearSuggestions
+    clearSuggestions,
   } = usePlacesAutocomplete();
   const ref = useOnclickOutside(() => {
     // When user clicks outside of the component, call it to clear and reset the suggestions data
-    clearSuggestions()
+    clearSuggestions();
   });
 
   const renderSuggestions = () =>
-    data.map(suggestion => (
-        <li
-          key={suggestion.place_id}
-          onClick={handleSelect(suggestion)}
-        >
-          {/* Render suggestion text */}
-        </li>
-      )
-    });
+    data.map((suggestion) => (
+      <li key={suggestion.place_id} onClick={handleSelect(suggestion)}>
+        {/* Render suggestion text */}
+      </li>
+    ));
 
   return (
     <div ref={ref}>
       <input value={value} onChange={handleInput} />
       {/* After calling the clearSuggestions(), the "status" is reset so the dropdown is hidden */}
-      {status === 'OK' && <ul>{renderSuggestions()}</ul>}
+      {status === "OK" && <ul>{renderSuggestions()}</ul>}
     </div>
   );
 };
