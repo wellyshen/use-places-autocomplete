@@ -119,15 +119,7 @@ const App: FC = () => {
       <p className={styles.subtitle}>
         React hook for Google Maps Places Autocomplete.
       </p>
-      <div
-        className={styles.autocomplete}
-        ref={ref}
-        // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
-        role="combobox"
-        aria-owns="ex-list-box"
-        aria-haspopup="listbox"
-        aria-expanded={hasSuggestions}
-      >
+      <div className={styles.autocomplete} ref={ref}>
         <input
           className={styles.input}
           value={value}
@@ -136,8 +128,11 @@ const App: FC = () => {
           disabled={!ready}
           placeholder="WHERE ARE YOU GOING?"
           type="text"
-          aria-autocomplete="list"
+          role="combobox"
           aria-controls="ex-list-box"
+          aria-autocomplete="list"
+          aria-haspopup="listbox"
+          aria-expanded={hasSuggestions}
           aria-activedescendant={
             currIndex !== null ? `ex-list-item-${currIndex}` : undefined
           }
