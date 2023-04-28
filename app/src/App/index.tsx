@@ -104,8 +104,9 @@ const App: FC = () => {
         {suggestions}
         <li className={styles.logo}>
           <img
-            src="https://developers.google.com/maps/documentation/images/powered_by_google_on_white.png"
+            src="/powered_by_google.png"
             alt="Powered by Google"
+            width="120"
           />
         </li>
       </>
