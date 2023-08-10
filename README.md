@@ -585,6 +585,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="http://orbiteleven.net"><img src="https://avatars.githubusercontent.com/u/331393?v=4?s=100" width="100px;" alt="Damon"/><br /><sub><b>Damon</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=orbiteleven" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/RavenHursT"><img src="https://avatars.githubusercontent.com/u/496983?v=4?s=100" width="100px;" alt="Matthew Marcus"/><br /><sub><b>Matthew Marcus</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=RavenHursT" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/csandman"><img src="https://avatars.githubusercontent.com/u/9214195?v=4?s=100" width="100px;" alt="Chris Sandvik"/><br /><sub><b>Chris Sandvik</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=csandman" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://linktr.ee/tyeetale"><img src="https://avatars.githubusercontent.com/u/17817587?v=4?s=100" width="100px;" alt="Thomas Yee"/><br /><sub><b>Thomas Yee</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=tyeetale" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
