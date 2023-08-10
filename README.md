@@ -67,21 +67,16 @@ To use this hook, there're two things we need to do:
 
 ### Load the library
 
-Use the `script` tag to load the library in your project.
+Use the `script` tag to load the library in your project and pass the value of the `callback` parameter to the [callbackName](#parameter-optional) option.
 
 ```js
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+<script
+  defer
+  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=YOUR_CALLBACK_NAME"
+></script>
 ```
 
-We also support asynchronous script loading. By doing so you need to pass the `initMap` to the [callbackName](#parameter-optional) option.
-
-<!-- prettier-ignore-start -->
-```js
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"></script>
-```
-<!-- prettier-ignore-end -->
-
-> ⚠️ If you got a global function not found error, make sure `usePlaceAutocomplete` is declared before the script was loaded.
+> ⚠️ If you got a global function not found error. Make sure `usePlaceAutocomplete` is declared before the script was loaded. You can use the [async or defer](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#attributes) attribute of the `<script>` element to achieve that.
 
 ### Create the component
 
@@ -102,6 +97,7 @@ const PlacesAutocomplete = () => {
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete({
+    callbackName: "YOUR_CALLBACK_NAME",
     requestOptions: {
       /* Define search scope here */
     },
@@ -186,7 +182,7 @@ const PlacesAutocomplete = () => {
     value,
     suggestions: { status, data },
     setValue,
-  } = usePlacesAutocomplete();
+  } = usePlacesAutocomplete({ callbackName: "YOUR_CALLBACK_NAME" });
 
   const handleInput = (e) => {
     setValue(e.target.value);
@@ -298,7 +294,7 @@ When using `usePlacesAutocomplete`, you can configure the following options via 
 | ---------------- | --------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `requestOptions` | object          |                      | The [request options](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest) of Google Maps Places API except for `input` (e.g. bounds, radius etc.). |
 | `googleMaps`     | object          | `window.google.maps` | In case you want to provide your own Google Maps object, pass the `google.maps` to it.                                                                                                                                  |
-| `callbackName`   | string          |                      | You can provide a callback name to initialize `usePlacesAutocomplete` after Google script is loaded. It's useful when you [load the script asynchronously](#load-the-library).                                          |
+| `callbackName`   | string          |                      | The value of the `callback` parameter when [loading the Google Maps JavaScript library](#load-the-library).                                                                                                             |
 | `debounce`       | number          | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
 | `cache`          | number \| false | `86400` (24 hours)   | Number of seconds to [cache the response data of Google Maps Places API](#cache-data-for-you).                                                                                                                          |
 | `cacheKey`       | string          | `"upa"`              | Optional cache key so one can use multiple caches if needed.                                                                                                                                                            |
@@ -360,30 +356,28 @@ const PlacesAutocomplete = () => {
   const {
     value,
     suggestions: { status, data },
-    setValue
+    setValue,
   } = usePlacesAutocomplete();
 
-  const handleSelect = ({ description }) => () => {
-    // When user select a place, we can replace the keyword without request data from API
-    // by setting the second parameter to "false"
-    setValue(description, false);
-  };
+  const handleSelect =
+    ({ description }) =>
+    () => {
+      // When user select a place, we can replace the keyword without request data from API
+      // by setting the second parameter to "false"
+      setValue(description, false);
+    };
 
   const renderSuggestions = () =>
-    data.map(suggestion => (
-        <li
-          key={suggestion.place_id}
-          onClick={handleSelect(suggestion)}
-        >
-          {/* Render suggestion text */}
-        </li>
-      )
-    });
+    data.map((suggestion) => (
+      <li key={suggestion.place_id} onClick={handleSelect(suggestion)}>
+        {/* Render suggestion text */}
+      </li>
+    ));
 
   return (
     <div>
       <input value={value} onChange={handleInput} />
-      {status === 'OK' && <ul>{renderSuggestions()}</ul>}
+      {status === "OK" && <ul>{renderSuggestions()}</ul>}
     </div>
   );
 };
@@ -402,29 +396,25 @@ const PlacesAutocomplete = () => {
     value,
     suggestions: { status, data },
     setValue,
-    clearSuggestions
+    clearSuggestions,
   } = usePlacesAutocomplete();
   const ref = useOnclickOutside(() => {
     // When user clicks outside of the component, call it to clear and reset the suggestions data
-    clearSuggestions()
+    clearSuggestions();
   });
 
   const renderSuggestions = () =>
-    data.map(suggestion => (
-        <li
-          key={suggestion.place_id}
-          onClick={handleSelect(suggestion)}
-        >
-          {/* Render suggestion text */}
-        </li>
-      )
-    });
+    data.map((suggestion) => (
+      <li key={suggestion.place_id} onClick={handleSelect(suggestion)}>
+        {/* Render suggestion text */}
+      </li>
+    ));
 
   return (
     <div ref={ref}>
       <input value={value} onChange={handleInput} />
       {/* After calling the clearSuggestions(), the "status" is reset so the dropdown is hidden */}
-      {status === 'OK' && <ul>{renderSuggestions()}</ul>}
+      {status === "OK" && <ul>{renderSuggestions()}</ul>}
     </div>
   );
 };
@@ -580,21 +570,23 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://wellyshen.com"><img src="https://avatars1.githubusercontent.com/u/21308003?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Welly</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=wellyshen" title="Code">💻</a> <a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=wellyshen" title="Documentation">📖</a> <a href="#maintenance-wellyshen" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://kylekirkby.github.io"><img src="https://avatars0.githubusercontent.com/u/4564433?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kyle</b></sub></a><br /><a href="#translation-kylekirkby" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://www.lkaric.tech"><img src="https://avatars0.githubusercontent.com/u/16634314?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lazar Karić</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=rejvban" title="Code">💻</a> <a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=rejvban" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/reharik"><img src="https://avatars2.githubusercontent.com/u/882382?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Raif Harik</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=reharik" title="Code">💻</a> <a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=reharik" title="Documentation">📖</a> <a href="#ideas-reharik" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/Xerxes-J"><img src="https://avatars0.githubusercontent.com/u/18053412?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Xerxes Jarquin</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/issues?q=author%3AXerxes-J" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://www.lucasoconnell.net/"><img src="https://avatars1.githubusercontent.com/u/63400356?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lucas O'Connell</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=Isoaxe" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://www.keven.com.br"><img src="https://avatars.githubusercontent.com/u/5994795?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Keven Jesus</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/issues?q=author%3Akevenjesus" title="Bug reports">🐛</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/viniciusueharaweb"><img src="https://avatars.githubusercontent.com/u/77734864?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vinicius Uehara</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=viniciusueharaweb" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://orbiteleven.net"><img src="https://avatars.githubusercontent.com/u/331393?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Damon</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=orbiteleven" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/RavenHursT"><img src="https://avatars.githubusercontent.com/u/496983?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matthew Marcus</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=RavenHursT" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/tyeetale"><img src="https://avatars.githubusercontent.com/u/17817587?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matthew Marcus</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=tyeetale" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://wellyshen.com"><img src="https://avatars1.githubusercontent.com/u/21308003?v=4?s=100" width="100px;" alt="Welly"/><br /><sub><b>Welly</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=wellyshen" title="Code">💻</a> <a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=wellyshen" title="Documentation">📖</a> <a href="#maintenance-wellyshen" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://kylekirkby.github.io"><img src="https://avatars0.githubusercontent.com/u/4564433?v=4?s=100" width="100px;" alt="Kyle"/><br /><sub><b>Kyle</b></sub></a><br /><a href="#translation-kylekirkby" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.lkaric.tech"><img src="https://avatars0.githubusercontent.com/u/16634314?v=4?s=100" width="100px;" alt="Lazar Karić"/><br /><sub><b>Lazar Karić</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=rejvban" title="Code">💻</a> <a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=rejvban" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/reharik"><img src="https://avatars2.githubusercontent.com/u/882382?v=4?s=100" width="100px;" alt="Raif Harik"/><br /><sub><b>Raif Harik</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=reharik" title="Code">💻</a> <a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=reharik" title="Documentation">📖</a> <a href="#ideas-reharik" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Xerxes-J"><img src="https://avatars0.githubusercontent.com/u/18053412?v=4?s=100" width="100px;" alt="Xerxes Jarquin"/><br /><sub><b>Xerxes Jarquin</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/issues?q=author%3AXerxes-J" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.lucasoconnell.net/"><img src="https://avatars1.githubusercontent.com/u/63400356?v=4?s=100" width="100px;" alt="Lucas O'Connell"/><br /><sub><b>Lucas O'Connell</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=Isoaxe" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.keven.com.br"><img src="https://avatars.githubusercontent.com/u/5994795?v=4?s=100" width="100px;" alt="Keven Jesus"/><br /><sub><b>Keven Jesus</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/issues?q=author%3Akevenjesus" title="Bug reports">🐛</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/viniciusueharaweb"><img src="https://avatars.githubusercontent.com/u/77734864?v=4?s=100" width="100px;" alt="Vinicius Uehara"/><br /><sub><b>Vinicius Uehara</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=viniciusueharaweb" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://orbiteleven.net"><img src="https://avatars.githubusercontent.com/u/331393?v=4?s=100" width="100px;" alt="Damon"/><br /><sub><b>Damon</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=orbiteleven" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/RavenHursT"><img src="https://avatars.githubusercontent.com/u/496983?v=4?s=100" width="100px;" alt="Matthew Marcus"/><br /><sub><b>Matthew Marcus</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=RavenHursT" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/csandman"><img src="https://avatars.githubusercontent.com/u/9214195?v=4?s=100" width="100px;" alt="Chris Sandvik"/><br /><sub><b>Chris Sandvik</b></sub></a><br /><a href="https://github.com/wellyshen/use-places-autocomplete/commits?author=csandman" title="Code">💻</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
