@@ -108,6 +108,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "tyeetale",
+      "name": "Thomas Yee",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17817587?v=4",
+      "profile": "https://linktr.ee/tyeetale",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
