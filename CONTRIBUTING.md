@@ -26,7 +26,7 @@ You can test new features or debug an issue by the way that I'm using.
 4. In the **app directory**, run `yarn link-pkg` to link with the package then run `yarn start` to start development.
 5. Try something cool via the [demo app](app/src).
 
-## Development Workflow
+## Scripts
 
 There're several useful commands that you can use during the development:
 
