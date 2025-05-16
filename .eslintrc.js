@@ -9,5 +9,6 @@ module.exports = {
       },
     ],
     "testing-library/render-result-naming-convention": "off",
+    "jest/no-deprecated-functions": "off",
   },
 };

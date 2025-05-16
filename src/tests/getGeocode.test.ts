@@ -1,10 +1,11 @@
+import { describe, it, expect, vi } from "vitest";
 import { getGeocode, geocodeErr } from "../utils";
 
 const data = [{ place_id: "0109" }];
 const error = "ERROR";
-const geocode = jest.fn();
+const geocode = vi.fn();
 const setupMaps = (type = "success") => {
-  global.google = {
+  globalThis.google = {
     maps: {
       // @ts-ignore
       Geocoder: class {
@@ -71,7 +72,7 @@ describe("getGeocode", () => {
   });
 
   it("should throw error when providing componentRestrictions without address", () => {
-    console.error = jest.fn();
+    console.error = vi.fn();
 
     setupMaps();
     return getGeocode({

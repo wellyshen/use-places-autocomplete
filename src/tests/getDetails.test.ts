@@ -1,12 +1,13 @@
+import { describe, it, expect, vi } from "vitest";
 import { getDetailsErr, getDetails } from "../utils";
 
 const data = { formatted_address: "123", name: "abc" };
 const error = "ERROR";
 const request = { placeId: "0109", fields: ["name", "rating"] };
-const getDetailsFn = jest.fn();
+const getDetailsFn = vi.fn();
 
 const setupMaps = (type = "success") => {
-  global.google = {
+  globalThis.google = {
     maps: {
       places: {
         // @ts-ignore
@@ -39,7 +40,7 @@ describe("getDetails", () => {
   });
 
   it("should throw error when place_id is not provided", async () => {
-    console.error = jest.fn();
+    console.error = vi.fn();
 
     setupMaps();
     let err;

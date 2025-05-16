@@ -1,15 +1,16 @@
+import { describe, it, expect, vi } from "vitest";
 import debounce from "../debounce";
 
 describe("debounce", () => {
   it("should trigger function immediately", () => {
-    jest.useFakeTimers();
-    const fn = jest.fn();
+    vi.useFakeTimers();
+    const fn = vi.fn();
     const debouncedFn = debounce(fn, 100);
     debouncedFn();
     expect(fn).not.toHaveBeenCalled();
-    jest.advanceTimersByTime(50);
+    vi.advanceTimersByTime(50);
     expect(fn).not.toHaveBeenCalled();
-    jest.advanceTimersByTime(100);
+    vi.advanceTimersByTime(100);
     expect(fn).toHaveBeenCalled();
   });
 });
