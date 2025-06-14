@@ -210,6 +210,79 @@ const PlacesAutocomplete = () => {
 };
 ```
 
+## Now Supporting Places 2025
+
+Please read the [API migration overview](https://developers.google.com/maps/documentation/places/web-service/legacy/migrate-overview) to get started, you must opt-in to the new API in order to use. Once activated you can opt-in to the new API features by specifying `useLegacy: false` in the hooks parameters:
+
+```js
+usePlacesAutocomplete({ useLegacy: false });
+```
+
+By default the new API returns a PlacePrediction, but you can easily convert these to the legacy prediction object:
+
+```js
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+  getLegacyPrediction, // use to convert PlacePrediction to something similar to AutocompletePrediction
+} from "use-places-autocomplete";
+import useOnclickOutside from "react-cool-onclickoutside";
+
+const PlacesAutocomplete = () => {
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    useLegacy: false, // Activate new API implementation
+  });
+  const ref = useOnclickOutside(() => {
+    clearSuggestions();
+  });
+
+  const handleInput = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleSelect =
+    ({ description }) =>
+    () => {
+      setValue(description, false);
+      clearSuggestions();
+    };
+
+  const renderSuggestions = () =>
+    // apply utility function to map new API results for quick refactoring
+    data.map(getLegacyPrediction).map((suggestion) => {
+      const {
+        place_id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        <li key={place_id} onClick={handleSelect(suggestion)}>
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      );
+    });
+
+  return (
+    <div ref={ref}>
+      <input
+        value={value}
+        onChange={handleInput}
+        disabled={!ready}
+        placeholder="Where are you going?"
+      />
+      {/* We can use the "status" to decide whether we should display the dropdown or not */}
+      {status === "OK" && <ul>{renderSuggestions()}</ul>}
+    </div>
+  );
+};
+```
+
 ## Lazily Initializing The Hook
 
 When loading the Google Maps Places API via a 3rd-party library, you may need to wait for the script to be ready before using this hook. However, you can lazily initialize the hook in the following ways, depending on your use case.
@@ -292,16 +365,16 @@ const returnObj = usePlacesAutocomplete(parameterObj);
 
 When using `usePlacesAutocomplete`, you can configure the following options via the parameter.
 
-| Key              | Type            | Default              | Description                                                                                                                                                                                                             |
-| ---------------- | --------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `requestOptions` | object          |                      | The [request options](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest) of Google Maps Places API except for `input` (e.g. bounds, radius, etc.).|
-| `googleMaps`     | object          | `window.google.maps` | In case you want to provide your own Google Maps object, pass the `google.maps` to it.                                                                                                                                  |
-| `callbackName`   | string          |                      | The value of the `callback` parameter when [loading the Google Maps JavaScript library](#load-the-library).                                                                                                             |
-| `debounce`       | number          | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                      |
-| `cache`          | number \| false | `86400` (24 hours)   | Number of seconds to [cache the response data of Google Maps Places API](#cache-data-for-you).                                                                                                                          |
-| `cacheKey`       | string          | `"upa"`              | Optional cache key so one can use multiple caches if needed.                                                                                                                                                            |
-| `defaultValue`   | string          | `""`                 | Default value for the `input` element.                                                                                                                                                                                  |
-| `initOnMount`    | boolean         | `true`               | Initialize the hook with Google Maps Places API when the component mounts.                                                                                                                                              |
+| Key              | Type            | Default              | Description                                                                                                                                                                                                              |
+| ---------------- | --------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `requestOptions` | object          |                      | The [request options](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest) of Google Maps Places API except for `input` (e.g. bounds, radius, etc.). |
+| `googleMaps`     | object          | `window.google.maps` | In case you want to provide your own Google Maps object, pass the `google.maps` to it.                                                                                                                                   |
+| `callbackName`   | string          |                      | The value of the `callback` parameter when [loading the Google Maps JavaScript library](#load-the-library).                                                                                                              |
+| `debounce`       | number          | `200`                | Number of milliseconds to delay before making a request to Google Maps Places API.                                                                                                                                       |
+| `cache`          | number \| false | `86400` (24 hours)   | Number of seconds to [cache the response data of Google Maps Places API](#cache-data-for-you).                                                                                                                           |
+| `cacheKey`       | string          | `"upa"`              | Optional cache key so one can use multiple caches if needed.                                                                                                                                                             |
+| `defaultValue`   | string          | `""`                 | Default value for the `input` element.                                                                                                                                                                                   |
+| `initOnMount`    | boolean         | `true`               | Initialize the hook with Google Maps Places API when the component mounts.                                                                                                                                               |
 
 ### Return object
 
@@ -424,7 +497,7 @@ const PlacesAutocomplete = () => {
 
 ## Utility Functions
 
-We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng), [getZipCode](#getzipcode), and [getDetails](#getdetails) utils for you to do geocoding and get geographic coordinates when needed.
+We provide [getGeocode](#getgeocode), [getLatLng](#getlatlng), [getZipCode](#getzipcode), and [getDetails](#getdetails) utils for you to do geocoding and get geographic coordinates when needed. We also now support [fetchFields](#fetchFields) from the new 2025 Places API.
 
 ### getGeocode
 
@@ -553,6 +626,55 @@ const PlacesAutocomplete = () => {
 
 - `parameter: object` - [the request](https://developers.google.com/maps/documentation/javascript/places#place_details_requests) of the PlacesService's `getDetails()` method. You must supply the `placeId` that you would like details about. If you do not specify any fields or omit the fields parameter you will get every field available.
 - `placeResult: object | null` - [the details](https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult) about the specific place your queried.
+- `error: any` - an exception.
+
+### fetchFields
+
+Replaces getDetails when using Google Places 2025 updates. Retrieves information about a particular place ID.
+
+```js
+import usePlacesAutocomplete { fetchFields } from "use-places-autocomplete";
+
+const AutocompleteFields = () => {
+  const { suggestions, value, setValue } = usePlacesAutocomplete({ useLegacy: false });
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  const submit = () => {
+    const placePrediction = suggestions.data[0]
+
+    const parameter = {
+      placeId: placePrediction.placeId, // provided by PlacePrediction https://developers.google.com/maps/documentation/javascript/reference/autocomplete-data#PlacePrediction
+      // uses properties of the new Place class: https://developers.google.com/maps/documentation/javascript/reference/place#Place
+      fields: ["displayName", "formattedAddress"],
+    };
+
+    fetchFields(parameter)
+      .then(({ place }) => {
+        console.log("Name: ", place.displayName);
+        console.log("Address: ", place.formattedAddress);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+  };
+
+  return (
+    <div>
+      <input value={value} onChange={handleChange} />
+      {/* Render dropdown */}
+      <button onClick={submit}>Submit Suggestion</button>
+    </div>
+  );
+}
+```
+
+`fetchFields` is an asynchronous function with the following API:
+
+- `parameter: object` - [the request](https://developers.google.com/maps/documentation/javascript/reference/place#FetchFieldsRequest) on the places `fetchFields()` method. You must supply a `fields` array using the Place properties you would like returned.
+- `{ place: Place } | null` - [the place instance](https://developers.google.com/maps/documentation/javascript/reference/place#Place) with the properties requested.
 - `error: any` - an exception.
 
 > ⚠️ warning, you are billed based on how much information you retrieve, So it is advised that you retrieve just what you need.

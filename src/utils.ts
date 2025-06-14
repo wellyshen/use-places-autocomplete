@@ -70,3 +70,59 @@ export const getDetails = (args: GetDetailsArgs): DetailsResult => {
     });
   });
 };
+
+interface FetchFieldsArgs extends google.maps.places.FetchFieldsRequest {
+  placeId: string;
+  requestedLanguage?: string;
+}
+
+type FetchFieldsResult = Promise<{ place: google.maps.places.Place } | null>;
+
+export const fetchFieldsErr =
+  "💡 use-places-autocomplete: Please provide a place Id when using fetchFields().";
+
+export const fetchFields = async (args: FetchFieldsArgs): FetchFieldsResult => {
+  if (!args.placeId) {
+    console.error(fetchFieldsErr);
+    return Promise.reject(new Error(fetchFieldsErr));
+  }
+  const place = new window.google.maps.places.Place({
+    id: args.placeId,
+    requestedLanguage: args.requestedLanguage || "en",
+  });
+  return place.fetchFields({
+    fields: args.fields,
+  });
+};
+
+export type LegacyPrediction = {
+  place_id: string | null;
+  structured_formatting: {
+    main_text: string | null;
+    secondary_text: string | null;
+  };
+  description: string | null;
+};
+
+export const getLegacyPredictionErr = `Invalid PlacePrediction object provided.`;
+
+export const getLegacyPrediction = (
+  placePrediction: google.maps.places.PlacePrediction
+): LegacyPrediction => {
+  try {
+    return {
+      place_id: placePrediction.placeId || null,
+      structured_formatting: {
+        main_text: placePrediction.mainText
+          ? placePrediction.mainText.text
+          : null,
+        secondary_text: placePrediction.secondaryText
+          ? placePrediction.secondaryText.text
+          : null,
+      },
+      description: placePrediction.text ? placePrediction.text.text : null,
+    };
+  } catch (error) {
+    throw new Error(getLegacyPredictionErr, { cause: error });
+  }
+};

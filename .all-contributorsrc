@@ -117,6 +117,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "jacobknaack",
+      "name": "Jacob Knaack",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15336054?v=4",
+      "profile": "https://github.com/JacobKnaack",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

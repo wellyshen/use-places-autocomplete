@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { renderHook, act } from "@testing-library/react-hooks";
 
 import usePlacesAutocomplete, {
@@ -19,17 +20,28 @@ const renderHelper = (args: HookArgs = {}) =>
 const ok = "OK";
 const error = "ERROR";
 const data = [{ place_id: "0109" }];
+const updatedData = [{ placeId: "2025" }];
 const okSuggestions = {
   loading: false,
   status: ok,
   data,
+};
+const updatedSuggestions = {
+  ...okSuggestions,
+  data: updatedData,
 };
 const defaultSuggestions = {
   loading: false,
   status: "",
   data: [],
 };
+const mockSuggestions = updatedData.map((mockData) => ({
+  placePrediction: mockData,
+}));
 const getPlacePredictions = jest.fn();
+const fetchAutocompleteSuggestions = jest.fn().mockResolvedValue({
+  suggestions: mockSuggestions,
+});
 const getMaps = (type = "success", d = data): any => ({
   maps: {
     places: {
@@ -46,6 +58,9 @@ const getMaps = (type = "success", d = data): any => ({
                 }, 500);
               };
       },
+      AutocompleteSuggestion: class {
+        static fetchAutocompleteSuggestions = fetchAutocompleteSuggestions;
+      },
     },
   },
 });
@@ -57,6 +72,21 @@ describe("usePlacesAutocomplete", () => {
     getPlacePredictions.mockClear();
     // @ts-expect-error
     _debounce.mockClear();
+  });
+
+  it("Should return suggestions using the new Places API", async () => {
+    const result = renderHelper({ useLegacy: false });
+    act(() => {
+      result.current.setValue("test-2025");
+    });
+    await act(async () => {
+      // eslint-disable-next-line compat/compat
+      await Promise.resolve();
+    });
+    expect(fetchAutocompleteSuggestions).toHaveBeenCalledWith(
+      expect.objectContaining({ input: "test-2025" })
+    );
+    expect(result.current.suggestions).toEqual(updatedSuggestions);
   });
 
   it('should set "callbackName" correctly', () => {

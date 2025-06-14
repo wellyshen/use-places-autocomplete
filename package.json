@@ -1,6 +1,6 @@
 {
   "name": "use-places-autocomplete",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "React hook for Google Maps Places Autocomplete.",
   "license": "MIT",
   "homepage": "https://use-places-autocomplete.netlify.app",
@@ -76,7 +76,7 @@
     "@rollup/plugin-replace": "^3.0.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/react-hooks": "^7.0.2",
-    "@types/google.maps": "^3.49.2",
+    "@types/google.maps": "^3.58.1",
     "@types/jest": "^27.4.0",
     "@types/lodash.debounce": "^4.0.6",
     "@types/react": "^17.0.38",
@@ -101,6 +101,7 @@
     "typescript": "^4.5.4"
   },
   "peerDependencies": {
-    "react": ">= 16.8.0"
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0"
   }
 }

@@ -2,6 +2,10 @@ import { useState, useRef, useCallback, useEffect } from "react";
 
 import useLatest from "./useLatest";
 import _debounce from "./debounce";
+import createAutocompleteRequest from "./createAutocompleteRequest";
+import fetchAutocompleteSuggestions, {
+  getPlacePredictions,
+} from "./fetchAutocompleteSuggestions";
 
 export interface HookArgs {
   requestOptions?: Omit<google.maps.places.AutocompletionRequest, "input">;
@@ -12,9 +16,12 @@ export interface HookArgs {
   callbackName?: string;
   defaultValue?: string;
   initOnMount?: boolean;
+  useLegacy?: boolean;
 }
 
-type Suggestion = google.maps.places.AutocompletePrediction;
+type Suggestion =
+  | google.maps.places.AutocompletePrediction
+  | google.maps.places.PlacePrediction;
 
 type Status = `${google.maps.places.PlacesServiceStatus}` | "";
 
@@ -50,6 +57,7 @@ const usePlacesAutocomplete = ({
   callbackName,
   defaultValue = "",
   initOnMount = true,
+  useLegacy = true,
 }: HookArgs = {}): HookReturn => {
   const [ready, setReady] = useState(false);
   const [value, setVal] = useState(defaultValue);
@@ -58,7 +66,10 @@ const usePlacesAutocomplete = ({
     status: "",
     data: [],
   });
-  const asRef = useRef<google.maps.places.AutocompleteService>();
+  const asRef = useRef<
+    | google.maps.places.AutocompleteService
+    | google.maps.places.AutocompleteSuggestion
+  >();
   const requestOptionsRef = useLatest(requestOptions);
   const googleMapsRef = useLatest(googleMaps);
 
@@ -74,9 +85,18 @@ const usePlacesAutocomplete = ({
       return;
     }
 
-    asRef.current = new placesLib.AutocompleteService();
+    if (useLegacy === false) {
+      asRef.current = (
+        googleMapsRef.current?.places || window.google.maps.places
+      ).AutocompleteSuggestion;
+    } else if (typeof placesLib.AutocompleteService === "function") {
+      asRef.current = new placesLib.AutocompleteService();
+    } else {
+      console.error(loadApiErr);
+      return;
+    }
     setReady(true);
-  }, [googleMapsRef]);
+  }, [googleMapsRef, useLegacy]);
 
   const clearSuggestions = useCallback(() => {
     setSuggestions({ loading: false, status: "", data: [] });
@@ -131,26 +151,63 @@ const usePlacesAutocomplete = ({
           return;
         }
       }
+      if (useLegacy === false) {
+        const request = createAutocompleteRequest(
+          requestOptionsRef.current,
+          val
+        );
+        fetchAutocompleteSuggestions(request, {
+          AutocompleteSuggestion: (
+            googleMapsRef.current?.places || window.google.maps.places
+          ).AutocompleteSuggestion,
+        })
+          .then((results) => {
+            const data = getPlacePredictions(results);
+            setSuggestions({ loading: false, status: "OK", data });
+            if (cache) {
+              cachedData[val] = {
+                data,
+                maxAge: Date.now() + cache * 1000,
+              };
+              try {
+                sessionStorage.setItem(cacheKey, JSON.stringify(cachedData));
+              } catch (error) {
+                // Skip exception
+              }
+            }
+            return data;
+          })
+          .catch(() => {
+            setSuggestions({
+              loading: false,
+              status: "UNKNOWN_ERROR",
+              data: [],
+            });
+          });
+      } else if (
+        asRef.current &&
+        asRef.current instanceof google.maps.places.AutocompleteService
+      ) {
+        asRef.current?.getPlacePredictions(
+          { ...requestOptionsRef.current, input: val },
+          (data: Suggestion[] | null, status: Status) => {
+            setSuggestions({ loading: false, status, data: data || [] });
 
-      asRef.current?.getPlacePredictions(
-        { ...requestOptionsRef.current, input: val },
-        (data: Suggestion[] | null, status: Status) => {
-          setSuggestions({ loading: false, status, data: data || [] });
+            if (cache && status === "OK") {
+              cachedData[val] = {
+                data: data as Suggestion[],
+                maxAge: Date.now() + cache * 1000,
+              };
 
-          if (cache && status === "OK") {
-            cachedData[val] = {
-              data: data as Suggestion[],
-              maxAge: Date.now() + cache * 1000,
-            };
-
-            try {
-              sessionStorage.setItem(cacheKey, JSON.stringify(cachedData));
-            } catch (error) {
-              // Skip exception
+              try {
+                sessionStorage.setItem(cacheKey, JSON.stringify(cachedData));
+              } catch (error) {
+                // Skip exception
+              }
             }
           }
-        }
-      );
+        );
+      }
     }, debounce),
     [cache, cacheKey, clearSuggestions, requestOptionsRef]
   );
